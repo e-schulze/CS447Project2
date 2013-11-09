@@ -6,3 +6,4 @@ Need to add content
 ## Feature Issues ##
 - **[1]** Create Window
 - **[2]** Add Character
+- **[3]** Add functions to character
