@@ -1,9 +1,9 @@
 Need to add content
 
 ## Resolved Issues ##
-
-
-## Feature Issues ##
 - **[1]** Create Window
+
+## Open Issues ##
 - **[2]** Add Character
 - **[3]** Add functions to character
+- **[4]** Bitmapping
