@@ -1,47 +1,67 @@
 package edu.wsu.vancouver.ssdd.tests;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.opengl.Texture;
+
+import edu.wsu.vancouver.ssdd.Map;
+import edu.wsu.vancouver.ssdd.MapLoader;
 
 public class BitmapMain extends BasicGame {
 	public static final int logicInterval = 20;
+	public static int windowWidth;
+	public static int windowHeight;
 
+	private Map map;
+	private Image screenBuffer;
+	
+	private UnsetBitTest u;
+	
 	public BitmapMain(String title) {
 		super(title);
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-
-		jig.ResourceManager.loadImage("rsc/TestImage.png");
-		Image image = jig.ResourceManager.getImage("rsc/TestImage.png");
-		Texture texture = image.getTexture();
-		System.out.println(texture.getImageHeight());
-		System.out.println(texture.getImageWidth());
+		windowWidth = gc.getWidth();
+		windowHeight = gc.getHeight();
+		gc.getGraphics().setBackground(Color.black);
 		
-		System.out.println("Working Directory = "
-				+ System.getProperty("user.dir"));
-
+		jig.ResourceManager.loadImage("rsc/dungeontiles.gif");
+		jig.ResourceManager.loadImage("rsc/TestImage.png");
+		
+		MapLoader mapLoader = new MapLoader("rsc/dungeontiles.gif", 9, 10);
+		try {
+			map = mapLoader.loadMap("rsc/maps/map_test.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
+		
+		u = new UnsetBitTest(map);
+		
 	}
 
 	@Override
 	public void update(GameContainer gc, int lastUpdateInterval)
 			throws SlickException {
-
+		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
 	}
 
 	@Override
-	public void render(GameContainer container, Graphics g)
+	public void render(GameContainer gc, Graphics g)
 			throws SlickException {
-
+			g.drawImage(screenBuffer, 0.0f, 0.0f);
 	}
 
 	@Override
@@ -51,7 +71,7 @@ public class BitmapMain extends BasicGame {
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
-
+		u.unsetBit(x, y);
 	}
 
 	@Override

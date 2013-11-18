@@ -1,13 +1,13 @@
 package edu.wsu.vancouver.ssdd;
 
 public class Camera {
-	// Camera top left x position
+	/** Camera top left x position */
 	private float tlx;
-	// Camera top left y position
+	/** Camera top left y position */
 	private float tly;
-	// Viewable width;
+	/** Viewable width */
 	private float cameraWidth;
-	// Viewable height;
+	/** Viewable height */
 	private float cameraHeight;
 	
 	public Camera(float tlx, float tly, float cameraWidth, float cameraHeight) {
