@@ -41,7 +41,6 @@ public class BitmapMain extends BasicGame {
 		jig.ResourceManager.loadImage("rsc/TestImage.png");
 
 		MapLoader mapLoader = new MapLoader("rsc/dungeontiles.gif", 9, 10);
-		mapLoader.printTileInfo();
 		
 		map = mapLoader.loadMap("rsc/maps/map_test.tmx");
 		
@@ -63,7 +62,7 @@ public class BitmapMain extends BasicGame {
 
 	@Override
 	public void keyPressed(int key, char c) {
-
+		
 	}
 
 	@Override

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="75" height="56" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="dungeontiles" tilewidth="32" tileheight="32">
   <image source="../dungeontiles.gif" width="288" height="320"/>
  </tileset>
- <layer name="Destructible" width="75" height="56">
+ <layer name="Destructible" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WSw6DMAwFQLj/pausigr5krbCmZGyS4T8cAzbxi/th8XbnlnMEznPkd7J7YnceyO1lXKV0/lMaUUzWtdqOSVXddXqXbGnkqs5U6u1JauIefXO5NacVsiqZf+KOSU9da2cU9LzzzkrqydnOnOel76rkXpvRma5vT3PeIqW93/nLkbJ6VPPvWu5X1F7auTMij11t4+iz6lvOOYjp7pI/wkAAAAAAAAAAADAf70APC005KBBAAA=
+   H4sIAAAAAAAAC+2UwQrAMAhD9bj//+F2h0EP1ZGYjkIneGjBl6i0bmZXTx/yPivDRYwnFRoe5K7BeEX6YfpH/Cj4mR67P1Qjqmf5bxrIbCsaVT7K/FqD4Vtyz/Kz/0u1B8VbrPAjBqOzYsfMrBQ+1P5n9X+cFw0XQYnFxAkAAA==
   </data>
  </layer>
- <layer name="Indestructible" width="75" height="56">
+ <layer name="Indestructible" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3QyQkAMAwDsED337mfDhBoQg8k8NvGEdBjrPzeWeHUZl/d37vDV3m+yntxMwAAAAAAAAAAAAAAAABAhQnjCUdRoEEAAA==
+   H4sIAAAAAAAAC2NgGD6AGYppbQetwagdg8uOUTAKRsEoGAWjYDACAJefQkLECQAA
   </data>
  </layer>
 </map>

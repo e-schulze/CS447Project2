@@ -3,6 +3,7 @@ package edu.wsu.vancouver.ssdd;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.ImageBuffer;
+import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Map {
@@ -117,7 +118,7 @@ public class Map {
 		Image subImage = backbufferImage.getSubImage(tlx, tlx, width, height);
 		return subImage;
 	}
-
+	
 	public ImageBuffer getBackbuffer() {
 		return backbuffer;
 	}
@@ -129,6 +130,7 @@ public class Map {
 	public void setBackbufferChanged() {
 		backbufferChanged = true;
 	}
+	
 
 	public int getXGrids() {
 		return xGrids;
