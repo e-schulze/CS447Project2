@@ -2,14 +2,16 @@ Need to add content
 
 ## Resolved Issues ##
 - **[1]** Create Window
+- **[11]** Add Bitmapping
 
 ## Open Issues ##
 - **[2]** Add Character
 - **[3]** Add functions to character
-- **[4]** Add bombs
-- **[5]** Add splash screen
+- **[4]** Add Nombs
+- **[5]** Add Splash screen
 - **[6]** Add Menu?
 - **[7]** Add Enemies
 - **[8]** Add Traps
 - **[9]** Add Bonuses and Powerups?
 - **[10]** Add Molten Goup to bottom of the screen
+- **[11]** Add Camera
