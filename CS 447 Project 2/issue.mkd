@@ -3,7 +3,7 @@ Need to add content
 ## Resolved Issues ##
 - **[1]** Create Window
 - **[11]** Add Bitmapping
-- **[11]** Add Camera
+- **[12]** Add Camera
 
 ## Open Issues ##
 - **[2]** Add Character
@@ -15,3 +15,4 @@ Need to add content
 - **[8]** Add Traps
 - **[9]** Add Bonuses and Powerups?
 - **[10]** Add Molten Goup to bottom of the screen
+- **[13]** Add Entity Manager
