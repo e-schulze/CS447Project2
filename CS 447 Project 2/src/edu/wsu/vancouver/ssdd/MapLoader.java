@@ -6,18 +6,25 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class MapLoader {
+	/** Image file used to create the map with tiles */
 	private SpriteSheet tileset;
-	private int xTiles, yTiles;
+	/** Number of tiles on the tileset */
+	private int xTileset, yTileset;
+	/** Size of each tile in the tileset */
 	private int xTileSize, yTileSize;
 
-	public MapLoader(String tilesetRsc, int xTiles, int yTiles) {
+	private Map currentMap; 
+	
+	public MapLoader(String tilesetRsc, int xTileset, int yTileset) {
 		Image image = jig.ResourceManager.getImage(tilesetRsc);
 
-		this.xTiles = xTiles;
-		this.yTiles = yTiles;
-		this.xTileSize = image.getWidth() / xTiles;
-		this.yTileSize = image.getHeight() / yTiles;
+		this.xTileset = xTileset;
+		this.yTileset = yTileset;
+		this.xTileSize = image.getWidth() / xTileset;
+		this.yTileSize = image.getHeight() / yTileset;
 		this.tileset = jig.ResourceManager.getSpriteSheet(tilesetRsc, xTileSize, yTileSize);
+		
+		this.currentMap = null;
 	}
 
 	/**
@@ -32,34 +39,37 @@ public class MapLoader {
 	public Map loadMap(String mapFileRsc) throws SlickException {
 		TiledMap tiledMap = new TiledMap(mapFileRsc);
 		Map map = new Map(tiledMap);
-		map.printMapInfo();
 
-		for (int y = 0; y < map.getYGrids(); y++) {
-			for (int x = 0; x < map.getXGrids(); x++) {
+		for (int y = 0; y < map.getYTiles(); y++) {
+			for (int x = 0; x < map.getXTiles(); x++) {
 				int tileId = 0, xTile = 0, yTile = 0;
 				if ((tileId = tiledMap.getTileId(x, y, 0)) != 0) {
-					xTile = (tileId - 1) % xTiles;
-					yTile = (tileId - 1) / (yTiles - 1);
+					xTile = (tileId - 1) % xTileset;
+					yTile = (tileId - 1) / (yTileset - 1);
 					Image tile = tileset.getSprite(xTile, yTile);
 					map.loadTile(tile, x, y, true);
 				}
 				if ((tileId = tiledMap.getTileId(x, y, 1)) != 0) {
-					xTile = (tileId - 1) % xTiles;
-					yTile = (tileId - 1) / (yTiles - 1);
+					xTile = (tileId - 1) % xTileset;
+					yTile = (tileId - 1) / (yTileset - 1);
 					Image tile = tileset.getSprite(xTile, yTile);
 					map.loadTile(tile, x, y, false);
 				}
 			}
 		}
-
+		
+		currentMap = map;
 		return map;
 	}
 
 	public void printTileInfo() {
-		System.out.println("XTiles: " + xTiles);
-		System.out.println("YTiles: " + yTiles);
+		System.out.println("XTiles: " + xTileset);
+		System.out.println("YTiles: " + yTileset);
 		System.out.println("XTilesSize: " + xTileSize);
 		System.out.println("YTilesSize: " + yTileSize);
 	}
 
+	public Map getCurrentMap() {
+		return currentMap;
+	}
 }
