@@ -3,16 +3,15 @@ package edu.wsu.vancouver.ssdd;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.ImageBuffer;
-import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Map {
 	/** Map size dimensions */
 	private int mapWidth, mapHeight;
-	/** Number of grids that fits on the map */
-	private int xGrids, yGrids;
-	/** Size of the grids on the map. */
-	private int xGridSize, yGridSize;
+	/** Number of tiles that fits on the map */
+	private int xTiles, yTiles;
+	/** Size of each tile on the map. */
+	private int xTileSize, yTileSize;
 
 	private boolean[][] destructibleMap;
 	private ImageBuffer backbuffer;
@@ -20,14 +19,14 @@ public class Map {
 	private boolean backbufferChanged;
 
 	public Map(TiledMap tiledMap) {
-		this.xGrids = tiledMap.getWidth();
-		this.yGrids = tiledMap.getHeight();
+		this.xTiles = tiledMap.getWidth();
+		this.yTiles = tiledMap.getHeight();
 		
-		this.xGridSize = tiledMap.getTileWidth();
-		this.yGridSize = tiledMap.getTileHeight();
+		this.xTileSize = tiledMap.getTileWidth();
+		this.yTileSize = tiledMap.getTileHeight();
 
-		this.mapWidth = xGrids * xGridSize;
-		this.mapHeight = yGrids * yGridSize;
+		this.mapWidth = xTiles * xTileSize;
+		this.mapHeight = yTiles * yTileSize;
 
 		this.destructibleMap = new boolean[mapWidth][mapHeight];
 		this.backbuffer = new ImageBuffer(mapWidth, mapHeight);
@@ -38,8 +37,8 @@ public class Map {
 	public void printMapInfo() {
 		System.out.println("MapWidth: " + mapWidth);
 		System.out.println("MapHeight: " + mapHeight);
-		System.out.println("XGrids: " + xGrids);
-		System.out.println("YGrids: " + yGrids);
+		System.out.println("XTiles: " + xTiles);
+		System.out.println("YTiles: " + yTiles);
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class Map {
 	 */
 	public void loadTile(Image tile, int xGrid, int yGrid, boolean isDestructible) {
 		int[] rawImage = loadBits(tile);
-		addToBackbuffer(xGrid * xGridSize, yGrid * yGridSize, tile.getWidth(), tile.getHeight(), rawImage,
+		addToBackbuffer(xGrid * xTileSize, yGrid * yTileSize, tile.getWidth(), tile.getHeight(), rawImage,
 				isDestructible);
 	}
 
@@ -115,7 +114,7 @@ public class Map {
 			backbufferImage = backbuffer.getImage();
 			backbufferChanged = false;
 		}
-		Image subImage = backbufferImage.getSubImage(tlx, tlx, width, height);
+		Image subImage = backbufferImage.getSubImage(tlx, tly, width, height);
 		return subImage;
 	}
 	
@@ -131,13 +130,20 @@ public class Map {
 		backbufferChanged = true;
 	}
 	
-
-	public int getXGrids() {
-		return xGrids;
+	protected int getXTiles() {
+		return xTiles;
 	}
 
-	public int getYGrids() {
-		return yGrids;
+	protected int getYTiles() {
+		return yTiles;
+	}
+	
+	public int getMapWidth() {
+		return mapWidth;
+	}
+	
+	public int getMapHeight() {
+		return mapHeight;
 	}
 
 }
