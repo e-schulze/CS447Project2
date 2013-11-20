@@ -1,4 +1,4 @@
-package edu.wsu.vancouver.ssdd.tests;
+package edu.wsu.vancouver.ssdd.tests.bitmap;
 
 import org.newdawn.slick.ImageBuffer;
 

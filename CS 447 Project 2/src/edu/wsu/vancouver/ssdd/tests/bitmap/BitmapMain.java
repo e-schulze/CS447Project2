@@ -1,4 +1,4 @@
-package edu.wsu.vancouver.ssdd.tests;
+package edu.wsu.vancouver.ssdd.tests.bitmap;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -24,9 +24,9 @@ public class BitmapMain extends BasicGame {
 
 	private Map map;
 	private Image screenBuffer;
-	
+
 	private UnsetBitTest u;
-	
+
 	public BitmapMain(String title) {
 		super(title);
 	}
@@ -36,32 +36,29 @@ public class BitmapMain extends BasicGame {
 		windowWidth = gc.getWidth();
 		windowHeight = gc.getHeight();
 		gc.getGraphics().setBackground(Color.black);
-		
+
 		jig.ResourceManager.loadImage("rsc/dungeontiles.gif");
 		jig.ResourceManager.loadImage("rsc/TestImage.png");
-		
+
 		MapLoader mapLoader = new MapLoader("rsc/dungeontiles.gif", 9, 10);
-		try {
-			map = mapLoader.loadMap("rsc/maps/map_test.txt");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
+		mapLoader.printTileInfo();
 		
+		map = mapLoader.loadMap("rsc/maps/map_test.tmx");
+		
+		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
+
 		u = new UnsetBitTest(map);
-		
+
 	}
 
 	@Override
-	public void update(GameContainer gc, int lastUpdateInterval)
-			throws SlickException {
+	public void update(GameContainer gc, int lastUpdateInterval) throws SlickException {
 		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g)
-			throws SlickException {
-			g.drawImage(screenBuffer, 0.0f, 0.0f);
+	public void render(GameContainer gc, Graphics g) throws SlickException {
+		g.drawImage(screenBuffer, 0.0f, 0.0f);
 	}
 
 	@Override
@@ -86,8 +83,7 @@ public class BitmapMain extends BasicGame {
 	public static void main(String[] args) {
 		try {
 			AppGameContainer appgc;
-			appgc = new AppGameContainer(new BitmapMain(
-					"CS447 Project 2 [To Be Named]"), 800, 600, false);
+			appgc = new AppGameContainer(new BitmapMain("CS447 Project 2 [To Be Named]"), 800, 600, false);
 			appgc.setDisplayMode(800, 600, false);
 			// Fixed time step, min == max.
 			appgc.setMinimumLogicUpdateInterval(logicInterval);
@@ -99,8 +95,7 @@ public class BitmapMain extends BasicGame {
 			appgc.setTargetFrameRate(120);
 			appgc.start();
 		} catch (SlickException ex) {
-			Logger.getLogger(BitmapMain.class.getName()).log(Level.SEVERE,
-					null, ex);
+			Logger.getLogger(BitmapMain.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 }

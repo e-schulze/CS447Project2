@@ -3,41 +3,42 @@ package edu.wsu.vancouver.ssdd;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.ImageBuffer;
+import org.newdawn.slick.tiled.TiledMap;
 
 public class Map {
-	/** Top left corner x position and its offset */
-	private float tlx, tlxo;
-	/** Top left corner y position and its offset */
-	private float tly, tlyo;
 	/** Map size dimensions */
 	private int mapWidth, mapHeight;
-	/** Size of the grids on the map. */
-	private int xGridSize, yGridSize;
 	/** Number of grids that fits on the map */
 	private int xGrids, yGrids;
+	/** Size of the grids on the map. */
+	private int xGridSize, yGridSize;
 
 	private boolean[][] destructibleMap;
 	private ImageBuffer backbuffer;
 	private Image backbufferImage;
 	private boolean backbufferChanged;
 
-	public Map(int tlx, int tlxo, int tly, int tlyo, int mapWidth, int mapHeight, int xGridSize, int yGridSize) {
-		this.tlx = tlx;
-		this.tlxo = tlxo;
-		this.tly = tly;
-		this.tlyo = tlyo;
-		this.mapWidth = mapWidth;
-		this.mapHeight = mapHeight;
-		this.xGridSize = xGridSize;
-		this.yGridSize = yGridSize;
+	public Map(TiledMap tiledMap) {
+		this.xGrids = tiledMap.getWidth();
+		this.yGrids = tiledMap.getHeight();
+		
+		this.xGridSize = tiledMap.getTileWidth();
+		this.yGridSize = tiledMap.getTileHeight();
 
-		this.xGrids = mapWidth / xGridSize;
-		this.yGrids = mapHeight / yGridSize;
+		this.mapWidth = xGrids * xGridSize;
+		this.mapHeight = yGrids * yGridSize;
 
 		this.destructibleMap = new boolean[mapWidth][mapHeight];
 		this.backbuffer = new ImageBuffer(mapWidth, mapHeight);
 		this.backbufferImage = null;
 		this.backbufferChanged = true;
+	}
+	
+	public void printMapInfo() {
+		System.out.println("MapWidth: " + mapWidth);
+		System.out.println("MapHeight: " + mapHeight);
+		System.out.println("XGrids: " + xGrids);
+		System.out.println("YGrids: " + yGrids);
 	}
 
 	/**
