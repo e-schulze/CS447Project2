@@ -7,7 +7,7 @@ Need to add content
 ## Open Issues ##
 - **[2]** Add Character
 - **[3]** Add functions to character
-- **[4]** Add Nombs
+- **[4]** Add Bombs
 - **[5]** Add Splash screen
 - **[6]** Add Menu?
 - **[7]** Add Enemies
