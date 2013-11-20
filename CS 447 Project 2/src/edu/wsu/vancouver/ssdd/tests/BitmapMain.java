@@ -1,4 +1,4 @@
-package edu.wsu.vancouver.ssdd.tests.bitmap;
+package edu.wsu.vancouver.ssdd.tests;
 
 import java.io.IOException;
 import java.util.logging.Level;

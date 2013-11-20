@@ -1,6 +1,6 @@
 package edu.wsu.vancouver.ssdd;
 
-import edu.wsu.vancouver.ssdd.tests.bitmap.EmptyEntity;
+import edu.wsu.vancouver.ssdd.tests.EmptyEntity;
 
 public class EntityFactory {
 	public enum EntityType {

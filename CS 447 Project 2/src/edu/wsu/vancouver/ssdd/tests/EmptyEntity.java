@@ -1,4 +1,4 @@
-package edu.wsu.vancouver.ssdd.tests.bitmap;
+package edu.wsu.vancouver.ssdd.tests;
 
 import org.newdawn.slick.Graphics;
 
