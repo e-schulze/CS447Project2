@@ -1,6 +1,5 @@
 package edu.wsu.vancouver.ssdd.tests;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,7 +39,7 @@ public class BitmapMain extends BasicGame {
 		jig.ResourceManager.loadImage("rsc/dungeontiles.gif");
 		jig.ResourceManager.loadImage("rsc/TestImage.png");
 
-		MapLoader mapLoader = new MapLoader("rsc/dungeontiles.gif", 9, 10);
+		MapLoader mapLoader = new MapLoader();
 		
 		map = mapLoader.loadMap("rsc/maps/map_test.tmx");
 		

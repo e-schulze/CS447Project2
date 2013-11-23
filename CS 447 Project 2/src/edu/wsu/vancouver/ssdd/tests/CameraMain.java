@@ -42,7 +42,7 @@ public class CameraMain extends BasicGame {
 		jig.ResourceManager.loadImage("rsc/dungeontiles.gif");
 		jig.ResourceManager.loadImage("rsc/TestImage.png");
 
-		MapLoader mapLoader = new MapLoader("rsc/dungeontiles.gif", 9, 10);
+		MapLoader mapLoader = new MapLoader();
 
 		map = mapLoader.loadMap("rsc/maps/map_test.tmx");
 		map.printMapInfo();
