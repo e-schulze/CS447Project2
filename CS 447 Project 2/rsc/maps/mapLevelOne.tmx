@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="35" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="level1" tilewidth="32" tileheight="32">
+  <image source="../alien-planet-tileset.gif" width="384" height="2304"/>
+ </tileset>
+ <layer name="Destructible" width="35" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2UMQoAIBDD7h36/386uYgiKtUgDdxoCVSaIiKBjoJd+tBcKP9I6bKac8PlJCsLXHbzqgthy0guM0h7/YOLoj+VS25O6TLLI7ncfqtyUW5P29eoM9IO/rAvxhjzigLz6Vx7aBAAAA==
+  </data>
+ </layer>
+ <layer name="Indestructible" width="35" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3QsQkAIBADQHkcyP2ns7RQEC0U8Q7SJ0kJAABgT4k+v1ndPvrs5d9O7MjRcpsu8y4VqHaz0GgQAAA=
+  </data>
+ </layer>
+</map>
