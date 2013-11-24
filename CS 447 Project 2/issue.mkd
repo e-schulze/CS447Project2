@@ -1,14 +1,16 @@
 Need to add content
 
 ## Resolved Issues ##
-
-
-## Feature Issues ##
 - **[1]** Create Window
+- **[11]** Add Bitmapping
+- **[12]** Add Camera
+- **[13]** Add Entity Manager
+
+## Open Issues ##
 - **[2]** Add Character
 - **[3]** Add functions to character
-- **[4]** Add bombs
-- **[5]** Add splash screen
+- **[4]** Add Bombs
+- **[5]** Add Splash screen
 - **[6]** Add Menu?
 - **[7]** Add Enemies
 - **[8]** Add Traps

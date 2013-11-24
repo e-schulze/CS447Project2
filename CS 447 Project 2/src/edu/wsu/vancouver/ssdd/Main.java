@@ -61,7 +61,7 @@ public class Main extends BasicGame {
 			appgc.setAlwaysRender(true);
 			appgc.setVSync(true);
 			// Maximum Frame Rate
-			// appgc.setTargetFrameRate(120);
+			appgc.setTargetFrameRate(120);
 			appgc.start();
 		} catch (SlickException ex) {
 			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
