@@ -1,6 +1,7 @@
 package edu.wsu.vancouver.ssdd;
 
 import jig.Entity;
+import jig.ResourceManager;
 import jig.Vector;
 
 public class Bomb extends Entity{
@@ -13,20 +14,24 @@ public class Bomb extends Entity{
 	private Vector vector;
 	private int type;
 	private int timer;
+	private String dirBlast;
 	
 	public Bomb(int x, int y, int type, String dir){
 		super(x, y);
 		this.type = type;
 		switch(type){
 		case C4:
-			
+			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images.bomb1.png"));
+			this.scale(0.5f);
 			break;
 		case GRENADE:
-			
+			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images.bomb1.png"));
+			this.scale(0.5f);
 			setTimer(5000);
 			break;
 		case CHARGE:
-			
+			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images.bomb1.png"));
+			this.scale(0.5f);
 			break;
 		}
 		if(dir.compareTo("Left") == 0){
@@ -74,6 +79,16 @@ public class Bomb extends Entity{
 
 	public void setTimer(int timer) {
 		this.timer = timer;
+	}
+
+
+	private String getDirBlast() {
+		return dirBlast;
+	}
+
+
+	private void setDirBlast(String dirBlast) {
+		this.dirBlast = dirBlast;
 	}
 
 }
