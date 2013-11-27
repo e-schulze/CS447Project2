@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="35" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="dungeontiles" tilewidth="32" tileheight="32">
+  <image source="../dungeontiles.gif" width="288" height="320"/>
+ </tileset>
+ <layer name="Destructible" width="35" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2VwQrAMAhD9Tj2//+77TAYwzENxiIY8NBD7avaRkVkO0Mfca1XSJNy3MFi2X/OzWLoJOTujPogdf/qXSSyOSJ7PDmjYswwUifWe3rn8uSvZIlwsHvUgYX9/0b+tAovQOaV7UsoE0uec1b4ddRTGHOMegzTs5G6VPXMo2GxNSy2hsXWsNjqzHIARmVx9WgQAAA=
+  </data>
+ </layer>
+ <layer name="Indestructible" width="35" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OsQkAQAgEwQP77/kRDP3cYAY234Sfmi648tG87LwAAAAkDxUUEqFoEAAA
+  </data>
+ </layer>
+</map>

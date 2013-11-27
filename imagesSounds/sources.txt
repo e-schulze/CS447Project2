@@ -1,0 +1,51 @@
+hulk.png:
+    http://untamed.wild-refuge.net/images/rpgxp/avengers/hulk.png
+
+death_scythe.png:
+    http://untamed.wild-refuge.net/images/rpgxp/discworld/death_scythe.png
+
+death.png:
+    http://untamed.wild-refuge.net/images/rpgxp/discworld/death.png
+
+SC-Skeleton01.png:
+    http://yms.main.jp/sozai/chara/SC-Skeleton01.png
+
+SC-Candle01.png:
+    http://yms.main.jp/sozai/chara/SC-Candle01.png
+
+moai.png:
+    http://yms.main.jp/sozai/chips/moai.png
+
+Skull.png:
+    http://yms.main.jp/sozai/chips/Skull.png
+
+koji1.png:
+    http://yms.main.jp/sozai/chips/koji1.png
+
+koji2.png:
+    http://yms.main.jp/sozai/chips/koji2.png
+
+zombie_n_skeleton2.png
+    http://opengameart.org/sites/default/files/zombie_n_skeleton2.png
+
+Zombies:
+    http://opengameart.org/content/zombie-rpg-sprites
+
+zombies_and_skeletons.png:
+    http://opengameart.org/sites/default/files/zombies_and_skeletons.png
+
+Hero:
+Zombie:
+http://opengameart.org/content/zombie-shooter-sprites-3d-like
+
+Arena_Game_Sprites_by_RedKnight91-CCBYSA3.png:
+http://opengameart.org/content/arena-game-sprites
+
+bomb_4.png:
+http://opengameart.org/content/bomb-2d
+
+Emotional_Explosives:
+http://opengameart.org/content/emotional-explosives
+
+daxbotsheet_0.png:
+http://opengameart.org/content/animated-robot
