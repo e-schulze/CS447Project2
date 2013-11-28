@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Destructible" width="35" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2UMQoAIBDD7h36/386uYgiKtUgDdxoCVSaIiKBjoJd+tBcKP9I6bKac8PlJCsLXHbzqgthy0guM0h7/YOLoj+VS25O6TLLI7ncfqtyUW5P29eoM9IO/rAvxhjzigLz6Vx7aBAAAA==
+   H4sIAAAAAAAAA+2UQQoAIAgEfUc+oP//sEtdpIgMYyAHvC6DyhYRKaChkC5zaC6UP4p0Oc154XKTpQEu3rzhQugykssOUl/XPgRIe/G67H5JzfziEpH3m4u91+pmpB4kuhAguSRJwqUBcJ4dS2gQAAA=
   </data>
  </layer>
  <layer name="Indestructible" width="35" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3QsQkAIBADQHkcyP2ns7RQEC0U8Q7SJ0kJAABgT4k+v1ndPvrs5d9O7MjRcpsu8y4VqHaz0GgQAAA=
+   H4sIAAAAAAAAA+3QsQkAIBADQHkcyP2ns7RQEEHwkTtIn6QUAAAAbmox5ze7fafbV59l/K3GyGtZu3RDGdDKaBAAAA==
   </data>
  </layer>
 </map>
