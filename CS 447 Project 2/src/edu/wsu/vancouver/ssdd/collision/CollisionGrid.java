@@ -27,8 +27,8 @@ public class CollisionGrid extends CollisionDetection {
 	}
 
 	/**
-	 * Initializes a triple nested list for the spatial index grid.
-	 * The list is in row-col order.
+	 * Initializes a triple nested list for the spatial index grid. The list is
+	 * in row-col order.
 	 */
 	private void initSPI(Map map) {
 		this.xGrids = (int) Math.ceil((double) map.getMapWidth() / gridSize);
@@ -62,11 +62,15 @@ public class CollisionGrid extends CollisionDetection {
 	void findSpanningSIG() {
 		List<GameEntity> geList = new ArrayList<GameEntity>(entityManager.getEntityMap().values());
 		for (GameEntity ge : geList) {
-			for (int y = (int) ge.getCoarseGrainedMinY(); y <= (int) ge.getCoarseGrainedMaxY(); y = y + gridSize) {
-				for (int x = (int) ge.getCoarseGrainedMinX(); x <= (int) ge.getCoarseGrainedMaxX(); x = x + gridSize) {
+			for (int y = (int) ge.getCoarseGrainedMinY(); y <= (int) (ge.getCoarseGrainedMaxY() + gridSize); y = y
+					+ gridSize) {
+				for (int x = (int) ge.getCoarseGrainedMinX(); x <= (int) (ge.getCoarseGrainedMaxX() + gridSize); x = x
+						+ gridSize) {
 					int row = y / gridSize;
 					int col = x / gridSize;
-					addElementSIG(row, col, ge);
+					if (row < yGrids && col < xGrids) {
+						addElementSIG(row, col, ge);
+					}
 				}
 			}
 		}
