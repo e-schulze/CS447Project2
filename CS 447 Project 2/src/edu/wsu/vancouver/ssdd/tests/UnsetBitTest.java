@@ -22,7 +22,8 @@ public class UnsetBitTest {
 				if (y + i < 0 || x + j < 0) {
 					continue;
 				}
-				backbuffer.setRGBA(x + j, y + i, 0, 0, 0, 0);
+				if (destructibleMap[x][y] == true)
+					backbuffer.setRGBA(x + j, y + i, 0, 0, 0, 0);
 			}
 		}
 		

@@ -7,8 +7,8 @@ import java.util.Map;
 import org.newdawn.slick.Graphics;
 
 public class EntityManager {
-	Map<Integer, GameEntity> entityMap;
-	ArrayList<Integer> deletePool;
+	private Map<Integer, GameEntity> entityMap;
+	private ArrayList<Integer> deletePool;
 	
 	public EntityManager() {
 		new EntityId();
@@ -16,42 +16,46 @@ public class EntityManager {
 		deletePool = new ArrayList<Integer>();
 	}
 	
-	Integer addEntity(Integer entityID, GameEntity gameEntity) {		
+	public Map<Integer, GameEntity> getEntityMap() {
+		return entityMap;
+	}
+	
+	public Integer addEntity(Integer entityID, GameEntity gameEntity) {		
 		entityMap.put(entityID, gameEntity);
 		return entityID;
 	}
 	
-	GameEntity retrieveEntity(Integer entityID) {
+	public GameEntity retrieveEntity(Integer entityID) {
 		if (entityMap.containsKey(entityID)) {
 			return entityMap.get(entityID);
 		}
 		return null;
 	}
 	
-	void entityDeleteMark(Integer entityID) {
+	public void entityDeleteMark(Integer entityID) {
 		deletePool.add(entityID);
 	}
 	
-	void entityDeleteProcess() {
+	public void entityDeleteProcess() {
 		for (Integer i : deletePool) {
 			entityMap.remove(i);
 		}
 		deletePool.clear();
 	}
 
-	void updateEntities(int delta) {
+	public void updateEntities(int delta) {
 		for (Map.Entry<Integer, GameEntity> entry : entityMap.entrySet()) {
 			entry.getValue().update(delta);
 		}
 	}
 	
-	void renderEntities(Graphics g) {
+	public void renderEntities(Graphics g) {
 		for (Map.Entry<Integer, GameEntity> entry : entityMap.entrySet()) {
 			entry.getValue().render(g);
 		}
 	}
 	
-	void clearAllObjects() {
+	protected void clearAllObjects() {
 		deletePool.clear();
 		entityMap.clear();
 	}

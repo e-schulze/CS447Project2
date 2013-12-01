@@ -10,9 +10,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.opengl.Texture;
-
 import edu.wsu.vancouver.ssdd.Map;
 import edu.wsu.vancouver.ssdd.MapLoader;
 
