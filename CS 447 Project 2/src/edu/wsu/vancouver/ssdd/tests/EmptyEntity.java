@@ -9,10 +9,12 @@ public class EmptyEntity extends GameEntity {
 
 	public EmptyEntity(EntityManager entityManager) {
 		super(entityManager);
+		entityMask.set(GameEntity.EntityProperty.NONE.getValue());
 	}
 	
 	public EmptyEntity(EntityManager entityManager, float cxp, float cyp) {
 		super(entityManager, cxp, cyp);
+		entityMask.set(GameEntity.EntityProperty.NONE.getValue());
 	}
 	
 	@Override

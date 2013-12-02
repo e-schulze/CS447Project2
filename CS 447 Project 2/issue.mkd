@@ -2,14 +2,15 @@ Need to add content
 
 ## Resolved Issues ##
 - **[1]** Create Window
-- **[11]** Add Bitmapping
-- **[12]** Add Camera
-- **[13]** Add Entity Manager
+- **[2]** Add Character
+- **[4]** Add Bombs
+- **[12]** Add Bitmapping
+- **[13]** Add Camera
+- **[14]** Add Entity Manager
+- **[15]** Add Broad Phase Collision Detection
 
 ## Open Issues ##
-- **[2]** Add Character
 - **[3]** Add functions to character
-- **[4]** Add Bombs
 - **[5]** Add Splash screen
 - **[6]** Add Menu?
 - **[7]** Add Enemies
@@ -17,3 +18,4 @@ Need to add content
 - **[9]** Add Bonuses and Powerups?
 - **[10]** Add Molten Goup to bottom of the screen
 - **[11]** Add explosions
+- **[16]** Add Collision Handling
