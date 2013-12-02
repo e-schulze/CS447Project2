@@ -46,8 +46,6 @@ public class CollisionTestMain extends BasicGame {
 
 		map = mapLoader.loadMap("maps/map_test.tmx");
 		map.printMapInfo();
-		byte[] a = map.getBackbuffer().getRGBA();
-		
 		
 		camera = new Camera(0.0f, 0.0f, windowWidth, windowHeight, map);
 
@@ -91,7 +89,6 @@ public class CollisionTestMain extends BasicGame {
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
-//		u.unsetBit(x, y);
 		u.unsetBit2(x, y, 20);
 	}
 
