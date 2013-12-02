@@ -11,10 +11,17 @@ public class Player extends Entity{
 	private int health;
 	private Vector vector;
 	private String dir;
+	private Animation right;
+	private Animation left;
 
 	public Player(int x, int y, String dir){
 		super(x, y);
 		this.dir = dir;
+		this.right = new Animation(ResourceManager.getSpriteSheet("rsc/images/playerRight.png", 79, 90), 1000);
+		this.left = new Animation();
+		for(int i = 0; i < this.right.getFrameCount(); i++){
+			this.left.addFrame(this.right.getImage(i), 31);
+		}
 		if(dir.compareTo("Left") == 0){
 			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images/PlayerStandingLeft.png"));
 		}
@@ -58,7 +65,7 @@ public class Player extends Entity{
 				else{
 					this.removeImage(ResourceManager.getImage("rsc/images/PlayerStandingLeft.png"));
 				}
-				this.addAnimation(new Animation(ResourceManager.getSpriteSheet("rsc/images/playerRight.png", 79, 90), 1000));
+				this.addAnimation(right);
 			}
 			else if(vector.getX() < 0){ // change the player's image to match the direction of movement (left)
 				if(dir.compareTo("Right") == 0){
@@ -67,15 +74,15 @@ public class Player extends Entity{
 				else{
 					this.removeImage(ResourceManager.getImage("rsc/images/PlayerStandingLeft.png"));
 				}
-				this.addAnimation(new Animation(ResourceManager.getSpriteSheet("rsc/images/playerLeft.png", 79, 90), 1000));
+				this.addAnimation(left);
 			}
 			else if(vector.getX() == 0){
 				if(dir.compareTo("Right") == 0){
-					this.removeAnimation(new Animation(ResourceManager.getSpriteSheet("rsc/images/playerRight.png", 79, 90), 1000));
+					this.removeAnimation(right);
 					this.addImage(ResourceManager.getImage("rsc/images/PlayerStandingRight.png"));
 				}
 				else{
-					this.removeAnimation(new Animation(ResourceManager.getSpriteSheet("rsc/images/playerLeft.png", 79, 90), 1000));
+					this.removeAnimation(left);
 					this.addImage(ResourceManager.getImage("rsc/images/PlayerStandingLeft.png"));
 				}
 			}
