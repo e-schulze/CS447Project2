@@ -6,8 +6,8 @@ public class Resources {
 	 * very large
 	 */
 	public static void loadImages() {
-		jig.ResourceManager.loadImage("rsc/dungeontiles.gif");
-		jig.ResourceManager.loadImage("rsc/TestImage.png");
+		jig.ResourceManager.loadImage("images/dungeontiles.gif");
+		jig.ResourceManager.loadImage("images/TestImage.png");
 	}
 
 	/**

@@ -39,6 +39,8 @@ public class Map {
 		System.out.println("MapHeight: " + mapHeight);
 		System.out.println("XTiles: " + xTiles);
 		System.out.println("YTiles: " + yTiles);
+		
+		System.out.println("LENGTH: " + backbuffer.getRGBA().length);
 	}
 
 	/**

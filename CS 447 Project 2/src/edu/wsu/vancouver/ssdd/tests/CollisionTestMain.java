@@ -3,6 +3,8 @@ package edu.wsu.vancouver.ssdd.tests;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import jig.Entity;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -12,8 +14,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import edu.wsu.vancouver.ssdd.Camera;
+import edu.wsu.vancouver.ssdd.EntityFactory;
+import edu.wsu.vancouver.ssdd.EntityFactory.EntityType;
+import edu.wsu.vancouver.ssdd.EntityManager;
 import edu.wsu.vancouver.ssdd.Map;
 import edu.wsu.vancouver.ssdd.MapLoader;
+import edu.wsu.vancouver.ssdd.Resources;
+import edu.wsu.vancouver.ssdd.collision.CollisionBruteForce;
 
 public class CollisionTestMain extends BasicGame {
 	public static final int logicInterval = 20;
@@ -23,6 +30,11 @@ public class CollisionTestMain extends BasicGame {
 	private Camera camera;
 	private Map map;
 	private Image screenBuffer;
+	
+	private CollisionBruteForce collisionBf;
+	
+	private EntityManager entityManager;
+	private EntityFactory entityFactory;
 
 	private UnsetBitTest u;
 
@@ -39,30 +51,40 @@ public class CollisionTestMain extends BasicGame {
 		windowHeight = gc.getHeight();
 		gc.getGraphics().setBackground(Color.black);
 
-		jig.ResourceManager.loadImage("images/dungeontiles.gif");
-		jig.ResourceManager.loadImage("images/TestImage.png");
+		Resources.loadImages();
+		Resources.loadSounds();
 
 		MapLoader mapLoader = new MapLoader();
-
 		map = mapLoader.loadMap("maps/map_test.tmx");
 		map.printMapInfo();
-		
-		camera = new Camera(0.0f, 0.0f, windowWidth, windowHeight, map);
 
+		camera = new Camera(0.0f, 0.0f, windowWidth, windowHeight, map);
 		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
 
 		u = new UnsetBitTest(map);
-
+		
+		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
+		entityManager = new EntityManager();
+		entityFactory = new EntityFactory(entityManager, map);
+		
+		entityFactory.createEntity(EntityType.TEST, 500.0f, 220.0f);
+		
+		collisionBf = new CollisionBruteForce(entityManager);
 	}
 
 	@Override
 	public void update(GameContainer gc, int lastUpdateInterval) throws SlickException {
 		screenBuffer = map.getViewableArea((int) camera.getTlx(), (int) camera.getTly(), windowWidth, windowHeight);
+		entityManager.entityDeleteProcess();
+		collisionBf.detectCollision();
+		entityManager.updateEntities(lastUpdateInterval);
+		
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.drawImage(screenBuffer, 0.0f, 0.0f);
+		entityManager.renderEntities(g);
 	}
 
 	@Override

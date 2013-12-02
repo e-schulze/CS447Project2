@@ -31,11 +31,12 @@ public class CollisionBitMapStub {
 	 * destroyed (and unseeable)
 	 */
 	boolean testBitDestructed(int xp, int yp) {
-		int mapWidth = map.getBackbuffer().getWidth();
+		int bbWidth = map.getBackbuffer().getTexWidth();
 		byte[] rgba = map.getBackbuffer().getRGBA();
-		if (rgba[mapWidth * yp + xp + 4] == 0) {
+		if (rgba[(bbWidth * yp * 4) + (xp * 4) + 3] == 0) {
 			return true;
 		} else {
+			System.out.println("RGBA" + rgba[(bbWidth * yp * 4) + (xp * 4) + 3]);
 			return false;
 		}
 	}
@@ -88,7 +89,7 @@ public class CollisionBitMapStub {
 				if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
 					continue;
 				}
-				if (testBitDestructed(x, y)) {
+				if (!testBitDestructed(x, y)) {
 					return true;
 				}
 			}
@@ -106,7 +107,7 @@ public class CollisionBitMapStub {
 			if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
 				continue;
 			}
-			if (testBitDestructed(x, y)) {
+			if (!testBitDestructed(x, y)) {
 				return true;
 			}
 		}
@@ -122,7 +123,7 @@ public class CollisionBitMapStub {
 			if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
 				continue;
 			}
-			if (testBitDestructed(x, y)) {
+			if (!testBitDestructed(x, y)) {
 				return true;
 			}
 		}
@@ -138,7 +139,7 @@ public class CollisionBitMapStub {
 			if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
 				continue;
 			}
-			if (testBitDestructed(x, y)) {
+			if (!testBitDestructed(x, y)) {
 				return true;
 			}
 		}
@@ -154,7 +155,7 @@ public class CollisionBitMapStub {
 			if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
 				continue;
 			}
-			if (testBitDestructed(x, y)) {
+			if (!testBitDestructed(x, y)) {
 				return true;
 			}
 		}

@@ -8,8 +8,7 @@ import edu.wsu.vancouver.ssdd.GameEntity;
 public class EmptyEntity extends GameEntity {
 
 	public EmptyEntity(EntityManager entityManager) {
-		super(entityManager);
-		entityMask.set(GameEntity.EntityProperty.NONE.getValue());
+		this(entityManager, 0.0f, 0.0f);
 	}
 	
 	public EmptyEntity(EntityManager entityManager, float cxp, float cyp) {

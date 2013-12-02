@@ -2,8 +2,6 @@ package edu.wsu.vancouver.ssdd;
 
 import java.util.BitSet;
 
-import org.newdawn.slick.Graphics;
-
 import jig.Entity;
 import jig.Vector;
 
@@ -35,19 +33,11 @@ public abstract class GameEntity extends Entity {
 	protected EntityManager entityManager;
 
 	public GameEntity(EntityManager entityManager) {
-		super();
-		setEntityId(EntityId.generateID());
-		entityManager.addEntity(getEntityId(), this);
-		this.entityMask = new BitSet();
-		this.entityManager = entityManager;
+		this(entityManager, 0.0f, 0.0f);
 	}
 
 	public GameEntity(EntityManager entityManager, final float x, final float y) {
-		super(x, y);
-		setEntityId(EntityId.generateID());
-		entityManager.addEntity(getEntityId(), this);
-		this.entityMask = new BitSet();
-		this.entityManager = entityManager;
+		this(entityManager, new Vector(x, y));
 	}
 
 	public GameEntity(EntityManager entityManager, final Vector position) {
@@ -60,10 +50,6 @@ public abstract class GameEntity extends Entity {
 
 	public void update(int delta) {
 
-	}
-	
-	public void render(Graphics g) {
-		
 	}
 	
 	public void collision(GameEntity gameEntity) {
