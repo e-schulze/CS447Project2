@@ -1,5 +1,6 @@
 package edu.wsu.vancouver.ssdd.collision;
 
+import edu.wsu.vancouver.ssdd.GameEntity;
 import edu.wsu.vancouver.ssdd.Map;
 
 /**
@@ -71,4 +72,92 @@ public class CollisionBitMapStub {
 		}
 	}
 
+	/* Collision Detection Bit Level */
+
+	/**
+	 * Brute force bit level collision detection. Checks if every single bit in
+	 * the entity collides with the map.
+	 */
+	
+	boolean bfBitDetection(GameEntity ge) {
+		int mapWidth = map.getMapWidth();
+		int mapHeight = map.getMapHeight();
+
+		for (int x = (int) ge.getCoarseGrainedMinX(); x < (int) ge.getCoarseGrainedMaxX(); x++) {
+			for (int y = (int) ge.getCoarseGrainedMinY(); y < (int) ge.getCoarseGrainedMaxY(); y++) {
+				if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
+					continue;
+				}
+				if (testBitDestructed(x, y)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	boolean bfBitDetectionLeft(GameEntity ge) {
+		int mapWidth = map.getMapWidth();
+		int mapHeight = map.getMapHeight();
+		int x = (int) ge.getCoarseGrainedMinX();
+
+		for (int y = (int) ge.getCoarseGrainedMinY(); y < (int) ge.getCoarseGrainedMaxY(); y++) {
+			if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
+				continue;
+			}
+			if (testBitDestructed(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	boolean bfBitDetectionRight(GameEntity ge) {
+		int mapWidth = map.getMapWidth();
+		int mapHeight = map.getMapHeight();
+		int x = (int) ge.getCoarseGrainedMaxX();
+
+		for (int y = (int) ge.getCoarseGrainedMinY(); y < (int) ge.getCoarseGrainedMaxY(); y++) {
+			if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
+				continue;
+			}
+			if (testBitDestructed(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	boolean bfBitDetectionTop(GameEntity ge) {
+		int mapWidth = map.getMapWidth();
+		int mapHeight = map.getMapHeight();
+		int y = (int) ge.getCoarseGrainedMinY();
+
+		for (int x = (int) ge.getCoarseGrainedMinX(); x < (int) ge.getCoarseGrainedMaxX(); x++) {
+			if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
+				continue;
+			}
+			if (testBitDestructed(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	boolean bfBitDetectionBottom(GameEntity ge) {
+		int mapWidth = map.getMapWidth();
+		int mapHeight = map.getMapHeight();
+		int y = (int) ge.getCoarseGrainedMaxY();
+
+		for (int x = (int) ge.getCoarseGrainedMinX(); x < (int) ge.getCoarseGrainedMaxX(); x++) {
+			if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
+				continue;
+			}
+			if (testBitDestructed(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
