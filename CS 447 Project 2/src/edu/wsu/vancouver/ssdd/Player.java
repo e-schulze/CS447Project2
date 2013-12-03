@@ -22,6 +22,8 @@ public class Player extends Entity{
 		for(int i = 0; i < this.right.getFrameCount(); i++){
 			this.left.addFrame(this.right.getImage(i), 31);
 		}
+		right.setLooping(true);
+		left.setLooping(true);
 		if(dir.compareTo("Left") == 0){
 			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images/PlayerStandingLeft.png"));
 		}

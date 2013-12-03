@@ -55,6 +55,8 @@ public class Enemy extends Entity{
 			}
 			break;
 		}
+		right.setLooping(true);
+		left.setLooping(true);
 	}
 
 	public Vector getVector() {
