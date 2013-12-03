@@ -27,6 +27,7 @@ public class CollisionTestMain extends BasicGame {
 	public static int windowWidth;
 	public static int windowHeight;
 
+	private Input input;
 	private Camera camera;
 	private Map map;
 	private Image screenBuffer;
@@ -44,7 +45,7 @@ public class CollisionTestMain extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		Input input = gc.getInput();
+		this.input = gc.getInput();
 		input.enableKeyRepeat();
 
 		windowWidth = gc.getWidth();
@@ -65,7 +66,7 @@ public class CollisionTestMain extends BasicGame {
 		
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		entityManager = new EntityManager();
-		entityFactory = new EntityFactory(entityManager, map);
+		entityFactory = new EntityFactory(entityManager, map, input);
 		
 		entityFactory.createEntity(EntityType.TEST, 500.0f, 220.0f);
 		
@@ -89,7 +90,7 @@ public class CollisionTestMain extends BasicGame {
 
 	@Override
 	public void keyPressed(int key, char c) {
-		switch (key) {
+/*		switch (key) {
 		case Input.KEY_UP:
 			camera.changeTly(-5.0f);
 			break;
@@ -105,7 +106,7 @@ public class CollisionTestMain extends BasicGame {
 		default:
 			break;
 
-		}
+		}*/
 
 	}
 

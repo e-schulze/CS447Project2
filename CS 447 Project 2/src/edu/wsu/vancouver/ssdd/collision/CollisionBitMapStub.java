@@ -79,7 +79,7 @@ public class CollisionBitMapStub {
 	 * Brute force bit level collision detection. Checks if every single bit in
 	 * the entity collides with the map.
 	 */
-	
+
 	boolean bfBitDetection(GameEntity ge) {
 		int mapWidth = map.getMapWidth();
 		int mapHeight = map.getMapHeight();
@@ -95,6 +95,27 @@ public class CollisionBitMapStub {
 			}
 		}
 
+		return false;
+	}
+	
+	/**
+	 * Generalized bit level detection. In linear / rectangular depending on the
+	 * start and end of x and y.
+	 */
+	boolean bfBitDetection(GameEntity ge, int xs, int xe, int ys, int ye) {
+		int mapWidth = map.getMapWidth();
+		int mapHeight = map.getMapHeight();
+
+		for (int x = xs; x <= xe; x++) {
+			for (int y = ys; y <= ye; y++) {
+				if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight) {
+					continue;
+				}
+				if (!testBitDestructed(x, y)) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -113,7 +134,7 @@ public class CollisionBitMapStub {
 		}
 		return false;
 	}
-	
+
 	boolean bfBitDetectionRight(GameEntity ge) {
 		int mapWidth = map.getMapWidth();
 		int mapHeight = map.getMapHeight();
@@ -129,7 +150,7 @@ public class CollisionBitMapStub {
 		}
 		return false;
 	}
-	
+
 	boolean bfBitDetectionTop(GameEntity ge) {
 		int mapWidth = map.getMapWidth();
 		int mapHeight = map.getMapHeight();
@@ -145,7 +166,7 @@ public class CollisionBitMapStub {
 		}
 		return false;
 	}
-	
+
 	boolean bfBitDetectionBottom(GameEntity ge) {
 		int mapWidth = map.getMapWidth();
 		int mapHeight = map.getMapHeight();
