@@ -39,12 +39,12 @@ public class CameraMain extends BasicGame {
 		windowHeight = gc.getHeight();
 		gc.getGraphics().setBackground(Color.black);
 
-		jig.ResourceManager.loadImage("rsc/dungeontiles.gif");
-		jig.ResourceManager.loadImage("rsc/TestImage.png");
+		jig.ResourceManager.loadImage("images/dungeontiles.gif");
+		jig.ResourceManager.loadImage("images/TestImage.png");
 
-		MapLoader mapLoader = new MapLoader("rsc/dungeontiles.gif", 9, 10);
+		MapLoader mapLoader = new MapLoader();
 
-		map = mapLoader.loadMap("rsc/maps/map_test.tmx");
+		map = mapLoader.loadMap("maps/map_test.tmx");
 		map.printMapInfo();
 		camera = new Camera(0.0f, 0.0f, windowWidth, windowHeight, map);
 

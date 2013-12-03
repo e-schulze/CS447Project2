@@ -54,4 +54,9 @@ public class Camera {
 			tly = temp;
 		}
 	}
+	
+	public void resetCamera() {
+		tlx = 0.0f;
+		tly = 0.0f;
+	}
 }
