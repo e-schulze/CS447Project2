@@ -7,7 +7,7 @@ import edu.wsu.vancouver.ssdd.tests.TestEntity;
 
 public class EntityFactory {
 	public enum EntityType {
-		EMPTY, TEST
+		EMPTY, TEST, PLAYER_COPY
 	}
 
 	private EntityManager entityManager;
@@ -31,6 +31,9 @@ public class EntityFactory {
 		case TEST:
 			entity = new TestEntity(entityManager, map, input);
 			break;
+		case PLAYER_COPY:
+			entity = new PlayerCopy(entityManager, map, input, "Left");
+			break;
 		default:
 			break;
 		}
@@ -51,6 +54,9 @@ public class EntityFactory {
 			break;
 		case TEST:
 			entity = new TestEntity(entityManager, map, input, cxp, cyp);
+			break;
+		case PLAYER_COPY:
+			entity = new PlayerCopy(entityManager, map, input, cxp, cyp, "Left");
 			break;
 		default:
 			break;

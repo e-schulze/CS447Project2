@@ -17,7 +17,7 @@ public class TestEntity extends GameEntity {
 	private Map map;
 	private Input input;
 	private PlayerState state;
-	private Boolean jumped;
+	private boolean jumped;
 
 	private Vector vel;
 	private final float maxVelSq;
@@ -43,7 +43,10 @@ public class TestEntity extends GameEntity {
 	public void update(int delta) {
 		movement();
 		bitCollision();
-
+		gravity();
+	}
+	
+	private void gravity() {
 		if (state == PlayerState.AIR) {
 			float gravity = 0.1f;
 			vel = vel.add(new Vector(0.0f, gravity));

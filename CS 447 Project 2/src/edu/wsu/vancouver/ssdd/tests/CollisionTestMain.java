@@ -56,7 +56,7 @@ public class CollisionTestMain extends BasicGame {
 		Resources.loadSounds();
 
 		MapLoader mapLoader = new MapLoader();
-		map = mapLoader.loadMap("maps/map_test.tmx");
+		map = mapLoader.loadMap("maps/mapLevelOne.tmx");
 		map.printMapInfo();
 
 		camera = new Camera(0.0f, 0.0f, windowWidth, windowHeight, map);
@@ -68,7 +68,7 @@ public class CollisionTestMain extends BasicGame {
 		entityManager = new EntityManager();
 		entityFactory = new EntityFactory(entityManager, map, input);
 		
-		entityFactory.createEntity(EntityType.TEST, 50.0f, 50.0f);
+		entityFactory.createEntity(EntityType.PLAYER_COPY, 100.0f, 100.0f);
 		
 		collisionBf = new CollisionBruteForce(entityManager);
 	}

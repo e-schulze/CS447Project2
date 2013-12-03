@@ -3,31 +3,83 @@ package edu.wsu.vancouver.ssdd;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import jig.Entity;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import edu.wsu.vancouver.ssdd.EntityFactory.EntityType;
+import edu.wsu.vancouver.ssdd.collision.CollisionBruteForce;
+import edu.wsu.vancouver.ssdd.tests.UnsetBitTest;
 
 public class Main extends BasicGame {
 	public static final int logicInterval = 20;
+	public static int windowWidth;
+	public static int windowHeight;
 
+	private Input input;
+	private Camera camera;
+	private Map map;
+	private Image screenBuffer;
+	
+	private CollisionBruteForce collisionBf;
+	
+	private EntityManager entityManager;
+	private EntityFactory entityFactory;
+
+	private UnsetBitTest u;
 	public Main(String title) {
 		super(title);
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
+		this.input = gc.getInput();
+		input.enableKeyRepeat();
+
+		windowWidth = gc.getWidth();
+		windowHeight = gc.getHeight();
+		gc.getGraphics().setBackground(Color.black);
+
+		Resources.loadImages();
+		Resources.loadSounds();
+
+		MapLoader mapLoader = new MapLoader();
+		map = mapLoader.loadMap("maps/map_test.tmx");
+		map.printMapInfo();
+
+		camera = new Camera(0.0f, 0.0f, windowWidth, windowHeight, map);
+		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
+
+		u = new UnsetBitTest(map);
+		
+		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
+		entityManager = new EntityManager();
+		entityFactory = new EntityFactory(entityManager, map, input);
+		
+		entityFactory.createEntity(EntityType.PLAYER_COPY, 200.0f, 200.0f);
+		
+		collisionBf = new CollisionBruteForce(entityManager);
 	}
 
 	@Override
 	public void update(GameContainer gc, int lastUpdateInterval) throws SlickException {
-
+		screenBuffer = map.getViewableArea((int) camera.getTlx(), (int) camera.getTly(), windowWidth, windowHeight);
+		entityManager.entityDeleteProcess();
+		collisionBf.detectCollision();
+		entityManager.updateEntities(lastUpdateInterval);
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		
+		g.drawImage(screenBuffer, 0.0f, 0.0f);
+		entityManager.renderEntities(g);
 	}
 
 	@Override
@@ -37,7 +89,7 @@ public class Main extends BasicGame {
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
-		
+		u.unsetBit2(x, y, 20);
 	}
 
 	@Override
