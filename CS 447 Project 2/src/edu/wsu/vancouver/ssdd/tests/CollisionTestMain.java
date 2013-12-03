@@ -66,7 +66,7 @@ public class CollisionTestMain extends BasicGame {
 		
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		entityManager = new EntityManager();
-		entityFactory = new EntityFactory(entityManager, map, input);
+		entityFactory = new EntityFactory(entityManager, map, input, camera);
 		
 		entityFactory.createEntity(EntityType.PLAYER_COPY, 100.0f, 100.0f);
 		
@@ -85,7 +85,7 @@ public class CollisionTestMain extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.drawImage(screenBuffer, 0.0f, 0.0f);
-		entityManager.renderEntities(g);
+		entityManager.renderEntities(g, camera);
 	}
 
 	@Override

@@ -21,6 +21,7 @@ public class PlayerCopy extends GameEntity {
 
 	private Map map;
 	private Input input;
+	private Camera camera;
 
 	private Animation right;
 	private Animation left;
@@ -32,15 +33,16 @@ public class PlayerCopy extends GameEntity {
 	private int curHealth;
 	private final int maxHealth;
 
-	public PlayerCopy(EntityManager entityManager, Map map, Input input, String facing) {
-		this(entityManager, map, input, 0.0f, 0.0f, facing);
+	public PlayerCopy(EntityManager entityManager, Map map, Input input, Camera camera, String facing) {
+		this(entityManager, map, input, camera, 0.0f, 0.0f, facing);
 	}
 
-	public PlayerCopy(EntityManager entityManager, Map map, Input input, float x, float y, String facing) {
+	public PlayerCopy(EntityManager entityManager, Map map, Input input, Camera camera, float x, float y, String facing) {
 		super(entityManager, x, y);
 
 		this.map = map;
 		this.input = input;
+		this.camera = camera;
 		entityMask.set(GameEntity.EntityProperty.FRIENDLY.getValue());
 
 		this.pState = PlayerState.AIR;
@@ -98,6 +100,7 @@ public class PlayerCopy extends GameEntity {
 		movement();
 		bitCollision();
 		gravity();
+		camera();
 	}
 
 	private void gravity() {
@@ -127,26 +130,18 @@ public class PlayerCopy extends GameEntity {
 			setPosition(p.getX() - 1.0f, p.getY());
 			
 			if (aState != AnimationState.MOVING_LEFT) {
-				if (aState == AnimationState.STANDING_LEFT) {
-					this.removeImage(ResourceManager.getImage("images/PlayerStandingLeft.png"));
-				} else {
-					this.removeImage(ResourceManager.getImage("images/PlayerStandingRight.png"));
-				}
-				aState = AnimationState.MOVING_LEFT;
+				removeAnimation();
 				this.addAnimation(left);
+				aState = AnimationState.MOVING_LEFT;
 			}
 		} // Right and only right, no diagonals
 		else if (input.isKeyDown(Input.KEY_RIGHT) && !input.isKeyDown(Input.KEY_UP) && !input.isKeyDown(Input.KEY_DOWN)) {
 			setPosition(p.getX() + 1.0f, p.getY());
 			
 			if (aState != AnimationState.MOVING_RIGHT) {
-				if (aState == AnimationState.STANDING_LEFT) {
-					this.removeImage(ResourceManager.getImage("images/PlayerStandingLeft.png"));
-				} else {
-					this.removeImage(ResourceManager.getImage("images/PlayerStandingRight.png"));
-				}
-				aState = AnimationState.MOVING_RIGHT;
+				removeAnimation();
 				this.addAnimation(right);
+				aState = AnimationState.MOVING_RIGHT;
 			}
 		} // Up right
 		else if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
@@ -163,17 +158,31 @@ public class PlayerCopy extends GameEntity {
 		} // No commands
 		else {
 			if (aState == AnimationState.MOVING_LEFT) {
-				aState = AnimationState.STANDING_LEFT;
-				this.removeAnimation(left);
+				removeAnimation();
 				this.addImage(ResourceManager.getImage("images/PlayerStandingLeft.png"));
+				aState = AnimationState.STANDING_LEFT;
 			} else if (aState == AnimationState.MOVING_RIGHT) {
-				aState = AnimationState.STANDING_RIGHT;
-				this.removeAnimation(right);
+				removeAnimation();
 				this.addImage(ResourceManager.getImage("images/PlayerStandingRight.png"));
+				aState = AnimationState.STANDING_RIGHT;
 			}
 		}
 
 		setPosition(getPosition().add(vel));
+	}
+	
+	private void removeAnimation() {
+		if (aState == AnimationState.MOVING_LEFT) {
+			this.removeAnimation(left);
+		} else if (aState == AnimationState.MOVING_RIGHT) {
+			this.removeAnimation(right);
+		} else if (aState == AnimationState.STANDING_LEFT) {
+			this.removeImage(ResourceManager.getImage("images/PlayerStandingLeft.png"));
+		} else if (aState == AnimationState.STANDING_RIGHT) {
+			this.removeImage(ResourceManager.getImage("images/PlayerStandingRight.png"));
+		}
+			
+		
 	}
 
 	/**
@@ -237,6 +246,13 @@ public class PlayerCopy extends GameEntity {
 			}
 		}
 		return false;
+	}
+	
+	private void camera() {
+		float tlx = getPosition().getX() - camera.getCameraHalfWidth();
+		float tly = getPosition().getY() - camera.getCameraHalfHeight();
+		camera.setTlx(tlx);
+		camera.setTly(tly);
 	}
 
 	boolean testBitDestructed(int xp, int yp) {

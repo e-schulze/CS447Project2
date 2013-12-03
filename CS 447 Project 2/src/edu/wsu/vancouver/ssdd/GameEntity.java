@@ -2,6 +2,8 @@ package edu.wsu.vancouver.ssdd;
 
 import java.util.BitSet;
 
+import org.newdawn.slick.Graphics;
+
 import jig.Entity;
 import jig.Vector;
 
@@ -50,6 +52,18 @@ public abstract class GameEntity extends Entity {
 
 	public void update(int delta) {
 
+	}
+	/**
+	 * Wrapper method to draw to camera view. 
+	 */
+	public void render(Graphics g, Camera c) {
+		Vector worldPosition = getPosition();
+		Vector cameraPosition = worldPosition.subtract(new Vector(c.getTlx(), c.getTly()));
+		setPosition(cameraPosition);
+		// Entity class render function
+		render(g);
+		// Reset position to world position
+		setPosition(worldPosition);
 	}
 	
 	public void collision(GameEntity gameEntity) {
