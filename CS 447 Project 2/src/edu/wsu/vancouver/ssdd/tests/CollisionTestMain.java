@@ -68,7 +68,7 @@ public class CollisionTestMain extends BasicGame {
 		entityManager = new EntityManager();
 		entityFactory = new EntityFactory(entityManager, map, input);
 		
-		entityFactory.createEntity(EntityType.TEST, 500.0f, 220.0f);
+		entityFactory.createEntity(EntityType.TEST, 50.0f, 50.0f);
 		
 		collisionBf = new CollisionBruteForce(entityManager);
 	}
