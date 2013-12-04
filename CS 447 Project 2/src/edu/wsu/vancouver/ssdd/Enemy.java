@@ -58,7 +58,6 @@ public class Enemy extends GameEntity {
 			this.maxHealth = this.curHealth = 10;
 			right = new Animation(ResourceManager.getSpriteSheet("images/ZombieRight.png", 34, 58), 175);
 			left = new Animation();
-			System.out.println(right.getFrameCount());
 			for (int i = 0; i < right.getFrameCount(); i++) {
 				left.addFrame(right.getImage(i).getFlippedCopy(true, false), 175);
 			}

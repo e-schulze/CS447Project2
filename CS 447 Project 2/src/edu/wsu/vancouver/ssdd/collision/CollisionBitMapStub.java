@@ -36,7 +36,6 @@ public class CollisionBitMapStub {
 		if (rgba[(bbWidth * yp * 4) + (xp * 4) + 3] == 0) {
 			return true;
 		} else {
-			System.out.println("RGBA" + rgba[(bbWidth * yp * 4) + (xp * 4) + 3]);
 			return false;
 		}
 	}
