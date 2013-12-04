@@ -53,7 +53,7 @@ public class PlayerCopy extends GameEntity {
 		} else {
 			aState = AnimationState.STANDING_RIGHT;
 		}
-		this.right = new Animation(ResourceManager.getSpriteSheet("images/playerRight.png", 79, 90), 40);
+		this.right = new Animation(ResourceManager.getSpriteSheet("images/playerRight.png", 51, 58), 40);
 		this.left = new Animation();
 		for (int i = 0; i < this.right.getFrameCount(); i++) {
 			this.left.addFrame(this.right.getImage(i).getFlippedCopy(true, false), 40);
