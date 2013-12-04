@@ -49,9 +49,9 @@ public class EntityManager {
 		}
 	}
 	
-	public void renderEntities(Graphics g) {
+	public void renderEntities(Graphics g, Camera c) {
 		for (Map.Entry<Integer, GameEntity> entry : entityMap.entrySet()) {
-			entry.getValue().render(g);
+			entry.getValue().render(g, c);
 		}
 	}
 	

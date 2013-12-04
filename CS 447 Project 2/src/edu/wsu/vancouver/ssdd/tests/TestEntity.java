@@ -16,10 +16,11 @@ public class TestEntity extends GameEntity {
 
 	private Map map;
 	private Input input;
-	private PlayerState state = PlayerState.AIR;
+	private PlayerState state;
+	private boolean jumped;
 
 	private Vector vel;
-	private float maxVelSq;
+	private final float maxVelSq;
 
 	public TestEntity(EntityManager entityManager, Map map, Input input) {
 		this(entityManager, map, input, 0.0f, 0.0f);
@@ -34,13 +35,18 @@ public class TestEntity extends GameEntity {
 
 		this.vel = new Vector(0.0f, 0.0f);
 		this.maxVelSq = 16.0f;
+		this.state = PlayerState.AIR;
+		this.jumped = false;
 	}
 
 	@Override
 	public void update(int delta) {
 		movement();
 		bitCollision();
-
+		gravity();
+	}
+	
+	private void gravity() {
 		if (state == PlayerState.AIR) {
 			float gravity = 0.1f;
 			vel = vel.add(new Vector(0.0f, gravity));
@@ -53,8 +59,11 @@ public class TestEntity extends GameEntity {
 
 		// Up and only up, no diagonals
 		if (input.isKeyDown(Input.KEY_UP) && !input.isKeyDown(Input.KEY_RIGHT) && !input.isKeyDown(Input.KEY_LEFT)) {
-			setPosition(p.getX(), p.getY() - 1.0f);
-			vel = vel.add(new Vector(0.0f, -1.0f));
+			if (state == PlayerState.NORMAL && jumped == false) {
+				jumped = true;
+				setPosition(p.getX(), p.getY() - 1.0f);
+				vel = vel.add(new Vector(0.0f, -2.5f));
+			}
 		} // Down and only down, no diagonals
 		else if (input.isKeyDown(Input.KEY_DOWN) && !input.isKeyDown(Input.KEY_RIGHT)
 				&& !input.isKeyDown(Input.KEY_LEFT)) {
@@ -89,48 +98,45 @@ public class TestEntity extends GameEntity {
 	 * Prevents entities from clipping the terrain.
 	 */
 	private void bitCollision() {
-		int minX = (int) getCoarseGrainedMinX();
-		int maxX = (int) getCoarseGrainedMaxX();
-		int minY = (int) getCoarseGrainedMinY();
-		int maxY = (int) getCoarseGrainedMaxY();
+		// Test inner left
+		if (bfBitDetection((int) getCoarseGrainedMinX(), (int) getCoarseGrainedMinX() + 1,
+				(int) getCoarseGrainedMinY(), (int) (getCoarseGrainedMinY() + getCoarseGrainedHeight() * 0.9f))) {
+			vel = vel.setX(0.0f);
+			Vector p = getPosition();
+			setPosition(p.getX() + 1.0f, p.getY());
+		}
+		// Test inner right
+		if (bfBitDetection((int) getCoarseGrainedMaxX() - 1, (int) getCoarseGrainedMaxX(),
+				(int) getCoarseGrainedMinY(), (int) (getCoarseGrainedMinY() + getCoarseGrainedHeight() * 0.9f))) {
+			vel = vel.setX(0.0f);
+			Vector p = getPosition();
+			setPosition(p.getX() - 1.0f, p.getY());
+		}
 		// Test inner upper
-		if (bfBitDetection(minX, maxX, minY, minY + 1)) {
+		if (bfBitDetection((int) getCoarseGrainedMinX(), (int) getCoarseGrainedMaxX(), (int) getCoarseGrainedMinY(),
+				(int) getCoarseGrainedMinY() + 1)) {
 			vel = vel.setY(0.0f);
 			Vector p = getPosition();
 			setPosition(p.getX(), p.getY() + 1.0f);
-			System.out.println("IU");
 		}
 		// Test inner bottom
-		if (bfBitDetection(minX, maxX, maxY - 1, maxY)) {
+		if (bfBitDetection((int) getCoarseGrainedMinX(), (int) getCoarseGrainedMaxX(),
+				(int) getCoarseGrainedMaxY() - 1, (int) getCoarseGrainedMaxY())) {
 			vel = vel.setY(0.0f);
 			Vector p = getPosition();
 			setPosition(p.getX(), p.getY() - 1.0f);
 			if (state == PlayerState.AIR) {
 				state = PlayerState.NORMAL;
+				jumped = false;
 			}
-			System.out.println("IB");
-		}
-		// Test inner left
-		if (bfBitDetection(minX, minX + 1, minY, maxY)) {
-			vel = vel.setX(0.0f);
-			Vector p = getPosition();
-			setPosition(p.getX() + 1.0f, p.getY());
-			System.out.println("IL");
-		}
-		// Test inner right
-		if (bfBitDetection(maxX - 1, maxX, minY, maxY)) {
-			vel = vel.setX(0.0f);
-			Vector p = getPosition();
-			setPosition(p.getX() - 1.0f, p.getY());
-			System.out.println("IR");
 		}
 
 		// Test outer bottom
-		if (!bfBitDetection(minX, maxX, maxY, maxY + 1)) {
+		if (!bfBitDetection((int) getCoarseGrainedMinX(), (int) getCoarseGrainedMaxX(), (int) getCoarseGrainedMaxY(),
+				(int) getCoarseGrainedMaxY() + 1)) {
 			if (state == PlayerState.NORMAL) {
 				state = PlayerState.AIR;
 			}
-			System.out.println("OB");
 		}
 	}
 

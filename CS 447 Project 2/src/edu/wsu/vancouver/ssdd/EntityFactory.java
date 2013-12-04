@@ -7,17 +7,19 @@ import edu.wsu.vancouver.ssdd.tests.TestEntity;
 
 public class EntityFactory {
 	public enum EntityType {
-		EMPTY, TEST
+		EMPTY, TEST, PLAYER_COPY
 	}
 
 	private EntityManager entityManager;
 	private Map map;
 	private Input input;
+	private Camera camera;
 
-	public EntityFactory(EntityManager entityManager, Map map, Input input) {
+	public EntityFactory(EntityManager entityManager, Map map, Input input, Camera camera) {
 		this.entityManager = entityManager;
 		this.map = map;
 		this.input = input;
+		this.camera = camera;
 	}
 
 	public Integer createEntity(EntityType entityType) {
@@ -30,6 +32,9 @@ public class EntityFactory {
 			break;
 		case TEST:
 			entity = new TestEntity(entityManager, map, input);
+			break;
+		case PLAYER_COPY:
+			entity = new PlayerCopy(entityManager, map, input, camera, "Left");
 			break;
 		default:
 			break;
@@ -51,6 +56,9 @@ public class EntityFactory {
 			break;
 		case TEST:
 			entity = new TestEntity(entityManager, map, input, cxp, cyp);
+			break;
+		case PLAYER_COPY:
+			entity = new PlayerCopy(entityManager, map, input, camera, cxp, cyp, "Left");
 			break;
 		default:
 			break;
