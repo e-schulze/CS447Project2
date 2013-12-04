@@ -28,6 +28,14 @@ public class Camera {
 	public float getTly() {
 		return tly;
 	}
+	
+	public float getCameraHalfWidth() {
+		return cameraWidth * 0.5f;
+	}
+	
+	public float getCameraHalfHeight() {
+		return cameraHeight * 0.5f;
+	}
 
 	public void setTlx(float tlx) {
 		if (tlx > 0.0f && tlx + cameraWidth < (float) map.getMapWidth()) {
@@ -53,5 +61,10 @@ public class Camera {
 		if (temp > 0.0f && temp + cameraHeight < (float) map.getMapHeight()) {
 			tly = temp;
 		}
+	}
+	
+	public void resetCamera() {
+		tlx = 0.0f;
+		tly = 0.0f;
 	}
 }

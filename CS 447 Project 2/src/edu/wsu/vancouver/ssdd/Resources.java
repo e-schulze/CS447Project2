@@ -6,8 +6,18 @@ public class Resources {
 	 * very large
 	 */
 	public static void loadImages() {
-		jig.ResourceManager.loadImage("rsc/dungeontiles.gif");
-		jig.ResourceManager.loadImage("rsc/TestImage.png");
+		jig.ResourceManager.loadImage("images/alien-planet-tileset.gif");
+		jig.ResourceManager.loadImage("images/bomb1.png");
+		jig.ResourceManager.loadImage("images/bullet.png");
+		jig.ResourceManager.loadImage("images/dungeontiles.gif");
+		jig.ResourceManager.loadImage("images/explosionframes.png");
+		jig.ResourceManager.loadImage("images/placeholder.png");
+		jig.ResourceManager.loadImage("images/playerRight.png");
+		jig.ResourceManager.loadImage("images/PlayerStandingLeft.png");
+		jig.ResourceManager.loadImage("images/PlayerStandingRight.png");
+		jig.ResourceManager.loadImage("images/RobotRight.png");
+		jig.ResourceManager.loadImage("images/TestImage.png");
+		jig.ResourceManager.loadImage("images/ZombieRight.png");
 	}
 
 	/**

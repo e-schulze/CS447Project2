@@ -1,34 +1,47 @@
 package edu.wsu.vancouver.ssdd;
 
+import org.newdawn.slick.Input;
+
 import edu.wsu.vancouver.ssdd.tests.EmptyEntity;
+import edu.wsu.vancouver.ssdd.tests.TestEntity;
 
 public class EntityFactory {
 	public enum EntityType {
-		EMPTY
+		EMPTY, TEST, PLAYER_COPY
 	}
-	
-	private EntityManager entityManager;
 
-	public EntityFactory(EntityManager entityManager) {
+	private EntityManager entityManager;
+	private Map map;
+	private Input input;
+	private Camera camera;
+
+	public EntityFactory(EntityManager entityManager, Input input) {
 		this.entityManager = entityManager;
+		this.input = input;
 	}
 
 	public Integer createEntity(EntityType entityType) {
 		GameEntity entity = null;
 		Integer entityId = null;
-		
+
 		switch (entityType) {
-			case EMPTY:
-				entity = new EmptyEntity(entityManager);
-				break;
-			default:
-				break;
+		case EMPTY:
+			entity = new EmptyEntity(entityManager);
+			break;
+		case TEST:
+			entity = new TestEntity(entityManager, map, input);
+			break;
+		case PLAYER_COPY:
+			entity = new PlayerCopy(entityManager, map, input, camera, "Left");
+			break;
+		default:
+			break;
 		}
-		
+
 		if (entity != null) {
 			entityId = entity.getEntityId();
 		}
-		
+
 		return entityId;
 	}
 
@@ -36,17 +49,31 @@ public class EntityFactory {
 		GameEntity entity = null;
 		Integer entityId = null;
 		switch (entityType) {
-			case EMPTY:
-				entity = new EmptyEntity(entityManager, cxp, cyp);
-				break;
-			default:
-				break;
+		case EMPTY:
+			entity = new EmptyEntity(entityManager, cxp, cyp);
+			break;
+		case TEST:
+			entity = new TestEntity(entityManager, map, input, cxp, cyp);
+			break;
+		case PLAYER_COPY:
+			entity = new PlayerCopy(entityManager, map, input, camera, cxp, cyp, "Left");
+			break;
+		default:
+			break;
 		}
-		
+
 		if (entity != null) {
 			entityId = entity.getEntityId();
 		}
-		
+
 		return entityId;
+	}
+
+	public void updateMap(Map map) {
+		this.map = map;
+	}
+	
+	public void updateCamera(Camera camera) {
+		this.camera = camera;
 	}
 }
