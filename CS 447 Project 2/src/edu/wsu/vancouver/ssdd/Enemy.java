@@ -35,7 +35,6 @@ public class Enemy extends GameEntity {
 	private final float maxVelSq;
 	private int curHealth;
 	private final int maxHealth;
-	private boolean jumped;
 
 	public Enemy(EntityManager entityManager, Map map, String dir, EnemyType enemyType) {
 		this(entityManager, map, 0.0f, 0.0f, dir, enemyType);
@@ -46,18 +45,22 @@ public class Enemy extends GameEntity {
 		this.enemyType = enemyType;
 		this.dir = dir;
 		this.map = map;
-		this.jumped = false;
+		
+		
 		this.eState = EnemyState.AIR;
 		entityMask.set(GameEntity.EntityProperty.ENEMY.getValue());
 		this.addImageWithBoundingBox(ResourceManager.getImage("images/PlayerStandingLeft.png"));
 		this.removeImage(ResourceManager.getImage("images/PlayerStandingLeft.png"));
 		switch (enemyType) {
+		// Fall through
+		default:
 		case ZOMBIE:
-			right = new Animation(ResourceManager.getSpriteSheet("images/ZombieRight.png", 34, 58), 30);
+			this.maxHealth = this.curHealth = 10;
+			right = new Animation(ResourceManager.getSpriteSheet("images/ZombieRight.png", 34, 58), 175);
 			left = new Animation();
 			System.out.println(right.getFrameCount());
 			for (int i = 0; i < right.getFrameCount(); i++) {
-				left.addFrame(right.getImage(i).getFlippedCopy(true, false), 30);
+				left.addFrame(right.getImage(i).getFlippedCopy(true, false), 175);
 			}
 			if (dir.compareTo("Right") == 0) {
 				this.vel = new Vector(0.05f, 0f);
@@ -68,6 +71,7 @@ public class Enemy extends GameEntity {
 			}
 			break;
 		case ROBOT:
+			this.maxHealth = this.curHealth = 999999;
 			right = new Animation(ResourceManager.getSpriteSheet("images/RobotRight.png", 33, 58), 143);
 			left = new Animation();
 			for (int i = 0; i < right.getFrameCount(); i++) {
@@ -86,7 +90,6 @@ public class Enemy extends GameEntity {
 		left.setLooping(true);
 		this.setVel(new Vector(0f, 0f)); // temp, get rid of after testing
 		this.maxVelSq = 16.0f;
-		this.maxHealth = this.curHealth = 10;
 	}
 
 	public int getHealth() {
@@ -117,6 +120,11 @@ public class Enemy extends GameEntity {
 		// movement();
 		bitCollision();
 		gravity();
+		health();
+	}
+	
+	@Override
+	public void collision(GameEntity gameEntity) {
 	}
 
 	private void bitCollision() {
@@ -149,7 +157,6 @@ public class Enemy extends GameEntity {
 			setPosition(p.getX(), p.getY() - 1.0f);
 			if (eState == EnemyState.AIR) {
 				eState = EnemyState.NORMAL;
-				jumped = false;
 			}
 		}
 
@@ -169,20 +176,12 @@ public class Enemy extends GameEntity {
 			setPosition(getPosition().add(vel));
 		}
 	}
-
-	// public void update(int delta){
-	// translate(vector.scale(delta));
-	// if((dir.compareTo("Right") == 0) && (vector.getX() < 0)){
-	// this.vector = new Vector(-0.05f, 0f);
-	// this.removeAnimation(right);
-	// this.addAnimation(left);
-	// }
-	// else if((dir.compareTo("Left") == 0) && (vector.getX() > 0)){
-	// this.vector = new Vector(0.05f, 0f);
-	// this.removeAnimation(left);
-	// this.addAnimation(right);
-	// }
-	// }
+	
+	private void health() {
+		if (curHealth <= 0) {
+			entityManager.entityDeleteMark(getEntityId());
+		}
+	}
 
 	private String getDir() {
 		return dir;

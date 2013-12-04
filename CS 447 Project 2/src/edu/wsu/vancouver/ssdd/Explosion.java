@@ -1,7 +1,11 @@
 package edu.wsu.vancouver.ssdd;
 
+import java.util.BitSet;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Sound;
+
+import edu.wsu.vancouver.ssdd.GameEntity.EntityProperty;
 
 import jig.Entity;
 import jig.ResourceManager;
@@ -11,27 +15,40 @@ public class Explosion extends GameEntity {
 	private Animation explosion;
 	private Sound sound;
 	
-	private final float explosionRadius; 
+	private final float explosionRadius;
+	private final int damage;
 	
 	private Map map;
 	
 	public Explosion(EntityManager entityManager, Map map, float x, float y){
 		super(entityManager, x, y);
+		entityMask.set(GameEntity.EntityProperty.WEAPON.getValue());
 		this.map = map;
 		
 		this.addImageWithBoundingBox(ResourceManager.getImage("images/placeholder.png"));
 		this.removeImage(ResourceManager.getImage("images/placeholder.png"));
 		explosion = new Animation(ResourceManager.getSpriteSheet("images/explosionframes.png", 58, 58), 50);
 		this.addAnimation(explosion);
+		explosion.setLooping(false);
 		
 		explosionRadius = explosion.getImage(2).getWidth() * 0.5f;
-		explosion.setLooping(false);
+		this.damage = 5;
 	}
 	
 	public void update(int delta) {
 		if (!isActive()) {
 			entityManager.entityDeleteMark(getEntityId());
 			circularDestruction(getPosition().getX(), getPosition().getY(), explosionRadius);
+		}
+	}
+	
+	@Override
+	public void collision(GameEntity gameEntity) {
+		BitSet enemy = new BitSet();
+		enemy.set(EntityProperty.ENEMY.getValue());
+		if (gameEntity.getEntityMask().equals(enemy)) {
+			Enemy enemyEntity = (Enemy) gameEntity;
+			enemyEntity.setHealth(enemyEntity.getHealth() - damage);
 		}
 	}
 	
