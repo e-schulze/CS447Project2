@@ -22,16 +22,16 @@ public class Bomb extends Entity{
 		switch(type){
 		case C4:
 			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images.bomb1.png"));
-			this.scale(0.5f);
+			this.scale(0.25f);
 			break;
 		case GRENADE:
 			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images.bomb1.png"));
-			this.scale(0.5f);
+			this.scale(0.25f);
 			setTimer(5000);
 			break;
 		case CHARGE:
 			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images.bomb1.png"));
-			this.scale(0.5f);
+			this.scale(0.25f);
 			break;
 		}
 		if(dir.compareTo("Left") == 0){

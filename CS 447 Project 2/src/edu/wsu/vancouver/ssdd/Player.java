@@ -17,7 +17,7 @@ public class Player extends Entity{
 	public Player(int x, int y, String dir){
 		super(x, y);
 		this.dir = dir;
-		this.right = new Animation(ResourceManager.getSpriteSheet("rsc/images/playerRight.png", 79, 90), 31);
+		this.right = new Animation(ResourceManager.getSpriteSheet("rsc/images/playerRight.png", 51, 90), 31);
 		this.left = new Animation();
 		for(int i = 0; i < this.right.getFrameCount(); i++){
 			this.left.addFrame(this.right.getImage(i).getFlippedCopy(true, false), 31);

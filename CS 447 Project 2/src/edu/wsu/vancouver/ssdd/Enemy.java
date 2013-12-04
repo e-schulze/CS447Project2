@@ -25,7 +25,7 @@ public class Enemy extends Entity{
 		case ZOMBIE:
 			this.addImageWithBoundingBox(ResourceManager.getImage("rsc/images/PlayerStandingLeft.png"));
 			this.removeImage(ResourceManager.getImage("rsc/images/PlayerStandingLeft.png"));
-			right = new Animation(ResourceManager.getSpriteSheet("rsc/images/ZombieRight.png", 53, 90), 22);
+			right = new Animation(ResourceManager.getSpriteSheet("rsc/images/ZombieRight.png", 34, 90), 22);
 			left = new Animation();
 			for(int i = 0; i < right.getFrameCount(); i++){
 				left.addFrame(right.getImage(i).getFlippedCopy(true, false), 22);
@@ -40,7 +40,7 @@ public class Enemy extends Entity{
 			}
 			break;
 		case ROBOT:
-			right = new Animation(ResourceManager.getSpriteSheet("rsc/images/RobotRight.png", 52, 90), 143);
+			right = new Animation(ResourceManager.getSpriteSheet("rsc/images/RobotRight.png", 34, 90), 143);
 			left = new Animation();
 			for(int i = 0; i < right.getFrameCount(); i++){
 				left.addFrame(right.getImage(i).getFlippedCopy(true, false), 143);

@@ -15,7 +15,7 @@ public class Explosion extends Entity{
 		super(x, y);
 		this.addImageWithBoundingBox(ResourceManager.getImage("rsc.images/placeholder.png"));
 		this.removeImage(ResourceManager.getImage("rsc.images/placeholder.png"));
-		explosion = new Animation(ResourceManager.getSpriteSheet("rsc/images/explosionframes/png", 96, 96), 1000);
+		explosion = new Animation(ResourceManager.getSpriteSheet("rsc/images/explosionframes/png", 58, 58), 1000);
 		this.addAnimation(explosion);
 		explosion.setLooping(false);
 	}
