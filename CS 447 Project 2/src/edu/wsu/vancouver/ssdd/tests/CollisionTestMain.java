@@ -66,7 +66,10 @@ public class CollisionTestMain extends BasicGame {
 		
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		entityManager = new EntityManager();
-		entityFactory = new EntityFactory(entityManager, map, input, camera);
+		
+		entityFactory = new EntityFactory(entityManager, input);
+		entityFactory.updateMap(map);
+		entityFactory.updateCamera(camera);
 		
 		entityFactory.createEntity(EntityType.PLAYER_COPY, 100.0f, 100.0f);
 		

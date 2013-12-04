@@ -15,11 +15,9 @@ public class EntityFactory {
 	private Input input;
 	private Camera camera;
 
-	public EntityFactory(EntityManager entityManager, Map map, Input input, Camera camera) {
+	public EntityFactory(EntityManager entityManager, Input input) {
 		this.entityManager = entityManager;
-		this.map = map;
 		this.input = input;
-		this.camera = camera;
 	}
 
 	public Integer createEntity(EntityType entityType) {
@@ -73,5 +71,9 @@ public class EntityFactory {
 
 	public void updateMap(Map map) {
 		this.map = map;
+	}
+	
+	public void updateCamera(Camera camera) {
+		this.camera = camera;
 	}
 }

@@ -20,11 +20,20 @@ import edu.wsu.vancouver.ssdd.tests.UnsetBitTest;
 
 public class Main extends BasicGame {
 	public static final int logicInterval = 20;
+	
+	private enum GameState {
+		START_UP, PLAYING, GAME_OVER;
+	}
+	
 	public static int windowWidth;
 	public static int windowHeight;
+	
+	private GameState gameState;
+	private int gameOverTimer;
 
 	private Input input;
 	private Camera camera;
+	private MapLoader mapLoader;
 	private Map map;
 	private Image screenBuffer;
 	
@@ -39,47 +48,98 @@ public class Main extends BasicGame {
 	}
 
 	@Override
-	public void init(GameContainer gc) throws SlickException {
+	public void init(GameContainer gc) {
+		startUp(gc);
+	}
+	
+	public void startUp(GameContainer gc) {
+		gameState = GameState.START_UP;
+		
 		this.input = gc.getInput();
 		input.enableKeyRepeat();
-
 		windowWidth = gc.getWidth();
 		windowHeight = gc.getHeight();
+		gc.setSoundOn(false);
 		gc.getGraphics().setBackground(Color.black);
 
 		Resources.loadImages();
 		Resources.loadSounds();
-
-		MapLoader mapLoader = new MapLoader();
+		
+		mapLoader = new MapLoader();
+		
+		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
+		entityManager = new EntityManager();
+		entityFactory = new EntityFactory(entityManager, input);
+		
+		collisionBf = new CollisionBruteForce(entityManager);
+	}
+	
+	public void newGame(GameContainer gc) throws SlickException {
+		gameState = GameState.PLAYING;
+		gc.setSoundOn(true);
+		
 		map = mapLoader.loadMap("maps/mapLevelOne.tmx");
 		map.printMapInfo();
+		
 
 		camera = new Camera(0.0f, 0.0f, windowWidth, windowHeight, map);
 		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
 
 		u = new UnsetBitTest(map);
 		
-		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
-		entityManager = new EntityManager();
-		entityFactory = new EntityFactory(entityManager, map, input, camera);
-		
+		entityFactory.updateMap(map);
+		entityFactory.updateCamera(camera);
 		entityFactory.createEntity(EntityType.PLAYER_COPY, 200.0f, 200.0f);
-		
-		collisionBf = new CollisionBruteForce(entityManager);
+	}
+	
+	public void gameOver() {
+		gameState = GameState.GAME_OVER;
+		gameOverTimer = 4000;
+	}
+	
+	public void makeMenu(){
+		//MenuLevel mLev = new MenuLevel(entity, x, y);
 	}
 
 	@Override
 	public void update(GameContainer gc, int lastUpdateInterval) throws SlickException {
-		screenBuffer = map.getViewableArea((int) camera.getTlx(), (int) camera.getTly(), windowWidth, windowHeight);
-		entityManager.entityDeleteProcess();
-		collisionBf.detectCollision();
-		entityManager.updateEntities(lastUpdateInterval);
+		switch (gameState) {
+		// Start up only once (need an intermediary state between start up and playing preferably menu
+		case START_UP:
+			gameState = GameState.PLAYING;
+			// Temporary, remove when menu is implemented.
+			newGame(gc);
+			break;
+		case PLAYING:
+			screenBuffer = map.getViewableArea((int) camera.getTlx(), (int) camera.getTly(), windowWidth, windowHeight);
+			entityManager.entityDeleteProcess();
+			collisionBf.detectCollision();
+			entityManager.updateEntities(lastUpdateInterval);
+			break;
+		case GAME_OVER:
+			gameOverTimer -= lastUpdateInterval;
+			if (gameOverTimer <= 0) {
+				// TODO: create a main screen
+				gc.exit();
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		g.drawImage(screenBuffer, 0.0f, 0.0f);
-		entityManager.renderEntities(g, camera);
+		switch(gameState){
+		case START_UP:
+			break;
+		case PLAYING:
+			g.drawImage(screenBuffer, 0.0f, 0.0f);
+			entityManager.renderEntities(g, camera);
+			break;
+		case GAME_OVER:
+			break;
+		}
 	}
 
 	@Override
