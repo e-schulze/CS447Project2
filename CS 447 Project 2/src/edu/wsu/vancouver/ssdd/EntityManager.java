@@ -8,11 +8,13 @@ import org.newdawn.slick.Graphics;
 
 public class EntityManager {
 	private Map<Integer, GameEntity> entityMap;
+	private Map<Integer, GameEntity> addPool;
 	private ArrayList<Integer> deletePool;
 	
 	public EntityManager() {
 		new EntityId();
 		entityMap = new HashMap<Integer, GameEntity>();
+		addPool = new HashMap<Integer, GameEntity>();
 		deletePool = new ArrayList<Integer>();
 	}
 	
@@ -21,7 +23,7 @@ public class EntityManager {
 	}
 	
 	public Integer addEntity(Integer entityID, GameEntity gameEntity) {		
-		entityMap.put(entityID, gameEntity);
+		addPool.put(entityID, gameEntity);
 		return entityID;
 	}
 	
@@ -36,6 +38,10 @@ public class EntityManager {
 		deletePool.add(entityID);
 	}
 	
+	public void entityCreateProcess() {
+		entityMap.putAll(addPool);
+		addPool.clear();
+	}
 	public void entityDeleteProcess() {
 		for (Integer i : deletePool) {
 			entityMap.remove(i);
@@ -56,8 +62,9 @@ public class EntityManager {
 	}
 	
 	protected void clearAllObjects() {
-		deletePool.clear();
 		entityMap.clear();
+		addPool.clear();
+		deletePool.clear();
 	}
 
 }

@@ -90,6 +90,8 @@ public class Main extends BasicGame {
 		entityFactory.updateMap(map);
 		entityFactory.updateCamera(camera);
 		entityFactory.createEntity(EntityType.PLAYER_COPY, 200.0f, 200.0f);
+		entityFactory.createEntity(EntityType.ENEMY, 300.0f, 200.0f);
+		entityManager.entityCreateProcess();
 	}
 	
 	public void gameOver() {
@@ -112,6 +114,7 @@ public class Main extends BasicGame {
 			break;
 		case PLAYING:
 			screenBuffer = map.getViewableArea((int) camera.getTlx(), (int) camera.getTly(), windowWidth, windowHeight);
+			entityManager.entityCreateProcess();
 			entityManager.entityDeleteProcess();
 			collisionBf.detectCollision();
 			entityManager.updateEntities(lastUpdateInterval);
