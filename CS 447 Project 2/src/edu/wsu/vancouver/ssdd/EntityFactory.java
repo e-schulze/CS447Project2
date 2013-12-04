@@ -2,12 +2,13 @@ package edu.wsu.vancouver.ssdd;
 
 import org.newdawn.slick.Input;
 
+import edu.wsu.vancouver.ssdd.Enemy.EnemyType;
 import edu.wsu.vancouver.ssdd.tests.EmptyEntity;
 import edu.wsu.vancouver.ssdd.tests.TestEntity;
 
 public class EntityFactory {
 	public enum EntityType {
-		EMPTY, TEST, PLAYER_COPY
+		EMPTY, TEST, PLAYER_COPY, ENEMY
 	}
 
 	private EntityManager entityManager;
@@ -34,6 +35,8 @@ public class EntityFactory {
 		case PLAYER_COPY:
 			entity = new PlayerCopy(entityManager, map, input, camera, "Left");
 			break;
+		case ENEMY:
+			entity = new Enemy(entityManager, map, "Left", EnemyType.ZOMBIE);
 		default:
 			break;
 		}
@@ -57,6 +60,9 @@ public class EntityFactory {
 			break;
 		case PLAYER_COPY:
 			entity = new PlayerCopy(entityManager, map, input, camera, cxp, cyp, "Left");
+			break;
+		case ENEMY:
+			entity = new Enemy(entityManager, map, cxp, cyp, "Left", EnemyType.ZOMBIE);
 			break;
 		default:
 			break;

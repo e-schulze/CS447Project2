@@ -3,6 +3,8 @@ package edu.wsu.vancouver.ssdd;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Input;
 
+import edu.wsu.vancouver.ssdd.Bomb.BombType;
+
 import jig.ResourceManager;
 import jig.Vector;
 
@@ -99,7 +101,6 @@ public class PlayerCopy extends GameEntity {
 	}
 
 	public void update(int delta) {
-		System.out.println(pState);
 		movement();
 		bitCollision();
 		wallJumpTimer(delta);
@@ -162,6 +163,10 @@ public class PlayerCopy extends GameEntity {
 		}
 
 		setPosition(getPosition().add(vel));
+		
+		if (input.isKeyPressed(Input.KEY_Z)) {
+			new Bomb(entityManager, map, getPosition().getX(), getPosition().getY(), BombType.GRENADE, "Left");
+		}
 	}
 
 	private void removeAnimation() {
@@ -246,7 +251,6 @@ public class PlayerCopy extends GameEntity {
 	}
 
 	private void wallJumpTimer(int delta) {
-		System.out.println(wallJumpTimer);
 		if (wallJumpTimer > 0 && (pState != PlayerState.SLIDING_LEFT && pState != PlayerState.SLIDING_RIGHT)) {
 			wallJumpTimer -= delta;
 			
