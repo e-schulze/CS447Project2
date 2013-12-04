@@ -14,7 +14,7 @@ public class PlayerCopy extends GameEntity {
 	private AnimationState aState;
 
 	private enum PlayerState {
-		NORMAL, AIR, SLIDING;
+		NORMAL, AIR, SLIDING_LEFT, SLIDING_RIGHT;
 	}
 
 	private PlayerState pState;
@@ -27,6 +27,7 @@ public class PlayerCopy extends GameEntity {
 	private Animation left;
 
 	private boolean jumped;
+	private int wallJumpTimer;
 
 	private Vector vel;
 	private final float maxVelSq;
@@ -47,6 +48,11 @@ public class PlayerCopy extends GameEntity {
 
 		this.pState = PlayerState.AIR;
 		this.jumped = false;
+		this.wallJumpTimer = 0;
+
+		setVel(new Vector(0f, 0f)); // no initial movement
+		this.maxVelSq = 16.0f;
+		this.maxHealth = this.curHealth = 100;
 
 		if (facing.compareTo("Left") == 0) {
 			aState = AnimationState.STANDING_LEFT;
@@ -66,10 +72,6 @@ public class PlayerCopy extends GameEntity {
 		} else {
 			this.addImageWithBoundingBox(ResourceManager.getImage("images/PlayerStandingRight.png"));
 		}
-
-		setVel(new Vector(0f, 0f)); // no initial movement
-		this.maxVelSq = 16.0f;
-		this.maxHealth = this.curHealth = 100;
 	}
 
 	public int getHealth() {
@@ -97,80 +99,71 @@ public class PlayerCopy extends GameEntity {
 	}
 
 	public void update(int delta) {
+		System.out.println(pState);
 		movement();
 		bitCollision();
+		wallJumpTimer(delta);
 		gravity();
 		camera();
 	}
 
 	private void gravity() {
+		float gravity = 0.1f;
 		if (pState == PlayerState.AIR) {
-			float gravity = 0.1f;
 			vel = vel.add(new Vector(0.0f, gravity));
 			setPosition(getPosition().add(vel));
+		} else if (pState == PlayerState.SLIDING_LEFT || pState == PlayerState.SLIDING_RIGHT) {
+			float slidingCoeff = 5.0f;
+			Vector p = getPosition();
+			setPosition(p.setY(p.getY() + gravity * slidingCoeff));
 		}
 	}
 
 	private void movement() {
 		Vector p = getPosition();
-
-		// Up and only up, no diagonals
-		if (input.isKeyDown(Input.KEY_UP) && !input.isKeyDown(Input.KEY_RIGHT) && !input.isKeyDown(Input.KEY_LEFT)) {
-			if (pState == PlayerState.NORMAL && jumped == false) {
+		// Up
+		if (input.isKeyDown(Input.KEY_UP)) {
+			if ((pState == PlayerState.NORMAL || wallJumpTimer > 0) && jumped == false) {
 				jumped = true;
-				setPosition(p.getX(), p.getY() - 1.0f);
 				vel = vel.add(new Vector(0.0f, -2.5f));
 			}
-		} // Down and only down, no diagonals
-		else if (input.isKeyDown(Input.KEY_DOWN) && !input.isKeyDown(Input.KEY_RIGHT)
-				&& !input.isKeyDown(Input.KEY_LEFT)) {
-			setPosition(p.getX(), p.getY() + 1.0f);
-		} // Left and only left, no diagonals
-		else if (input.isKeyDown(Input.KEY_LEFT) && !input.isKeyDown(Input.KEY_DOWN) && !input.isKeyDown(Input.KEY_UP)) {
+		}
+		// Left
+		if (input.isKeyDown(Input.KEY_LEFT)) {
 			setPosition(p.getX() - 1.0f, p.getY());
-			
 			if (aState != AnimationState.MOVING_LEFT) {
 				removeAnimation();
-				this.addAnimation(left);
 				aState = AnimationState.MOVING_LEFT;
+				this.addAnimation(left);
 			}
-		} // Right and only right, no diagonals
-		else if (input.isKeyDown(Input.KEY_RIGHT) && !input.isKeyDown(Input.KEY_UP) && !input.isKeyDown(Input.KEY_DOWN)) {
+		} // Right
+		if (input.isKeyDown(Input.KEY_RIGHT)) {
 			setPosition(p.getX() + 1.0f, p.getY());
-			
 			if (aState != AnimationState.MOVING_RIGHT) {
 				removeAnimation();
-				this.addAnimation(right);
 				aState = AnimationState.MOVING_RIGHT;
+				this.addAnimation(right);
 			}
-		} // Up right
-		else if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
+		}
 
-		} // Down right
-		else if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_RIGHT)) {
-
-		} // Down left
-		else if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-
-		} // Up left
-		else if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-
-		} // No commands
-		else {
+		// No movement commands
+		if (!input.isKeyDown(Input.KEY_UP) && !input.isKeyDown(Input.KEY_DOWN) && !input.isKeyDown(Input.KEY_LEFT)
+				&& !input.isKeyDown(Input.KEY_RIGHT)) {
 			if (aState == AnimationState.MOVING_LEFT) {
 				removeAnimation();
-				this.addImage(ResourceManager.getImage("images/PlayerStandingLeft.png"));
 				aState = AnimationState.STANDING_LEFT;
+				this.addImage(ResourceManager.getImage("images/PlayerStandingLeft.png"));
+
 			} else if (aState == AnimationState.MOVING_RIGHT) {
 				removeAnimation();
-				this.addImage(ResourceManager.getImage("images/PlayerStandingRight.png"));
 				aState = AnimationState.STANDING_RIGHT;
+				this.addImage(ResourceManager.getImage("images/PlayerStandingRight.png"));
 			}
 		}
 
 		setPosition(getPosition().add(vel));
 	}
-	
+
 	private void removeAnimation() {
 		if (aState == AnimationState.MOVING_LEFT) {
 			this.removeAnimation(left);
@@ -181,8 +174,7 @@ public class PlayerCopy extends GameEntity {
 		} else if (aState == AnimationState.STANDING_RIGHT) {
 			this.removeImage(ResourceManager.getImage("images/PlayerStandingRight.png"));
 		}
-			
-		
+
 	}
 
 	/**
@@ -216,18 +208,50 @@ public class PlayerCopy extends GameEntity {
 			vel = vel.setY(0.0f);
 			Vector p = getPosition();
 			setPosition(p.getX(), p.getY() - 1.0f);
-			if (pState == PlayerState.AIR) {
+			if (pState == PlayerState.AIR || pState == PlayerState.SLIDING_LEFT || pState == PlayerState.SLIDING_RIGHT) {
 				pState = PlayerState.NORMAL;
-				jumped = false;
 			}
+			jumped = false;
 		}
 
 		// Test outer bottom
 		if (!bfBitDetection((int) getCoarseGrainedMinX(), (int) getCoarseGrainedMaxX(), (int) getCoarseGrainedMaxY(),
 				(int) getCoarseGrainedMaxY() + 1)) {
-			if (pState == PlayerState.NORMAL) {
+			// Test outer left
+			if (bfBitDetection((int) getCoarseGrainedMinX() - 1, (int) getCoarseGrainedMinX(),
+					(int) getCoarseGrainedMinY(), (int) getCoarseGrainedMaxY()) && input.isKeyDown(Input.KEY_LEFT)) {
+				if (pState != PlayerState.SLIDING_LEFT) {
+					pState = PlayerState.SLIDING_LEFT;
+					jumped = false;
+					wallJumpTimer = 250;
+				}
+				vel = new Vector(0.0f, 0.0f);
+			}
+			// Test outer right
+			else if (bfBitDetection((int) getCoarseGrainedMaxX(), (int) getCoarseGrainedMaxX() + 1,
+					(int) getCoarseGrainedMinY(), (int) getCoarseGrainedMaxY()) && input.isKeyDown(Input.KEY_RIGHT)) {
+				if (pState != PlayerState.SLIDING_RIGHT) {
+					pState = PlayerState.SLIDING_RIGHT;
+					jumped = false;
+					wallJumpTimer = 250;
+				}
+				vel = new Vector(0.0f, 0.0f);
+			} else {
+				if (jumped) {
+					jumped = true;
+				}
 				pState = PlayerState.AIR;
 			}
+		}
+	}
+
+	private void wallJumpTimer(int delta) {
+		System.out.println(wallJumpTimer);
+		if (wallJumpTimer > 0 && (pState != PlayerState.SLIDING_LEFT && pState != PlayerState.SLIDING_RIGHT)) {
+			wallJumpTimer -= delta;
+			
+		} else if (wallJumpTimer < 0){
+			wallJumpTimer = 0;
 		}
 	}
 
@@ -247,7 +271,7 @@ public class PlayerCopy extends GameEntity {
 		}
 		return false;
 	}
-	
+
 	private void camera() {
 		float tlx = getPosition().getX() - camera.getCameraHalfWidth();
 		float tly = getPosition().getY() - camera.getCameraHalfHeight();
