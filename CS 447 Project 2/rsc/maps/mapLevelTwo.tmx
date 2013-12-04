@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Destructible" width="35" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2WUQ6DIAyG17N7AN70AL6qcBa80FxmMyQVCo7KnF/yP4H0o4RIA49sGviEi17mGth++4pKXOcbLujTVeJC+ey5+P074sv1SXFJdeLOR58cl1iNHPee6SLBr7hIc7u8oe6CAnrsyi6hdfH/pITOJ7bH/k9dYtToYtfMRHDsLJdhyejECPXOdxmIutrxmgp6uS6UhxR4Ru265zNBl1J9z3lLpWCBf7dKuLj1/Rx5i0q7cMH3d6gWlVLoSjxuwjwBAWtEVGgQAAA=
+   H4sIAAAAAAAAA+2XQRLCIAxFzdm7b3d6gG6r9Cx6IevUDJGJkIBJHeuf+SsgeZChDR0cqtVBtERhmTfD67qHB4jxvFiQ52TA0sNqbYyU55MsfUUMypNjSevZwivh0bJomaTzxwaWUg4tu4bFWiUWT/1ZYr53311u/FdZcjHx/zQ41aa0v3GnLCV9K8sVVt8Y49hWLNPiM/HscH4cy8TkDYTrYsSVsnAcHqI1Oj73vJUoi9W51/QvGmE9JXfLgoXmT93S/3mzSIT9dykXZwuFChYP0TdXznvSHVEIOiloEAAA
   </data>
  </layer>
  <layer name="Indestructible" width="35" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2UwQnAMAhFQ+gAHSADeGz2X66XSEW+kIOYNPjgnzT4EEkpySk8FecaseqRTpZLJDzzHlnhoH2ky2rYZQfSBaNvdyYWDdR6xSHQG+1CIpaLB8hFky7+LiT+Q/ReYt2p57147u4kl5nde/A3lyh2dGkqkfDMHVySJPl4AbtBDNZoEAAA
+   H4sIAAAAAAAAA+3W2wnAMAgF0BA6gANkgHy2+y/XBlqQoBDR2BC8cL/64FAlFHJK5yKFpyukhIWMxMLN+HjLXZ9h4UycRRrNjPDug8JgYfk82KKJxe6CwTt2tkjOV4nlynQrca+3paJyFm1GZxQWW0tF5w/1bG/h9tRqX0a/m8eMVrKMfPdWj3N3JctodrWUrp6Wgmb8t8U6YaETFjrNIvkfm9lmuQGPSMT0aBAAAA==
   </data>
  </layer>
 </map>
