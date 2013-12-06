@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="35" height="30" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="level1" tilewidth="32" tileheight="32">
-  <image source="../images/alien-planet-tileset.gif" width="384" height="2304"/>
+<map version="1.0" orientation="orthogonal" width="34" height="29" tilewidth="20" tileheight="20">
+ <tileset firstgid="1" name="level1" tilewidth="20" tileheight="20">
+  <image source="../images/alien-planet-tileset.gif" width="240" height="1440"/>
  </tileset>
- <layer name="Destructible" width="35" height="30">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2UQQoAIAgEfUc+oP//sEtdpIgMYyAHvC6DyhYRKaChkC5zaC6UP4p0Oc154XKTpQEu3rzhQugykssOUl/XPgRIe/G67H5JzfziEpH3m4u91+pmpB4kuhAguSRJwqUBcJ4dS2gQAAA=
+ <layer name="Destructible" width="34" height="29">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BoAGkkrI6E6Q3UcWBKAMxfg8UdpLoFmxnUcge5ZqGbQS08VN1BrDsHGoy6AxWQ4w5i0g6paYna7sCmhlbuwGcWJXpHgjuILXsGS/k22NwxCkbBKBjZAACEixGV
   </data>
  </layer>
- <layer name="Indestructible" width="35" height="30">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3XQQqAMAwAwRJ8QJ6i//+c3iy6IlKhOexCjoVJbs1obSsyeUyFUgumhdPCaeG0cFo4LZwWTgunhdPC/WlZ4z6zLKM9Wd72+7o73ez6tsJdljinmmXmf7637AqDQ5doEAAA
+ <layer name="Indestructible" width="34" height="29">
+  <data encoding="base64" compression="zlib">
+   eJwzZGJgMBxgLADFAw1G3THqjlF3jLpj1B2j7hh1x6g7Rt0x6o5Rd4wcdxgwYWJK3EHILHLsQu87EeMOegEZJggeTO4Y6L4tDAMA/BwVBg==
   </data>
  </layer>
 </map>
