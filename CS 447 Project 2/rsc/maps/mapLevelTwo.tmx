@@ -4,16 +4,16 @@
   <image source="../images/alien-planet-tileset.gif" width="240" height="1440"/>
  </tileset>
  <tileset firstgid="865" name="Level2" tilewidth="32" tileheight="32">
-  <image source="../images/alien-planet-tileset.gif" width="384" height="2304"/>
+  <image source="../images/alien-planet-tileset.gif" width="240" height="1440"/>
  </tileset>
  <layer name="Destructible" width="34" height="29">
-  <data encoding="base64" compression="zlib">
-   eJztl8EJwCAMRd2jO7QD9Gyz/0a1h0AqgjHVJBYf/JviExPREP7BRsIFUg7BvN4eCLpYe6CLB8BaQImeNfhlfWuPxdx4qSFtDw97flge85PfxVZ3M11zT4kkmu8D6pADxOlS8Cg5jOYM73OPBg4lDy4ttcsZ1+oh6SGJR61vpamB/5iRHlzoe93Swxs3kXISvQ==
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2XwQnAIAxF3aM7tAP0bLP/RrWHQCqCMdUkFh/8m+ITE9EQ/sFGwgVSDsG83h4Iulh7oIsHwFpAiZ41+GV9a4/F3HipIW0PD3t+WB7zk9/FVnczXXNPiSSa7wPqkAPE6VLwKDmM5gzvc48GDiUPLi21yxnX6iHpIYlHrW+lqYH/mJEeXOh73dLDGzeXn0claA8AAA==
   </data>
  </layer>
  <layer name="Indestructible" width="34" height="29">
-  <data encoding="base64" compression="zlib">
-   eJzt1mEKwCAIBeDoBLtK97/cGGwwGDX1PVLEB/7uI7MavbXhXMdd3imH3WHtfVaH1qMJcj4Y6zMcM4uH421BktGBzNHMoZmDaA4k0r6Ug+OQ3i2PA3kv/taQ7NeOvkRzrGrHfRrFIUkGh3ausjuYKcfXYf0/MOtynNx6NYw=
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3WYQrAIAgF4OgEu0r3v9wYbDAYNfU9UsQH/u4jsxq9teFcx13eKYfdYe19VofWowlyPhjrMxwzi4fjbUGS0YHM0cyhmYNoDiTSvpSD45DeLY8DeS/+1pDs146+RHOsasd9GsUhSQaHdq6yO5gpx9dh/T8w63Kco84M8GgPAAA=
   </data>
  </layer>
 </map>

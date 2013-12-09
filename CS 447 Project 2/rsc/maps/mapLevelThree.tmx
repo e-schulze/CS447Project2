@@ -4,13 +4,13 @@
   <image source="../images/alien-planet-tileset.gif" width="240" height="1440"/>
  </tileset>
  <layer name="Destructible" width="34" height="29">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFtALSzBA80GDUHYPTHaMAPxgs8TSc3DFqBvXNGAWDC+CLU0rim1R9o+4YnO4Y6gAWVgPt78HijlEwCgY7AADWVQXd
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGAW0AtLMEDzQYNQdg9MdowA/GCzxNJzcMWoG9c0YBYML4ItTSuKbVH2j7hic7hjqABZWA+3vweKOUTAKBjsAAKaqRHRoDwAA
   </data>
  </layer>
  <layer name="Indestructible" width="34" height="29">
-  <data encoding="base64" compression="zlib">
-   eJzNlcsNAyEMRFdoC6AACshx039zOSQHyxp/AYeR5sLHvGVt09t1PX92//kNTDXa152NU/Vm+yZGe3frVhgqOSydzKHdn3W/VRx0XorF81GyxUHjReU5P1IvWRbrf2XqNpoHnvUWB+pjWWdYZ+o2Uy+ncEjayRHJdW3dDCN647zrtTheSb1iEKMxz1vN/VqYF+i7o3t2cFTt2xFvJctMLJpnXFp/1+pCE8pvbnomf//ReR6OSJ/k9RmpOw/Hyp7tEeIYAnM1h2eukqOSJfIGVXA8B/gDmxcfYQ==
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA82Vyw0DIQxEV2gLoAAKyHHTf3M5JAfLGn8Bh5Hmwse8ZW3T23U9f3b/+Q1MNdrXnY1T9Wb7JkZ7d+tWGCo5LJ3Mod2fdb9VHHReisXzUbLFQeNF5Tk/Ui9ZFut/Zeo2mgee9RYH6mNZZ1hn6jZTL6dwSNrJEcl1bd0MI3rjvOu1OF5JvWIQozHPW839WpgX6Luje3ZwVO3bEW8ly0wsmmdcWn/X6kITym9ueiZ//9F5Ho5In+T1Gak7D8fKnu0R4hgCczWHZ66So5Il8gZVcDwH+ANqJy7vaA8AAA==
   </data>
  </layer>
 </map>

@@ -4,13 +4,13 @@
   <image source="../images/alien-planet-tileset.gif" width="240" height="1440"/>
  </tileset>
  <layer name="Destructible" width="34" height="29">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2BoAGkkrI6E6Q3UcWBKAMxfg8UdpLoFmxnUcge5ZqGbQS08VN1BrDsHGoy6AxWQ4w5i0g6paYna7sCmhlbuwGcWJXpHgjuILXsGS/k22NwxCkbBKBjZAACEixGV
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGAWjYGgAaSSsjoTpDdRxYEoAzF+DxR2kugWbGdRyB7lmoZtBLTxU3UGsOwcajLoDFZDjDmLSDqlpidruwKaGVu7AZxYlekeCO4gtewZL+TbY3DEKRsEoGNkAADhE63BoDwAA
   </data>
  </layer>
  <layer name="Indestructible" width="34" height="29">
-  <data encoding="base64" compression="zlib">
-   eJwzZGJgMBxgLADFAw1G3THqjlF3jLpj1B2j7hh1x6g7Rt0x6o5Rd4wcdxgwYWJK3EHILHLsQu87EeMOegEZJggeTO4Y6L4tDAMA/BwVBg==
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAzNkYmAwHGAsAMUDDUbdMeqOUXeMumPUHaPuGHXHqDtG3THqjlF3jBx3GDBhYkrcQcgscuxC7zsR4w56ARkmCB5M7hjovi0MAwCHOFlcaA8AAA==
   </data>
  </layer>
 </map>
