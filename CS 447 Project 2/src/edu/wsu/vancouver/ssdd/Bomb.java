@@ -1,6 +1,5 @@
 package edu.wsu.vancouver.ssdd;
 
-import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
 

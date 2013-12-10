@@ -5,9 +5,6 @@ import java.util.BitSet;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Sound;
 
-import edu.wsu.vancouver.ssdd.GameEntity.EntityProperty;
-
-import jig.Entity;
 import jig.ResourceManager;
 
 public class Explosion extends GameEntity {

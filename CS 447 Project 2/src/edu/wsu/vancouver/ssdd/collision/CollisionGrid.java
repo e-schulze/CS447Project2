@@ -16,6 +16,15 @@ public class CollisionGrid extends CollisionDetection {
 	/** Spatial Index Grid */
 	private List<List<List<GameEntity>>> sig;
 
+	public CollisionGrid(EntityManager entityManager, int gridSize) {
+		super(entityManager);
+		if (gridSize == 0) {
+			this.gridSize = 50;
+		} else {
+			this.gridSize = gridSize;
+		}
+	}
+	
 	public CollisionGrid(EntityManager entityManager, Map map, int gridSize) {
 		super(entityManager);
 		if (gridSize == 0) {
@@ -23,6 +32,10 @@ public class CollisionGrid extends CollisionDetection {
 		} else {
 			this.gridSize = gridSize;
 		}
+		initSPI(map);
+	}
+	
+	public void initMap(Map map) {
 		initSPI(map);
 	}
 
