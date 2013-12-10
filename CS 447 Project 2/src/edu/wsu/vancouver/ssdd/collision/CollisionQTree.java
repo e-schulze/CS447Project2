@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
-import jig.Vector;
-
 import edu.wsu.vancouver.ssdd.EntityManager;
 import edu.wsu.vancouver.ssdd.GameEntity;
+import edu.wsu.vancouver.ssdd.Map;
 
 public class CollisionQTree extends CollisionDetection {
+	private Map map;
+	private static final int MAXELEMENTNODE = 4;
 
-	public CollisionQTree(EntityManager entityManager) {
+	public CollisionQTree(EntityManager entityManager, Map map) {
 		super(entityManager);
+		this.map = map;
 	}
 
 	@Override
@@ -24,9 +24,33 @@ public class CollisionQTree extends CollisionDetection {
 	}
 
 	void findCollision() {
+		QuadTreeNode root = new QuadTreeNode(map.getMapWidth() / 2, map.getMapHeight() / 2, MAXELEMENTNODE);
 		List<GameEntity> gameEntityList = new ArrayList<GameEntity>(entityManager.getEntityMap().values());
-		// Two loops, for each and iterator. Iterators faster than non indexing
-		// get on ArrayLists.
+		// Populate tree
+		for (GameEntity ge : gameEntityList) {
+			root.addElement(ge);
+		}
+		traverseTree(root);
+	}
+
+	private void traverseTree(QuadTreeNode node) {
+		QuadTreeNode[] quadrant = new QuadTreeNode[4];
+		if ((quadrant[0] = node.getQuadrant(0)) != null) {
+			traverseTree(quadrant[0]);
+		}
+		if ((quadrant[1] = node.getQuadrant(1)) != null) {
+			traverseTree(quadrant[1]);
+		}
+		if ((quadrant[2] = node.getQuadrant(2)) != null) {
+			traverseTree(quadrant[2]);
+		}
+		if ((quadrant[3] = node.getQuadrant(3)) != null) {
+			traverseTree(quadrant[3]);
+		}
+		processCollision(node.getGameEntityList());
+	}
+	
+	private void processCollision(List<GameEntity> gameEntityList) {
 		for (GameEntity geA : gameEntityList) {
 			Iterator<GameEntity> it = gameEntityList.iterator();
 			// Prevents duplicates in detecting collisions.
@@ -75,16 +99,23 @@ public class CollisionQTree extends CollisionDetection {
 		}
 
 		public void addElement(GameEntity ge) {
-			gameEntityList.add(ge);
-			if (elementCount + 1 > elementMaxCount) {
-				split();
-				elementCount = 0;
-			} else {
-				elementCount++;
+			// If atleast one quadrant has been initialized then all of the
+			// others have been initialized. Prevent adding to inner nodes.
+			if (quadrant[0] != null) {
+				spanningAdd(ge);
+			} // As a leaf node
+			else {
+				gameEntityList.add(ge);
+				if (elementCount + 1 > elementMaxCount) {
+					split();
+					elementCount = 0;
+				} else {
+					elementCount++;
+				}
 			}
 		}
 
-		protected void split() {
+		private void split() {
 			// Quadrant I
 			quadrant[0] = new QuadTreeNode(xOrigin + getXOriginHalf(), yOrigin - getYOriginHalf(), elementMaxCount);
 			// Quadrant II
@@ -95,22 +126,26 @@ public class CollisionQTree extends CollisionDetection {
 			quadrant[3] = new QuadTreeNode(xOrigin + getXOriginHalf(), yOrigin + getYOriginHalf(), elementMaxCount);
 
 			for (GameEntity ge : gameEntityList) {
-				// Corners in ST/UW coordinates with same alignment with
-				// quadrants. Top-right CCW
-				if (ge.getCoarseGrainedMaxX() > xOrigin && ge.getCoarseGrainedMinY() < yOrigin) {
-					quadrant[0].addElement(ge);
-				}
-				if (ge.getCoarseGrainedMinX() < xOrigin && ge.getCoarseGrainedMinY() < yOrigin) {
-					quadrant[1].addElement(ge);
-				}
-				if (ge.getCoarseGrainedMinX() < xOrigin && ge.getCoarseGrainedMaxY() > yOrigin) {
-					quadrant[2].addElement(ge);
-				}
-				if (ge.getCoarseGrainedMaxX() > xOrigin && ge.getCoarseGrainedMaxY() > yOrigin) {
-					quadrant[3].addElement(ge);
-				}
+				spanningAdd(ge);
 			}
 			gameEntityList.clear();
+		}
+
+		private void spanningAdd(GameEntity ge) {
+			// Corners in ST/UW coordinates with same alignment with
+			// quadrants. Top-right CCW
+			if (ge.getCoarseGrainedMaxX() > xOrigin && ge.getCoarseGrainedMinY() < yOrigin) {
+				quadrant[0].addElement(ge);
+			}
+			if (ge.getCoarseGrainedMinX() < xOrigin && ge.getCoarseGrainedMinY() < yOrigin) {
+				quadrant[1].addElement(ge);
+			}
+			if (ge.getCoarseGrainedMinX() < xOrigin && ge.getCoarseGrainedMaxY() > yOrigin) {
+				quadrant[2].addElement(ge);
+			}
+			if (ge.getCoarseGrainedMaxX() > xOrigin && ge.getCoarseGrainedMaxY() > yOrigin) {
+				quadrant[3].addElement(ge);
+			}
 		}
 
 		public float getXOrigin() {
@@ -151,7 +186,5 @@ public class CollisionQTree extends CollisionDetection {
 				return null;
 			}
 		}
-
 	}
-
 }
