@@ -107,6 +107,10 @@ public class PlayerCopy extends GameEntity {
 		gravity();
 		camera();
 	}
+	
+	@Override
+	public void collision(GameEntity gameEntity) {
+	}
 
 	private void gravity() {
 		float gravity = 0.1f;
