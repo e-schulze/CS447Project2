@@ -12,8 +12,17 @@ public class CollisionQTree extends CollisionDetection {
 	private Map map;
 	private static final int MAXELEMENTNODE = 4;
 
+	public CollisionQTree(EntityManager entityManager) {
+		super(entityManager);
+		this.map = null;
+	}
+	
 	public CollisionQTree(EntityManager entityManager, Map map) {
 		super(entityManager);
+		this.map = map;
+	}
+	
+	public void initMap(Map map) {
 		this.map = map;
 	}
 
