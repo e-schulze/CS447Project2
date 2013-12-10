@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import jig.Entity;
+import jig.ResourceManager;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -20,14 +21,14 @@ import edu.wsu.vancouver.ssdd.tests.UnsetBitTest;
 
 public class Main extends BasicGame {
 	public static final int logicInterval = 20;
-	
+
 	private enum GameState {
 		START_UP, PLAYING, GAME_OVER;
 	}
-	
+
 	public static int windowWidth;
 	public static int windowHeight;
-	
+
 	private GameState gameState;
 	private int gameOverTimer;
 
@@ -35,14 +36,16 @@ public class Main extends BasicGame {
 	private Camera camera;
 	private MapLoader mapLoader;
 	private Map map;
+	private Background background;
 	private Image screenBuffer;
-	
+
 	private CollisionBruteForce collisionBf;
-	
+
 	private EntityManager entityManager;
 	private EntityFactory entityFactory;
 
 	private UnsetBitTest u;
+
 	public Main(String title) {
 		super(title);
 	}
@@ -51,10 +54,10 @@ public class Main extends BasicGame {
 	public void init(GameContainer gc) {
 		startUp(gc);
 	}
-	
+
 	public void startUp(GameContainer gc) {
 		gameState = GameState.START_UP;
-		
+
 		this.input = gc.getInput();
 		input.enableKeyRepeat();
 		windowWidth = gc.getWidth();
@@ -64,29 +67,30 @@ public class Main extends BasicGame {
 
 		Resources.loadImages();
 		Resources.loadSounds();
-		
+
 		mapLoader = new MapLoader();
-		
+
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		entityManager = new EntityManager();
 		entityFactory = new EntityFactory(entityManager, input);
-		
+
 		collisionBf = new CollisionBruteForce(entityManager);
 	}
-	
+
 	public void newGame(GameContainer gc) throws SlickException {
 		gameState = GameState.PLAYING;
 		gc.setSoundOn(true);
-		
+
 		map = mapLoader.loadMap("maps/mapLevelOne.tmx");
 		map.printMapInfo();
-		
 
 		camera = new Camera(0.0f, 0.0f, windowWidth, windowHeight, map);
+		background = new Background(ResourceManager.getImage("images/moon_background.jpg"), camera, map, windowWidth,
+				windowHeight);
 		screenBuffer = map.getViewableArea(0, 0, windowWidth, windowHeight);
 
 		u = new UnsetBitTest(map);
-		
+
 		entityFactory.updateMap(map);
 		entityFactory.updateCamera(camera);
 		entityFactory.createEntity(EntityType.PLAYER_COPY, 75.0f, 70.0f);
@@ -102,20 +106,21 @@ public class Main extends BasicGame {
 		entityFactory.createEntity(EntityType.ZOMBIE, 700.0f, 400.0f);
 		entityManager.entityCreateProcess();
 	}
-	
+
 	public void gameOver() {
 		gameState = GameState.GAME_OVER;
 		gameOverTimer = 4000;
 	}
-	
-	public void makeMenu(){
-		//MenuLevel mLev = new MenuLevel(entity, x, y);
+
+	public void makeMenu() {
+		// MenuLevel mLev = new MenuLevel(entity, x, y);
 	}
 
 	@Override
 	public void update(GameContainer gc, int lastUpdateInterval) throws SlickException {
 		switch (gameState) {
-		// Start up only once (need an intermediary state between start up and playing preferably menu
+		// Start up only once (need an intermediary state between start up and
+		// playing preferably menu
 		case START_UP:
 			gameState = GameState.PLAYING;
 			// Temporary, remove when menu is implemented.
@@ -142,10 +147,11 @@ public class Main extends BasicGame {
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		switch(gameState){
+		switch (gameState) {
 		case START_UP:
 			break;
 		case PLAYING:
+			g.drawImage(background.getBackGroundShot(), 0.0f, 0.0f);
 			g.drawImage(screenBuffer, 0.0f, 0.0f);
 			entityManager.renderEntities(g, camera);
 			break;
@@ -186,7 +192,7 @@ public class Main extends BasicGame {
 
 	@Override
 	public void mouseWheelMoved(int change) {
-		
+
 	}
 
 	public int getLogicInterval() {
@@ -212,4 +218,3 @@ public class Main extends BasicGame {
 		}
 	}
 }
-
