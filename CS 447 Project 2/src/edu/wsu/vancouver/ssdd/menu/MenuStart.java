@@ -14,37 +14,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-/**
- * A Simple Game of Bounce.
- * 
- * The game has three states: StartUp, Playing, and GameOver, the game
- * progresses through these states based on the user's input and the events that
- * occur. Each state is modestly different in terms of what is displayed and
- * what input is accepted.
- * 
- * In the playing state, our game displays a moving rectangular "ball" that
- * bounces off the sides of the game container. The ball can be controlled by
- * input from the user.
- * 
- * When the ball bounces, it appears broken for a short time afterwards and an
- * explosion animation is played at the impact site to add a bit of eye-candy
- * additionally, we play a short explosion sound effect when the game is
- * actively being played.
- * 
- * Our game also tracks the number of bounces and syncs the game update loop
- * with the monitor's refresh rate.
- * 
- * Graphics resources courtesy of qubodup:
- * http://opengameart.org/content/bomb-explosion-animation
- * 
- * Sound resources courtesy of DJ Chronos:
- * http://www.freesound.org/people/DJ%20Chronos/sounds/123236/
- * 
- * 
- * @author wallaces
- * 
- */
-
 import edu.wsu.vancouver.ssdd.menu.Main;
 
 public class MenuStart extends BasicGameState{
@@ -57,21 +26,10 @@ public class MenuStart extends BasicGameState{
 	int posX;
 	int posY;
 	
-	/**
-	 * Create the BounceGame frame, saving the width and height for later use.
-	 * 
-	 * @param title
-	 *            the window's title
-	 * @param width
-	 *            the window's width
-	 * @param height
-	 *            the window's height
-	 */
 	public MenuStart(int state, int ScreenWidth, int ScreenHeight){
 		this.ScreenHeight = ScreenHeight;
 		this.ScreenWidth = ScreenWidth;
 		
-		//Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		getID_state = state;
 	}
 	

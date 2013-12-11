@@ -3,6 +3,8 @@ package edu.wsu.vancouver.ssdd.menu;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
+import edu.wsu.vancouver.ssdd.levelOne;
+
 public class Main extends StateBasedGame{
 	
 	private final static int ScreenHeight = 600;
@@ -18,7 +20,7 @@ public class Main extends StateBasedGame{
    public Main(String gamename){
       super(gamename);
       this.addState(new MainMenu( stateID.MAIN_MENU.ordinal(), ScreenWidth, ScreenHeight ));
-      this.addState(new MenuStart( stateID.MENU_START.ordinal(), ScreenWidth, ScreenHeight ));
+      this.addState(new levelOne( stateID.MENU_START.ordinal(), ScreenWidth, ScreenHeight ));
       this.addState(new MenuLevel( stateID.MENU_LEVEL.ordinal(), ScreenWidth, ScreenHeight ));
       this.addState(new MenuCredit( stateID.MENU_CREDIT.ordinal(), ScreenWidth, ScreenHeight ));
       this.addState(new MenuHelp( stateID.MENU_HELP.ordinal(), ScreenWidth, ScreenHeight ));
