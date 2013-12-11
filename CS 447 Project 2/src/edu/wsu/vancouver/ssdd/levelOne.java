@@ -148,13 +148,29 @@ public class levelOne extends BasicGameState {
 		case 1:
 			level++;
 			map = mapLoader.loadMap("maps/mapLevelTwo.tmx");
+			entityFactory.updateMap(map);
+			camera.updateMap(map);
+			entityFactory.updateCamera(camera);
 			entityManager.clearAllObjects();
+			try {
+				entityLoader.loadEntity("rsc/maps/map_test_entities.txt");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			// add player and enemies and door;
 			break;
 		case 2:
 			level++;
 			map = mapLoader.loadMap("maps/mapLevelThree.tmx");
+			entityFactory.updateMap(map);
+			camera.updateMap(map);
+			entityFactory.updateCamera(camera);
 			entityManager.clearAllObjects();
+			try {
+				entityLoader.loadEntity("rsc/maps/map_test_entities.txt");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			// add player and enemies and door;
 			break;
 		case 3:

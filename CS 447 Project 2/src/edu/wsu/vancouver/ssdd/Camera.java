@@ -67,4 +67,8 @@ public class Camera {
 		tlx = 0.0f;
 		tly = 0.0f;
 	}
+	
+	public void updateMap(Map map) {
+		this.map = map;
+	}
 }
