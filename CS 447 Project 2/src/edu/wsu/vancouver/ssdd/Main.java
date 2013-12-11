@@ -1,5 +1,6 @@
 package edu.wsu.vancouver.ssdd;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +44,7 @@ public class Main extends BasicGame {
 
 	private EntityManager entityManager;
 	private EntityFactory entityFactory;
+	private EntityLoader entityLoader;
 
 	private UnsetBitTest u;
 
@@ -73,6 +75,7 @@ public class Main extends BasicGame {
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		entityManager = new EntityManager();
 		entityFactory = new EntityFactory(entityManager, input);
+		entityLoader = new EntityLoader(entityFactory);
 
 		collisionBf = new CollisionBruteForce(entityManager);
 	}
@@ -93,17 +96,22 @@ public class Main extends BasicGame {
 
 		entityFactory.updateMap(map);
 		entityFactory.updateCamera(camera);
-		entityFactory.createEntity(EntityType.PLAYER, 75.0f, 70.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 75.0f, 300.0f);
-		entityFactory.createEntity(EntityType.ROBOT, 300.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 400.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 450.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 550.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 620.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ROBOT, 750.0f, 50.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 900.0f, 320.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 600.0f, 400.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 700.0f, 400.0f);
+		try {
+			entityLoader.loadEntity("rsc/maps/map_test_entities.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		entityFactory.createEntity(EntityType.PLAYER, 75.0f, 70.0f);
+//		entityFactory.createEntity(EntityType.ZOMBIE, 75.0f, 300.0f);
+//		entityFactory.createEntity(EntityType.ROBOT, 300.0f, 200.0f);
+//		entityFactory.createEntity(EntityType.ZOMBIE, 400.0f, 200.0f);
+//		entityFactory.createEntity(EntityType.ZOMBIE, 450.0f, 200.0f);
+//		entityFactory.createEntity(EntityType.ZOMBIE, 550.0f, 200.0f);
+//		entityFactory.createEntity(EntityType.ZOMBIE, 620.0f, 200.0f);
+//		entityFactory.createEntity(EntityType.ROBOT, 750.0f, 50.0f);
+//		entityFactory.createEntity(EntityType.ZOMBIE, 900.0f, 320.0f);
+//		entityFactory.createEntity(EntityType.ZOMBIE, 600.0f, 400.0f);
+//		entityFactory.createEntity(EntityType.ZOMBIE, 700.0f, 400.0f);
 		entityManager.entityCreateProcess();
 	}
 
