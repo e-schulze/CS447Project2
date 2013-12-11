@@ -1,6 +1,10 @@
 package edu.wsu.vancouver.ssdd;
 
+import java.util.BitSet;
+
 import org.newdawn.slick.Animation;
+
+import edu.wsu.vancouver.ssdd.GameEntity.EntityProperty;
 
 import jig.ResourceManager;
 import jig.Vector;
@@ -71,7 +75,7 @@ public class Enemy extends GameEntity {
 			}
 			break;
 		case ROBOT:
-			this.maxHealth = this.curHealth = 99999;
+			this.maxHealth = this.curHealth = 10;
 			right = new Animation(ResourceManager.getSpriteSheet("images/RobotRight.png", 33, 58), 143);
 			left = new Animation();
 			for (int i = 0; i < right.getFrameCount(); i++) {
@@ -127,6 +131,11 @@ public class Enemy extends GameEntity {
 
 	@Override
 	public void collision(GameEntity gameEntity) {
+		BitSet bullet = new BitSet();
+		bullet.set(EntityProperty.BULLET.getValue());
+		if(gameEntity.getEntityMask().equals(bullet) && this.enemyType == EnemyType.ZOMBIE){
+			this.curHealth -= 10;
+		}
 	}
 
 	private void movement() {

@@ -23,6 +23,7 @@ public class Resources {
 		jig.ResourceManager.loadImage("images/menuHelp.png");
 		jig.ResourceManager.loadImage("images/menuLevel.png");
 		jig.ResourceManager.loadImage("images/menuStart.png");
+		jig.ResourceManager.loadImage("images/door.png");
 	}
 
 	/**

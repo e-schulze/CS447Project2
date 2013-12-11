@@ -27,6 +27,7 @@ public class Bullet extends GameEntity {
 	private Vector vel;
 	private int timer;
 	private String dirBlast;
+	public int damage;
 
 	public Bullet(EntityManager entityManager, Map map, BulletType BulletType, String dir) {
 		this(entityManager, map, 0.0f, 0.0f, BulletType, dir);
@@ -35,7 +36,10 @@ public class Bullet extends GameEntity {
 	public Bullet(EntityManager entityManager, Map map, float x, float y, BulletType BulletType, String dir) {
 		super(entityManager, x, y);
 		this.map = map;
+		damage = 10;
 		this.eState = EntityState.AIR;
+		entityMask.set(GameEntity.EntityProperty.BULLET.getValue());
+
 		
 		this.BulletType = BulletType;
 		switch (BulletType) {
@@ -76,6 +80,10 @@ public class Bullet extends GameEntity {
 		bitCollision();
 		//gravity();
 		setPosition(getPosition().add(vel));
+	}
+	
+	public void collision(GameEntity gameEntity) {
+		entityManager.entityDeleteMark(getEntityId());
 	}
 	
 	/**

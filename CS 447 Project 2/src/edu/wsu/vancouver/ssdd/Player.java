@@ -39,6 +39,7 @@ public class Player extends GameEntity {
 	private final float maxVelSq;
 	private int curHealth;
 	private final int maxHealth;
+	private int invulnerable;
 
 	public Player(EntityManager entityManager, Map map, Input input, Camera camera, String facing) {
 		this(entityManager, map, input, camera, 0.0f, 0.0f, facing);
@@ -52,6 +53,7 @@ public class Player extends GameEntity {
 		this.camera = camera;
 		entityMask.set(GameEntity.EntityProperty.FRIENDLY.getValue());
 
+		invulnerable = 0;
 		this.pState = PlayerState.AIR;
 		this.jumped = false;
 		this.wallJumpTimer = 0;
@@ -111,6 +113,9 @@ public class Player extends GameEntity {
 		gravity();
 		health();
 		camera();
+		if(this.invulnerable > 0){
+			this.invulnerable -= delta;
+		}
 	}
 	
 	@Override
@@ -138,9 +143,15 @@ public class Player extends GameEntity {
 	public void collision(GameEntity gameEntity) {
 		BitSet door = new BitSet();
 		door.set(EntityProperty.DOOR.getValue());
+		BitSet enemy = new BitSet();
+		enemy.set(EntityProperty.ENEMY.getValue());
 		if(gameEntity.getEntityMask().equals(door)){
 			new Explosion(entityManager, map, gameEntity.getX(), gameEntity.getY());
 			map.win = true;
+		}
+		else if(gameEntity.getEntityMask().equals(enemy) && this.invulnerable <= 0){
+			this.curHealth -= 200;
+			this.invulnerable = 1000;
 		}
 	}
 

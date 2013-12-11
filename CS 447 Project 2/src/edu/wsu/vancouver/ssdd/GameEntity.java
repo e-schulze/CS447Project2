@@ -14,7 +14,8 @@ public abstract class GameEntity extends Entity {
 		FRIENDLY(2),
 		ENEMY(3),
 		WEAPON(4),
-		DOOR(5);
+		DOOR(5),
+		BULLET(6);
 		
 		private int value;
 		
