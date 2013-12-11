@@ -153,7 +153,7 @@ public class levelOne extends BasicGameState {
 			entityFactory.updateCamera(camera);
 			entityManager.clearAllObjects();
 			try {
-				entityLoader.loadEntity("rsc/maps/map_test_entities.txt");
+				entityLoader.loadEntity("rsc/maps/mapLevelTwoEntities.txt");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -167,7 +167,7 @@ public class levelOne extends BasicGameState {
 			entityFactory.updateCamera(camera);
 			entityManager.clearAllObjects();
 			try {
-				entityLoader.loadEntity("rsc/maps/map_test_entities.txt");
+				entityLoader.loadEntity("rsc/maps/mapLevelThreeEntities.txt");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
