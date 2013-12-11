@@ -1,1 +1,2 @@
 Player 75.0f 75.0f Right
+Zombie 170.0f 75.0f Right

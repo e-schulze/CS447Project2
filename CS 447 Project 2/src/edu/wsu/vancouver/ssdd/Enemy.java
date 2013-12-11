@@ -45,8 +45,7 @@ public class Enemy extends GameEntity {
 		this.enemyType = enemyType;
 		this.dir = dir;
 		this.map = map;
-		
-		
+
 		this.eState = EnemyState.AIR;
 		entityMask.set(GameEntity.EntityProperty.ENEMY.getValue());
 		this.addImageWithBoundingBox(ResourceManager.getImage("images/PlayerStandingLeft.png"));
@@ -64,13 +63,15 @@ public class Enemy extends GameEntity {
 			if (dir.compareTo("Right") == 0) {
 				this.vel = new Vector(0.05f, 0f);
 				this.addAnimation(right);
+				aState = AnimationState.MOVING_RIGHT;
 			} else {
 				this.vel = new Vector(-0.05f, 0f);
 				this.addAnimation(left);
+				aState = AnimationState.MOVING_LEFT;
 			}
 			break;
 		case ROBOT:
-			this.maxHealth = this.curHealth = 999999;
+			this.maxHealth = this.curHealth = 99999;
 			right = new Animation(ResourceManager.getSpriteSheet("images/RobotRight.png", 33, 58), 143);
 			left = new Animation();
 			for (int i = 0; i < right.getFrameCount(); i++) {
@@ -79,9 +80,11 @@ public class Enemy extends GameEntity {
 			if (dir.compareTo("Right") == 0) {
 				this.vel = new Vector(0.05f, 0f);
 				this.addAnimation(right);
+				aState = AnimationState.MOVING_RIGHT;
 			} else {
 				this.vel = new Vector(-0.05f, 0f);
 				this.addAnimation(left);
+				aState = AnimationState.MOVING_LEFT;
 			}
 			break;
 		}
@@ -116,14 +119,58 @@ public class Enemy extends GameEntity {
 	}
 
 	public void update(int delta) {
-		// movement();
+		movement();
 		bitCollision();
 		gravity();
 		health();
 	}
-	
+
 	@Override
 	public void collision(GameEntity gameEntity) {
+	}
+
+	private void movement() {
+		if (dir.compareTo("Left") == 0) {
+			// Turn around
+			if (!bfBitDetection((int) getCoarseGrainedMinX() - 1, (int) getCoarseGrainedMinX(),
+					(int) getCoarseGrainedMaxY(), (int) getCoarseGrainedMaxY() + 1)
+					|| bfBitDetection((int) getCoarseGrainedMinX() - 1, (int) getCoarseGrainedMinX(),
+					(int) getCoarseGrainedMinY(), (int) getCoarseGrainedMaxY())) {
+				dir = "Right";
+				removeAnimation();
+				aState = AnimationState.MOVING_RIGHT;
+				this.addAnimation(right);
+			}
+			// Keep walking
+			else {
+				Vector p = getPosition();
+				setPosition(p.getX() - 0.5f, p.getY());
+			}
+		} else if (dir.compareTo("Right") == 0) {
+			// Turn around
+			if (!bfBitDetection((int) getCoarseGrainedMaxX(), (int) getCoarseGrainedMaxX() + 1,
+					(int) getCoarseGrainedMaxY(), (int) getCoarseGrainedMaxY() + 1)
+					|| bfBitDetection((int) getCoarseGrainedMaxX(), (int) getCoarseGrainedMaxX() + 1,
+							(int) getCoarseGrainedMinY(), (int) getCoarseGrainedMaxY())) {
+				dir = "Left";
+				removeAnimation();
+				aState = AnimationState.MOVING_LEFT;
+				this.addAnimation(left);
+			}
+			// Keep walking
+			else {
+				Vector p = getPosition();
+				setPosition(p.getX() + 0.5f, p.getY());
+			}
+		}
+	}
+
+	private void removeAnimation() {
+		if (aState == AnimationState.MOVING_LEFT) {
+			this.removeAnimation(left);
+		} else if (aState == AnimationState.MOVING_RIGHT) {
+			this.removeAnimation(right);
+		}
 	}
 
 	private void bitCollision() {
@@ -175,7 +222,7 @@ public class Enemy extends GameEntity {
 			setPosition(getPosition().add(vel));
 		}
 	}
-	
+
 	private void health() {
 		if (curHealth <= 0) {
 			entityManager.entityDeleteMark(getEntityId());
