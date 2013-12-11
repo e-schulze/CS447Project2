@@ -11,11 +11,11 @@ public class Main extends StateBasedGame{
 	private final static int ScreenWidth = 800;
 	
 	public enum screenState{
-		MAIN_MENU, MENU_START, MENU_LEVEL,MENU_HELP, MENU_CREDIT, ;
+		MAIN_MENU, MENU_START, MENU_LEVEL,MENU_HELP, MENU_CREDIT;
 	}
 	
 	public static screenState stateID;
-	public static final String gamename = "Break Out";
+	public static final String gamename = "CS447 Project 2";
 	
    public Main(String gamename){
       super(gamename);

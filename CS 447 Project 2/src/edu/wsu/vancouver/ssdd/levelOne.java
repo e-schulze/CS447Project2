@@ -150,16 +150,6 @@ public class levelOne extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int lastUpdateInterval)
 			throws SlickException {
-
-		posX = Mouse.getX();
-		posY = ScreenHeight - Mouse.getY();
-		
-		if ( (posX > 0 && posX < 230) && (posY > ScreenHeight - 50 && posY < ScreenHeight ) ){ // Main Menu
-			if (Mouse.isButtonDown(0))
-				sbg.enterState(Main.stateID.MAIN_MENU.ordinal() );
-		}
-		
-		//-----------------------------------------------------------------
 		
 		switch (gameState) {
 		// Start up only once (need an intermediary state between start up and

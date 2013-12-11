@@ -174,9 +174,9 @@ public class Player extends GameEntity {
 		}
 		
 		if (input.isKeyPressed(Input.KEY_X)) {
-			if (aState == AnimationState.STANDING_LEFT) {
+			if (aState == AnimationState.STANDING_LEFT || aState == AnimationState.MOVING_LEFT) {
 				new Bullet(entityManager, map, getPosition().getX(), getPosition().getY(), BulletType.GUN_BULLET, "Left");
-			} else {
+			} else if (aState == AnimationState.STANDING_RIGHT || aState == AnimationState.MOVING_RIGHT){
 				new Bullet(entityManager, map, getPosition().getX(), getPosition().getY(), BulletType.GUN_BULLET, "Right");
 			}
 
