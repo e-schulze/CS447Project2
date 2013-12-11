@@ -71,7 +71,7 @@ public class CollisionTestMain extends BasicGame {
 		entityFactory.updateMap(map);
 		entityFactory.updateCamera(camera);
 		
-		entityFactory.createEntity(EntityType.PLAYER_COPY, 100.0f, 100.0f);
+		entityFactory.createEntity(EntityType.PLAYER, 100.0f, 100.0f);
 		
 		collisionBf = new CollisionBruteForce(entityManager);
 	}
