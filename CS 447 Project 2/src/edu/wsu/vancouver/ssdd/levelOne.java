@@ -20,7 +20,29 @@ import edu.wsu.vancouver.ssdd.EntityFactory.EntityType;
 import edu.wsu.vancouver.ssdd.collision.CollisionBruteForce;
 import edu.wsu.vancouver.ssdd.tests.UnsetBitTest;
 
-public class Main extends BasicGame {
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import jig.Entity;
+import jig.ResourceManager;
+
+import org.lwjgl.input.Mouse;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+
+import edu.wsu.vancouver.ssdd.menu.Main;
+
+public class levelOne extends BasicGameState {
+	private final int ScreenWidth;
+	private final int ScreenHeight;
+	private int getID_state;
+	int posX;
+	int posY;
+	
 	public static final int logicInterval = 20;
 
 	private enum GameState {
@@ -47,16 +69,18 @@ public class Main extends BasicGame {
 	private EntityLoader entityLoader;
 
 	private UnsetBitTest u;
-	
 	private int level;
 	private int winTimer;
 
-	public Main(String title) {
-		super(title);
+	public levelOne(int state, int ScreenWidth, int ScreenHeight){
+		this.ScreenHeight = ScreenHeight;
+		this.ScreenWidth = ScreenWidth;
+		
+		getID_state = state;
+
 	}
 
-	@Override
-	public void init(GameContainer gc) {
+	public void init(GameContainer gc, StateBasedGame sbg) {
 		startUp(gc);
 	}
 
@@ -75,7 +99,6 @@ public class Main extends BasicGame {
 
 		mapLoader = new MapLoader();
 
-		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		entityManager = new EntityManager();
 		entityFactory = new EntityFactory(entityManager, input);
 		entityLoader = new EntityLoader(entityFactory);
@@ -141,7 +164,9 @@ public class Main extends BasicGame {
 	}
 
 	@Override
-	public void update(GameContainer gc, int lastUpdateInterval) throws SlickException {
+	public void update(GameContainer gc, StateBasedGame sbg, int lastUpdateInterval)
+			throws SlickException {
+		
 		switch (gameState) {
 		// Start up only once (need an intermediary state between start up and
 		// playing preferably menu
@@ -176,7 +201,8 @@ public class Main extends BasicGame {
 	}
 
 	@Override
-	public void render(GameContainer container, Graphics g) throws SlickException {
+	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
+			throws SlickException {
 		switch (gameState) {
 		case START_UP:
 			break;
@@ -228,23 +254,7 @@ public class Main extends BasicGame {
 	public int getLogicInterval() {
 		return logicInterval;
 	}
-
-	public static void main(String[] args) {
-		try {
-			AppGameContainer appgc;
-			appgc = new AppGameContainer(new Main("CS447 Project 2 [To Be Named]"), 800, 600, false);
-			appgc.setDisplayMode(800, 600, false);
-			// Fixed time step, min == max.
-			appgc.setMinimumLogicUpdateInterval(logicInterval);
-			appgc.setMaximumLogicUpdateInterval(logicInterval);
-			appgc.setUpdateOnlyWhenVisible(false);
-			appgc.setAlwaysRender(true);
-			appgc.setVSync(true);
-			// Maximum Frame Rate
-			appgc.setTargetFrameRate(120);
-			appgc.start();
-		} catch (SlickException ex) {
-			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-		}
+	public int getID() {
+	      return getID_state;
 	}
 }
