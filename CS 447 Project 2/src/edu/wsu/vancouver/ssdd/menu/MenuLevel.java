@@ -78,12 +78,16 @@ public class MenuLevel extends BasicGameState{
 	 */
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		
+				
+		ResourceManager.loadImage("images/level1_button.png");
+		ResourceManager.loadImage("images/level2_button.png");
+		ResourceManager.loadImage("images/level3_button.png");
 		ResourceManager.loadImage("images/menuGoBack.png");
-		ResourceManager.loadImage("images/menuLevel.png");
 		
+		g.drawImage(ResourceManager.getImage("images/level1_button.png"), 	ScreenWidth/2 - 115, 230);		
+		g.drawImage(ResourceManager.getImage("images/level2_button.png"), 	ScreenWidth/2 - 115, 230 + 60);		
+		g.drawImage(ResourceManager.getImage("images/level3_button.png"), 	ScreenWidth/2 - 115, 230 + 2*60);
 		g.drawImage(ResourceManager.getImage("images/menuGoBack.png"), 0, ScreenHeight - 50);
-		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 225, 230 + 2*55);
 	}
 	
 	@Override
@@ -99,6 +103,21 @@ public class MenuLevel extends BasicGameState{
 			throws SlickException {
 		posX = Mouse.getX();
 		posY = ScreenHeight - Mouse.getY();
+		
+		if ( (posX > 285 && posX < 515) && (posY > 230 && posY < 280) ){ // Menu start
+			if (Mouse.isButtonDown(0))
+				sbg.enterState(Main.stateID.MENU_CREDIT.ordinal() );
+		}
+
+		if ( (posX > 285 && posX < 515) && (posY > 290 && posY < 340) ){ // menuLevel
+			if (Mouse.isButtonDown(0))
+				sbg.enterState(Main.stateID.MAIN_MENU.ordinal() );
+		}
+
+		if ( (posX > 285 && posX < 515) && (posY > 350 &&  posY < 400) ){ // menuHelp
+			if (Mouse.isButtonDown(0))
+				sbg.enterState(Main.stateID.MENU_HELP.ordinal() );
+		}
 		
 		if ( (posX > 0 && posX < 230) && (posY > ScreenHeight - 50 && posY < ScreenHeight ) ){ // Main Menu
 			if (Mouse.isButtonDown(0))

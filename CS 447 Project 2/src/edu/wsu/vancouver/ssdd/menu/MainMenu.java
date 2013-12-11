@@ -85,11 +85,13 @@ public class MainMenu extends BasicGameState{
 		ResourceManager.loadImage("images/menuLevel.png");
 		ResourceManager.loadImage("images/menuHelp.png");
 		ResourceManager.loadImage("images/menuCredit.png");
+		ResourceManager.loadImage("images/menuGoBack.png");
 		
 		g.drawImage(ResourceManager.getImage("images/menuStart.png"), 	ScreenWidth/2 - 115, 230);		
 		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 	ScreenWidth/2 - 115, 230 + 60);		
 		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 	ScreenWidth/2 - 115, 230 + 2*60);		
-		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 	ScreenWidth/2 - 115, 230 + 3*60);		
+		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 	ScreenWidth/2 - 115, 230 + 3*60);
+
 	}
 	
 	@Override
@@ -127,6 +129,7 @@ public class MainMenu extends BasicGameState{
 				sbg.enterState(Main.stateID.MENU_CREDIT.ordinal() );
 			}
 		}
+		
 		
 	}
 	
