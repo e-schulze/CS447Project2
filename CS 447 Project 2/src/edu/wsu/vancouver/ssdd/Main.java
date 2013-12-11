@@ -101,7 +101,7 @@ public class Main extends BasicGame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		entityFactory.createEntity(EntityType.PLAYER, 75.0f, 70.0f);
+		entityFactory.createEntity(EntityType.PLAYER, 75.0f, 70.0f);
 //		entityFactory.createEntity(EntityType.ZOMBIE, 75.0f, 300.0f);
 //		entityFactory.createEntity(EntityType.ROBOT, 300.0f, 200.0f);
 //		entityFactory.createEntity(EntityType.ZOMBIE, 400.0f, 200.0f);

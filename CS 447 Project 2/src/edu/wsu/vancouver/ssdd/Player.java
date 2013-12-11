@@ -4,6 +4,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Input;
 
 import edu.wsu.vancouver.ssdd.Bomb.BombType;
+import edu.wsu.vancouver.ssdd.Bullet.BulletType;
 
 import jig.ResourceManager;
 import jig.Vector;
@@ -170,6 +171,15 @@ public class Player extends GameEntity {
 		
 		if (input.isKeyPressed(Input.KEY_Z)) {
 			new Bomb(entityManager, map, getPosition().getX(), getPosition().getY(), BombType.GRENADE, "Left");
+		}
+		
+		if (input.isKeyPressed(Input.KEY_X)) {
+			if (aState == AnimationState.STANDING_LEFT) {
+				new Bullet(entityManager, map, getPosition().getX(), getPosition().getY(), BulletType.GUN_BULLET, "Left");
+			} else {
+				new Bullet(entityManager, map, getPosition().getX(), getPosition().getY(), BulletType.GUN_BULLET, "Right");
+			}
+
 		}
 	}
 
