@@ -1,11 +1,12 @@
 package edu.wsu.vancouver.ssdd;
 
+import java.util.BitSet;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Input;
 
 import edu.wsu.vancouver.ssdd.Bomb.BombType;
 import edu.wsu.vancouver.ssdd.Bullet.BulletType;
-
 import jig.ResourceManager;
 import jig.Vector;
 
@@ -107,10 +108,17 @@ public class Player extends GameEntity {
 		wallJumpTimer(delta);
 		gravity();
 		camera();
+		
 	}
 	
 	@Override
 	public void collision(GameEntity gameEntity) {
+		BitSet door = new BitSet();
+		door.set(EntityProperty.DOOR.getValue());
+		if(gameEntity.getEntityMask().equals(door)){
+			new Explosion(entityManager, map, gameEntity.getX(), gameEntity.getY());
+			map.win = true;
+		}
 	}
 
 	private void gravity() {

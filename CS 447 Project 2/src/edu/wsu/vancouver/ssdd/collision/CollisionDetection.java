@@ -44,6 +44,8 @@ public abstract class CollisionDetection {
 		enemy.set(EntityProperty.ENEMY.getValue());
 		BitSet bomb = new BitSet();
 		bomb.set(EntityProperty.WEAPON.getValue());
+		BitSet door = new BitSet();
+		door.set(EntityProperty.DOOR.getValue());
 
 		// Check if player is colliding with bomb
 		if (ddCheck(bsA, bsB, player, bomb)) {
@@ -54,7 +56,10 @@ public abstract class CollisionDetection {
 		} // Check if enemy is colliding with bomb
 		else if (ddCheck(bsA, bsB, enemy, bomb)) {
 			valid = true;
-		} // Unhandled case
+		} // check if the player has reached the exit
+		else if(ddCheck(bsA, bsB, player, door)){
+			valid = true;
+		}// Unhandled case
 		else {
 			valid = false;
 		}

@@ -1,5 +1,8 @@
 package edu.wsu.vancouver.ssdd;
 
+import jig.Entity;
+import jig.ResourceManager;
+
 import org.newdawn.slick.Input;
 
 import edu.wsu.vancouver.ssdd.Enemy.EnemyType;
@@ -8,7 +11,7 @@ import edu.wsu.vancouver.ssdd.tests.TestEntity;
 
 public class EntityFactory {
 	public enum EntityType {
-		EMPTY("Empty"), TEST("Test"), PLAYER("Player"), ROBOT("Robot"), ZOMBIE("Zombie");
+		EMPTY("Empty"), TEST("Test"), PLAYER("Player"), ROBOT("Robot"), ZOMBIE("Zombie"), DOOR("Door");
 		
 		private String type;
 
@@ -62,6 +65,9 @@ public class EntityFactory {
 		case ROBOT:
 			entity = new Enemy(entityManager, map, "Left", EnemyType.ROBOT);
 			break;
+		case DOOR:
+			entity = new Exit(entityManager, map);
+			break;
 		default:
 			break;
 		}
@@ -91,6 +97,9 @@ public class EntityFactory {
 			break;
 		case ROBOT:
 			entity = new Enemy(entityManager, map, cxp, cyp, "Left", EnemyType.ROBOT);
+			break;
+		case DOOR:
+			entity = new Exit(entityManager, map, cxp, cyp);
 			break;
 		default:
 			break;
