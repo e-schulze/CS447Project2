@@ -23,25 +23,26 @@ public class EntityLoader {
 			if (line.equals("")) {
 		        break;
 		    } else {
-		    	s = line.split("");
+		    	s = line.split(" ");
 		    }
-			System.out.println(s.length);
+			
 			// EntityType (float)XPosition (float)YPosition (String)Direction
 			if (s.length == 4) {
-				EntityType entityType = EntityType.valueOf(s[0]);
-				float xPos = Float.parseFloat(s[1]);
-				float yPos = Float.parseFloat(s[2]);
+				EntityType entityType = EntityType.fromString(s[0]);
+				float cxp = Float.parseFloat(s[1]);
+				float cyp = Float.parseFloat(s[2]);
 				String direction = new String(s[3]);
-				System.out.println("EntityType: " + entityType + "\n xPos: " + xPos + "\n yPos: " + yPos);
+				entityFactory.createEntity(entityType, cxp, cyp, direction);
 			} // EntityType (float)XPosition (float)YPosition
 			else if (s.length == 3) {
-				EntityType entityType = EntityType.valueOf(s[0]);
-				float xPos = Float.parseFloat(s[1]);
-				float yPos = Float.parseFloat(s[2]);
-				System.out.println("EntityType: " + entityType + "\n xPos: " + xPos + "\n yPos: " + yPos);
+				EntityType entityType = EntityType.fromString(s[0]);
+				float cxp = Float.parseFloat(s[1]);
+				float cyp = Float.parseFloat(s[2]);
+				entityFactory.createEntity(entityType, cxp, cyp);
 			} // EntityType
 			else if (s.length == 1) {
-				EntityType entityType = EntityType.valueOf(s[0]);
+				EntityType entityType = EntityType.fromString(s[0]);
+				entityFactory.createEntity(entityType);
 			}
 		}
 		

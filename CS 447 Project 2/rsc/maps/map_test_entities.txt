@@ -1,1 +1,1 @@
-Player 0 100 Left
+Player 75.0f 75.0f Right
