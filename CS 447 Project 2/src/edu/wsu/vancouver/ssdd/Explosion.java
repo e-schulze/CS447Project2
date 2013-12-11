@@ -23,11 +23,13 @@ public class Explosion extends GameEntity {
 		this.map = map;
 		
 		this.addImageWithBoundingBox(ResourceManager.getImage("images/placeholder.png"));
+		this.scale(0.75f);
 		this.removeImage(ResourceManager.getImage("images/placeholder.png"));
 		explosion = new Animation(ResourceManager.getSpriteSheet("images/explosionframes.png", 58, 58), 50);
+		sound = ResourceManager.getSound("sounds/explosion.wav");
 		this.addAnimation(explosion);
 		explosion.setLooping(false);
-		
+		sound.play();
 		explosionRadius = explosion.getImage(2).getWidth() * 0.5f;
 		this.damage = 5;
 	}

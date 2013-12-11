@@ -35,21 +35,26 @@ public class Bomb extends GameEntity {
 		this.bombType = bombType;
 		switch (bombType) {
 		case C4:
-			this.addImageWithBoundingBox(ResourceManager.getImage("images/bomb1.png"));
-			this.scale(0.25f);
+			this.addImageWithBoundingBox(ResourceManager.getImage("images/c4.png"));
+			this.scale(0.5f);
+			this.timer = 3000;
+			vel = new Vector(0.0f, 0.0f);
 			break;
 		case GRENADE:
-			this.addImageWithBoundingBox(ResourceManager.getImage("images/bomb1.png"));
-			this.scale(0.25f);
-			this.timer = 1000;
+			this.addImageWithBoundingBox(ResourceManager.getImage("images/m67b.png"));
+			this.scale(0.5f);
+			this.timer = 3000;
+			vel = new Vector(2.5f, -2.5f);
 			break;
 		case CHARGE:
-			this.addImageWithBoundingBox(ResourceManager.getImage("images/bomb1.png"));
-			this.scale(0.25f);
+			this.addImageWithBoundingBox(ResourceManager.getImage("images/shapedCharge.png"));
+			this.timer = 3000;
+			vel = new Vector(0.0f, 0.0f);
+			this.scale(0.5f);
 			break;
 		}
 
-		vel = new Vector(0.0f, 0.0f);
+		
 		/*
 		 * if(dir.compareTo("Left") == 0){ vel = new Vector(-0.075f, 0.05f); }
 		 * else if(dir.compareTo("Right") == 0){ vel = new Vector(0.075f,
@@ -71,7 +76,15 @@ public class Bomb extends GameEntity {
 			// Remove entity next loop
 			entityManager.entityDeleteMark(getEntityId());
 			// Create explosion
-			new Explosion(entityManager, map, getPosition().getX(), getPosition().getY());
+			if(bombType.compareTo(BombType.CHARGE) == 0){
+				new Explosion(entityManager, map, getPosition().getX(), getPosition().getY());
+				new Explosion(entityManager, map, getPosition().getX(), getPosition().getY()+50);
+				new Explosion(entityManager, map, getPosition().getX(), getPosition().getY()+100);
+				new Explosion(entityManager, map, getPosition().getX(), getPosition().getY()+150);
+			}else{
+				new Explosion(entityManager, map, getPosition().getX(), getPosition().getY());
+
+			}
 		}
 	}
 

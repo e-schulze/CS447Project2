@@ -6,6 +6,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Sound;
 
 import edu.wsu.vancouver.ssdd.Bomb.BombType;
 import edu.wsu.vancouver.ssdd.Bullet.BulletType;
@@ -40,6 +41,7 @@ public class Player extends GameEntity {
 	private int curHealth;
 	private final int maxHealth;
 	private int invulnerable;
+	private BombType currentBomb;
 
 	public Player(EntityManager entityManager, Map map, Input input, Camera camera, String facing) {
 		this(entityManager, map, input, camera, 0.0f, 0.0f, facing);
@@ -57,6 +59,7 @@ public class Player extends GameEntity {
 		this.pState = PlayerState.AIR;
 		this.jumped = false;
 		this.wallJumpTimer = 0;
+		currentBomb = BombType.C4;
 
 		setVel(new Vector(0f, 0f)); // no initial movement
 		this.maxVelSq = 16.0f;
@@ -117,7 +120,7 @@ public class Player extends GameEntity {
 			this.invulnerable -= delta;
 		}
 	}
-	
+
 	@Override
 	public void render(Graphics g, Camera c) {
 		// Draw health bar
@@ -129,7 +132,7 @@ public class Player extends GameEntity {
 					28.0f);
 			g.setColor(temp);
 		}
-		
+
 		Vector worldPosition = getPosition();
 		Vector cameraPosition = worldPosition.subtract(new Vector(c.getTlx(), c.getTly()));
 		setPosition(cameraPosition);
@@ -138,13 +141,15 @@ public class Player extends GameEntity {
 		// Reset position to world position
 		setPosition(worldPosition);
 	}
-	
+
 	@Override
 	public void collision(GameEntity gameEntity) {
 		BitSet door = new BitSet();
 		door.set(EntityProperty.DOOR.getValue());
 		BitSet enemy = new BitSet();
 		enemy.set(EntityProperty.ENEMY.getValue());
+		BitSet bomb = new BitSet();
+		bomb.set(EntityProperty.WEAPON.getValue());
 		if(gameEntity.getEntityMask().equals(door)){
 			new Explosion(entityManager, map, gameEntity.getX(), gameEntity.getY());
 			map.win = true;
@@ -152,6 +157,12 @@ public class Player extends GameEntity {
 		else if(gameEntity.getEntityMask().equals(enemy) && this.invulnerable <= 0){
 			this.curHealth -= 200;
 			this.invulnerable = 1000;
+			Sound s = ResourceManager.getSound("sounds/ouch.wav");
+			s.play();
+		}
+		else if(gameEntity.getEntityMask().equals(bomb) && this.invulnerable <= 0){
+			Sound s = ResourceManager.getSound("sounds/ouch.wav");
+			s.play();
 		}
 	}
 
@@ -166,7 +177,7 @@ public class Player extends GameEntity {
 			setPosition(p.setY(p.getY() + gravity * slidingCoeff));
 		}
 	}
-	
+
 	private void health() {
 		if (curHealth <= 0) {
 			map.die = true;
@@ -217,12 +228,24 @@ public class Player extends GameEntity {
 		}
 
 		setPosition(getPosition().add(vel));
-		
+
 		if (input.isKeyPressed(Input.KEY_Z)) {
-			new Bomb(entityManager, map, getPosition().getX(), getPosition().getY(), BombType.GRENADE, "Left");
+			new Bomb(entityManager, map, getPosition().getX(), getPosition().getY(), currentBomb, "Left");
 		}
-		
+		if(input.isKeyPressed(Input.KEY_S)){
+			if(currentBomb.compareTo(BombType.C4) == 0){
+				currentBomb = BombType.GRENADE;
+			}
+			else if(currentBomb.compareTo(BombType.GRENADE) == 0){
+				currentBomb = BombType.CHARGE;
+			}
+			else if(currentBomb.compareTo(BombType.CHARGE) == 0){
+				currentBomb = BombType.C4;
+			}
+		}
 		if (input.isKeyPressed(Input.KEY_X)) {
+			Sound s = ResourceManager.getSound("sounds/gunshot.wav");
+			s.play();
 			if (aState == AnimationState.STANDING_LEFT || aState == AnimationState.MOVING_LEFT) {
 				new Bullet(entityManager, map, getPosition().getX(), getPosition().getY(), BulletType.GUN_BULLET, "Left");
 			} else if (aState == AnimationState.STANDING_RIGHT || aState == AnimationState.MOVING_RIGHT){
@@ -315,7 +338,7 @@ public class Player extends GameEntity {
 	private void wallJumpTimer(int delta) {
 		if (wallJumpTimer > 0 && (pState != PlayerState.SLIDING_LEFT && pState != PlayerState.SLIDING_RIGHT)) {
 			wallJumpTimer -= delta;
-			
+
 		} else if (wallJumpTimer < 0){
 			wallJumpTimer = 0;
 		}

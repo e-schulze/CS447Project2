@@ -24,6 +24,9 @@ public class Resources {
 		jig.ResourceManager.loadImage("images/menuLevel.png");
 		jig.ResourceManager.loadImage("images/menuStart.png");
 		jig.ResourceManager.loadImage("images/door.png");
+		jig.ResourceManager.loadImage("images/c4.png");
+		jig.ResourceManager.loadImage("images/shapedCharge.png");
+		jig.ResourceManager.loadImage("images/m67b.png");
 	}
 
 	/**
@@ -32,6 +35,10 @@ public class Resources {
 	 */
 	public static void loadSounds() {
 
+		jig.ResourceManager.loadSound("sounds/gunshot.wav");
+		jig.ResourceManager.loadSound("sounds/explosion.wav");
+		jig.ResourceManager.loadSound("sounds/ouch.wav");
+		
 	}
 
 }
