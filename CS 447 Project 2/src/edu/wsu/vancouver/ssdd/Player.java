@@ -111,7 +111,6 @@ public class Player extends GameEntity {
 	
 	@Override
 	public void collision(GameEntity gameEntity) {
-		System.out.println("Collides!");
 	}
 
 	private void gravity() {
