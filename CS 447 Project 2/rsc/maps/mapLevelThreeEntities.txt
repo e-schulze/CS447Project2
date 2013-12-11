@@ -1,0 +1,8 @@
+Player 60.0f 75.0f Right
+Zombie 200.0f 75.0f Right
+Zombie 600.0f 250.0f Right
+Robot 515.0f 350.0f Right
+Robot 300.0f 520.0f Right
+Zombie 250.0f 520.0f Left
+Door 600.0f 525.0f
+
