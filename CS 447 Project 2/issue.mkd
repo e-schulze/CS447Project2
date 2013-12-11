@@ -22,3 +22,4 @@ Need to add content
 - **[10]** Add Molten Goup to bottom of the screen
 - **[17]** Add Collision Handling
 - **[15]** Add Bullets
+- **[18]** add exit to level

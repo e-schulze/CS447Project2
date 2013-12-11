@@ -47,6 +47,9 @@ public class Main extends BasicGame {
 	private EntityLoader entityLoader;
 
 	private UnsetBitTest u;
+	
+	private int level;
+	private int winTimer;
 
 	public Main(String title) {
 		super(title);
@@ -84,6 +87,8 @@ public class Main extends BasicGame {
 		gameState = GameState.PLAYING;
 		gc.setSoundOn(true);
 
+		level = 1;
+		
 		map = mapLoader.loadMap("maps/mapLevelOne.tmx");
 		map.printMapInfo();
 
@@ -113,6 +118,7 @@ public class Main extends BasicGame {
 //		entityFactory.createEntity(EntityType.ZOMBIE, 600.0f, 400.0f);
 //		entityFactory.createEntity(EntityType.ZOMBIE, 700.0f, 400.0f);
 		entityManager.entityCreateProcess();
+		
 	}
 
 	public void gameOver() {
@@ -122,6 +128,26 @@ public class Main extends BasicGame {
 
 	public void makeMenu() {
 		// MenuLevel mLev = new MenuLevel(entity, x, y);
+	}
+	
+	public void nextLevel() throws SlickException{
+		switch(level){
+		case 1:
+			level++;
+			map = mapLoader.loadMap("maps/mapLevelTwo.tmx");
+			entityManager.clearAllObjects();
+			// add player and enemies and door;
+			break;
+		case 2:
+			level++;
+			map = mapLoader.loadMap("maps/mapLevelThree.tmx");
+			entityManager.clearAllObjects();
+			// add player and enemies and door;
+			break;
+		case 3:
+			gameOver();
+			break;
+		}
 	}
 
 	@Override
@@ -140,6 +166,12 @@ public class Main extends BasicGame {
 			entityManager.entityDeleteProcess();
 			collisionBf.detectCollision();
 			entityManager.updateEntities(lastUpdateInterval);
+			if(map.win == true){
+				nextLevel();
+			}
+			if(map.die == true){
+				gameOver();
+			}
 			break;
 		case GAME_OVER:
 			gameOverTimer -= lastUpdateInterval;
