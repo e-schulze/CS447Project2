@@ -1,12 +1,12 @@
 package edu.wsu.vancouver.ssdd.menu;
 
 import java.util.ArrayList;
-
-
 import java.util.Iterator;
 
 import jig.Entity;
 import jig.ResourceManager;
+
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -45,6 +45,7 @@ import org.newdawn.slick.state.StateBasedGame;
  * 
  */
 
+
 import edu.wsu.vancouver.ssdd.menu.Main;
 public class MenuCredit extends BasicGameState{
 	
@@ -53,7 +54,9 @@ public class MenuCredit extends BasicGameState{
 	private final int ScreenWidth;
 	private final int ScreenHeight;
 	private int getID_state;
-
+	int posX;
+	int posY;
+	
 	/**
 	 * Create the BounceGame frame, saving the width and height for later use.
 	 * 
@@ -64,9 +67,9 @@ public class MenuCredit extends BasicGameState{
 	 * @param height
 	 *            the window's height
 	 */
-	public MenuCredit(int state){
-		ScreenHeight = 600;
-		ScreenWidth = 800;
+	public MenuCredit(int state, int ScreenWidth, int ScreenHeight){
+		this.ScreenHeight = ScreenHeight;
+		this.ScreenWidth = ScreenWidth;
 		getID_state = state;
 	}
 	
@@ -75,6 +78,7 @@ public class MenuCredit extends BasicGameState{
 	 */
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		g.drawImage(ResourceManager.getImage("images/menuGoBack.png"), 0, ScreenHeight - 50);
 		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 225, 230 + 2*55);
 	}
 	
@@ -89,11 +93,13 @@ public class MenuCredit extends BasicGameState{
 	 */
 	public void update(GameContainer container, StateBasedGame sbg, int delta)
 			throws SlickException {
-		Input input = container.getInput();
-		if (input.isKeyPressed(Input.KEY_N)){ // If E is pressed break all the bricks
-			sbg.enterState(Main.stateID.MENU_HELP.ordinal() );
-		}
+		posX = Mouse.getX();
+		posY = ScreenHeight - Mouse.getY();
 		
+		if ( (posX > 0 && posX < 230) && (posY > ScreenHeight - 50 && posY < ScreenHeight ) ){ // Main Menu
+			if (Mouse.isButtonDown(0))
+				sbg.enterState(Main.stateID.MAIN_MENU.ordinal() );
+		}
 	}
 	
    public int getID(){

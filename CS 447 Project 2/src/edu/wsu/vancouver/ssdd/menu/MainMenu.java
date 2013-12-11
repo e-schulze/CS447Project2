@@ -48,12 +48,12 @@ import org.newdawn.slick.state.StateBasedGame;
 import edu.wsu.vancouver.ssdd.menu.Main;
 
 public class MainMenu extends BasicGameState{
-	
-
 
 	private final int ScreenWidth;
 	private final int ScreenHeight;
 	private int getID_state;
+	int posX;
+	int posY;
 
 	/**
 	 * Create the BounceGame frame, saving the width and height for later use.
@@ -65,9 +65,9 @@ public class MainMenu extends BasicGameState{
 	 * @param height
 	 *            the window's height
 	 */
-	public MainMenu(int state){
-		ScreenHeight = 600;
-		ScreenWidth = 800;
+	public MainMenu(int state, int ScreenWidth, int ScreenHeight){
+		this.ScreenHeight = ScreenHeight;
+		this.ScreenWidth = ScreenWidth;
 
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		getID_state = state;
@@ -79,10 +79,17 @@ public class MainMenu extends BasicGameState{
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
-		g.drawImage(ResourceManager.getImage("images/menuStart.png"), 225, 230);
-		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 225, 230 + 55);
-		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 225, 230 + 2*55);
-		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 225, 230 + 3*55);
+		g.drawImage(ResourceManager.getImage("images/menuStart.png"), 	ScreenWidth/2 - 115, 230);
+		//System.out.println("menuStart " + (ScreenWidth/2 - 115) + ", " +  230);
+		
+		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 	ScreenWidth/2 - 115, 230 + 60);
+		//System.out.println("menuLevel " + (ScreenWidth/2 - 115) + ", " +  (230 + 60) );
+		
+		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 	ScreenWidth/2 - 115, 230 + 2*60);
+		//System.out.println("menuHelp " + (ScreenWidth/2 - 115) + ", " +  (230 + 2*60) );
+		
+		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 	ScreenWidth/2 - 115, 230 + 3*60);
+		//System.out.println("menuCredit " + (ScreenWidth/2 - 115) + ", " +  (230 + 3*60) );
 		
 	}
 	
@@ -98,12 +105,29 @@ public class MainMenu extends BasicGameState{
 	public void update(GameContainer container, StateBasedGame sbg, int delta)
 			throws SlickException {
 		
-		int posX = Mouse.getX();
-		int posY = Mouse.getY();
+		posX = Mouse.getX();
+		posY = ScreenHeight - Mouse.getY();
 		
-		if ( (posX > 100 && posX < 311) && (posY > 100 && posY < 311)){ // If E is pressed break all the bricks
+		if ( (posX > 285 && posX < 515) && (posY > 230 && posY < 280) ){ // Menu start
 			if (Mouse.isButtonDown(0))
 				sbg.enterState(Main.stateID.MENU_START.ordinal() );
+		}
+
+		if ( (posX > 285 && posX < 515) && (posY > 290 && posY < 340) ){ // menuLevel
+			if (Mouse.isButtonDown(0))
+				sbg.enterState(Main.stateID.MENU_LEVEL.ordinal() );
+		}
+
+		if ( (posX > 285 && posX < 515) && (posY > 350 &&  posY < 400) ){ // menuHelp
+			if (Mouse.isButtonDown(0))
+				sbg.enterState(Main.stateID.MENU_HELP.ordinal() );
+		}
+
+		if ( (posX > 285 && posX < 515) && (posY > 410 && posY < 460) ){ // menuCredit
+			if (Mouse.isButtonDown(0)){
+				sbg.enterState(Main.stateID.MENU_CREDIT.ordinal() );
+				System.out.println("(x,y) = " + "(" + posX + "," + posY +")" );
+			}
 		}
 		
 	}

@@ -54,7 +54,9 @@ public class MenuStart extends BasicGameState{
 	private final int ScreenWidth;
 	private final int ScreenHeight;
 	private int getID_state;
-
+	int posX;
+	int posY;
+	
 	/**
 	 * Create the BounceGame frame, saving the width and height for later use.
 	 * 
@@ -65,10 +67,10 @@ public class MenuStart extends BasicGameState{
 	 * @param height
 	 *            the window's height
 	 */
-	public MenuStart(int state){
-		ScreenHeight = 600;
-		ScreenWidth = 800;
-
+	public MenuStart(int state, int ScreenWidth, int ScreenHeight){
+		this.ScreenHeight = ScreenHeight;
+		this.ScreenWidth = ScreenWidth;
+		
 		//Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		getID_state = state;
 	}
@@ -78,7 +80,7 @@ public class MenuStart extends BasicGameState{
 	 */
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		
+		g.drawImage(ResourceManager.getImage("images/menuGoBack.png"), 0, ScreenHeight - 50);
 		g.drawImage(ResourceManager.getImage("images/menuStart.png"), 225, 230);
 		
 	}
@@ -94,15 +96,14 @@ public class MenuStart extends BasicGameState{
 	 */
 	public void update(GameContainer container, StateBasedGame sbg, int delta)
 			throws SlickException {
-		int posX = Mouse.getX();
-		int posY = Mouse.getY();
 
-
-		//Input input = container.getInput();
-		/*
-		if (input.isKeyPressed(Input.KEY_N)){ // If E is pressed break all the bricks
-			sbg.enterState(Main.stateID.MENU_CREDIT.ordinal() );
-		}*/
+		posX = Mouse.getX();
+		posY = ScreenHeight - Mouse.getY();
+		
+		if ( (posX > 0 && posX < 230) && (posY > ScreenHeight - 50 && posY < ScreenHeight ) ){ // Main Menu
+			if (Mouse.isButtonDown(0))
+				sbg.enterState(Main.stateID.MAIN_MENU.ordinal() );
+		}
 		
 	}
 	

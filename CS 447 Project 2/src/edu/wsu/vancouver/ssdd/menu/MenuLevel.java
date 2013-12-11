@@ -44,7 +44,10 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author wallaces
  * 
  */
-public class MenuHelp extends BasicGameState{
+
+
+import edu.wsu.vancouver.ssdd.menu.Main;
+public class MenuLevel extends BasicGameState{
 	
 
 
@@ -53,7 +56,7 @@ public class MenuHelp extends BasicGameState{
 	private int getID_state;
 	int posX;
 	int posY;
-	
+
 	/**
 	 * Create the BounceGame frame, saving the width and height for later use.
 	 * 
@@ -64,11 +67,9 @@ public class MenuHelp extends BasicGameState{
 	 * @param height
 	 *            the window's height
 	 */
-	
-	public MenuHelp(int state, int ScreenWidth, int ScreenHeight){
+	public MenuLevel(int state, int ScreenWidth, int ScreenHeight){
 		this.ScreenHeight = ScreenHeight;
 		this.ScreenWidth = ScreenWidth;
-		
 		getID_state = state;
 	}
 	
@@ -78,8 +79,7 @@ public class MenuHelp extends BasicGameState{
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		g.drawImage(ResourceManager.getImage("images/menuGoBack.png"), 0, ScreenHeight - 50);
-		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 225, 230 + 55);
-		
+		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 225, 230 + 2*55);
 	}
 	
 	@Override
