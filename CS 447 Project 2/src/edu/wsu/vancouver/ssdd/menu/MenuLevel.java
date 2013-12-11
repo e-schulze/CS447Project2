@@ -78,6 +78,10 @@ public class MenuLevel extends BasicGameState{
 	 */
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		
+		ResourceManager.loadImage("images/menuGoBack.png");
+		ResourceManager.loadImage("images/menuLevel.png");
+		
 		g.drawImage(ResourceManager.getImage("images/menuGoBack.png"), 0, ScreenHeight - 50);
 		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 225, 230 + 2*55);
 	}

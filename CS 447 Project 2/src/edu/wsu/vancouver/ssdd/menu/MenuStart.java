@@ -80,6 +80,10 @@ public class MenuStart extends BasicGameState{
 	 */
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		
+		ResourceManager.loadImage("images/menuGoBack.png");
+		ResourceManager.loadImage("images/menuStart.png");
+		
 		g.drawImage(ResourceManager.getImage("images/menuGoBack.png"), 0, ScreenHeight - 50);
 		g.drawImage(ResourceManager.getImage("images/menuStart.png"), 225, 230);
 		

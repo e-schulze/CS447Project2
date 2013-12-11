@@ -71,6 +71,8 @@ public class MainMenu extends BasicGameState{
 
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		getID_state = state;
+		
+
 	}
 	
 	/**
@@ -79,18 +81,15 @@ public class MainMenu extends BasicGameState{
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
-		g.drawImage(ResourceManager.getImage("images/menuStart.png"), 	ScreenWidth/2 - 115, 230);
-		//System.out.println("menuStart " + (ScreenWidth/2 - 115) + ", " +  230);
+		ResourceManager.loadImage("images/menuStart.png");
+		ResourceManager.loadImage("images/menuLevel.png");
+		ResourceManager.loadImage("images/menuHelp.png");
+		ResourceManager.loadImage("images/menuCredit.png");
 		
-		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 	ScreenWidth/2 - 115, 230 + 60);
-		//System.out.println("menuLevel " + (ScreenWidth/2 - 115) + ", " +  (230 + 60) );
-		
-		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 	ScreenWidth/2 - 115, 230 + 2*60);
-		//System.out.println("menuHelp " + (ScreenWidth/2 - 115) + ", " +  (230 + 2*60) );
-		
-		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 	ScreenWidth/2 - 115, 230 + 3*60);
-		//System.out.println("menuCredit " + (ScreenWidth/2 - 115) + ", " +  (230 + 3*60) );
-		
+		g.drawImage(ResourceManager.getImage("images/menuStart.png"), 	ScreenWidth/2 - 115, 230);		
+		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 	ScreenWidth/2 - 115, 230 + 60);		
+		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 	ScreenWidth/2 - 115, 230 + 2*60);		
+		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 	ScreenWidth/2 - 115, 230 + 3*60);		
 	}
 	
 	@Override
@@ -126,7 +125,6 @@ public class MainMenu extends BasicGameState{
 		if ( (posX > 285 && posX < 515) && (posY > 410 && posY < 460) ){ // menuCredit
 			if (Mouse.isButtonDown(0)){
 				sbg.enterState(Main.stateID.MENU_CREDIT.ordinal() );
-				System.out.println("(x,y) = " + "(" + posX + "," + posY +")" );
 			}
 		}
 		

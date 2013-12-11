@@ -48,8 +48,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import edu.wsu.vancouver.ssdd.menu.Main;
 public class MenuCredit extends BasicGameState{
-	
-
 
 	private final int ScreenWidth;
 	private final int ScreenHeight;
@@ -71,6 +69,12 @@ public class MenuCredit extends BasicGameState{
 		this.ScreenHeight = ScreenHeight;
 		this.ScreenWidth = ScreenWidth;
 		getID_state = state;
+		
+		ResourceManager.loadImage("images/menuGoBack.png");
+		ResourceManager.loadImage("images/menuCredit.png");
+		
+		ResourceManager.loadImage("images/menuGoBack.png");
+		ResourceManager.loadImage("images/menuCredit.png");
 	}
 	
 	/**
@@ -78,8 +82,12 @@ public class MenuCredit extends BasicGameState{
 	 */
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		g.drawString("Christopher Dang", 		ScreenWidth/2 - 100, ScreenHeight/3);
+		g.drawString("Sasha Demyanik", ScreenWidth/2 - 100, ScreenHeight/3 + 20);
+		g.drawString("Sebastian Sanchez", ScreenWidth/2 - 100, ScreenHeight/3 + 2*20);
+		g.drawString("Ethan Schulze", ScreenWidth/2 - 100, ScreenHeight/3 + 3*20);
+
 		g.drawImage(ResourceManager.getImage("images/menuGoBack.png"), 0, ScreenHeight - 50);
-		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 225, 230 + 2*55);
 	}
 	
 	@Override
