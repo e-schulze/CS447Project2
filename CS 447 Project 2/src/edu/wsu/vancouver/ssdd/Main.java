@@ -101,17 +101,17 @@ public class Main extends BasicGame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		entityFactory.createEntity(EntityType.PLAYER, 75.0f, 70.0f);
-//		entityFactory.createEntity(EntityType.ZOMBIE, 75.0f, 300.0f);
-//		entityFactory.createEntity(EntityType.ROBOT, 300.0f, 200.0f);
-//		entityFactory.createEntity(EntityType.ZOMBIE, 400.0f, 200.0f);
-//		entityFactory.createEntity(EntityType.ZOMBIE, 450.0f, 200.0f);
-//		entityFactory.createEntity(EntityType.ZOMBIE, 550.0f, 200.0f);
-//		entityFactory.createEntity(EntityType.ZOMBIE, 620.0f, 200.0f);
-//		entityFactory.createEntity(EntityType.ROBOT, 750.0f, 50.0f);
-//		entityFactory.createEntity(EntityType.ZOMBIE, 900.0f, 320.0f);
-//		entityFactory.createEntity(EntityType.ZOMBIE, 600.0f, 400.0f);
-//		entityFactory.createEntity(EntityType.ZOMBIE, 700.0f, 400.0f);
+//		entityFactory.createEntity(EntityType.PLAYER, 75.0f, 70.0f);
+		entityFactory.createEntity(EntityType.ZOMBIE, 75.0f, 300.0f);
+		entityFactory.createEntity(EntityType.ROBOT, 300.0f, 200.0f);
+		entityFactory.createEntity(EntityType.ZOMBIE, 400.0f, 200.0f);
+		entityFactory.createEntity(EntityType.ZOMBIE, 450.0f, 200.0f);
+		entityFactory.createEntity(EntityType.ZOMBIE, 550.0f, 200.0f);
+		entityFactory.createEntity(EntityType.ZOMBIE, 620.0f, 200.0f);
+		entityFactory.createEntity(EntityType.ROBOT, 750.0f, 50.0f);
+		entityFactory.createEntity(EntityType.ZOMBIE, 900.0f, 320.0f);
+		entityFactory.createEntity(EntityType.ZOMBIE, 600.0f, 400.0f);
+		entityFactory.createEntity(EntityType.ZOMBIE, 700.0f, 400.0f);
 		entityManager.entityCreateProcess();
 	}
 

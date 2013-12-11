@@ -75,14 +75,14 @@ public class CollisionGrid extends CollisionDetection {
 	void findSpanningSIG() {
 		List<GameEntity> geList = new ArrayList<GameEntity>(entityManager.getEntityMap().values());
 		for (GameEntity ge : geList) {
-			for (int y = (int) ge.getCoarseGrainedMinY(); y <= (int) (ge.getCoarseGrainedMaxY() + gridSize); y = y
-					+ gridSize) {
-				for (int x = (int) ge.getCoarseGrainedMinX(); x <= (int) (ge.getCoarseGrainedMaxX() + gridSize); x = x
-						+ gridSize) {
-					int row = y / gridSize;
-					int col = x / gridSize;
-					if (row < yGrids && col < xGrids) {
-						addElementSIG(row, col, ge);
+			int minXGrid = (int) Math.ceil(ge.getCoarseGrainedMinX() / gridSize);
+			int minYGrid = (int) Math.ceil(ge.getCoarseGrainedMinY() / gridSize);
+			int maxXGrid = (int) Math.ceil(ge.getCoarseGrainedMaxX() / gridSize);
+			int maxYGrid = (int) Math.ceil(ge.getCoarseGrainedMaxY() / gridSize);
+			for (int y = minYGrid; y <= maxYGrid; y++) {
+				for (int x = minXGrid; x <= maxXGrid; x++) {
+					if (y < yGrids && x < xGrids) {
+						addElementSIG(y, x, ge);
 					}
 				}
 			}
