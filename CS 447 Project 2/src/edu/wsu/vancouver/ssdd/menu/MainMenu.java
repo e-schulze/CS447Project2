@@ -88,9 +88,9 @@ public class MainMenu extends BasicGameState{
 		ResourceManager.loadImage("images/menuGoBack.png");
 		
 		g.drawImage(ResourceManager.getImage("images/menuStart.png"), 	ScreenWidth/2 - 115, 230);		
-		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 	ScreenWidth/2 - 115, 230 + 60);		
-		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 	ScreenWidth/2 - 115, 230 + 2*60);		
-		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 	ScreenWidth/2 - 115, 230 + 3*60);
+//		g.drawImage(ResourceManager.getImage("images/menuLevel.png"), 	ScreenWidth/2 - 115, 230 + 60);		
+		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 	ScreenWidth/2 - 115, 230 + 60);		
+		g.drawImage(ResourceManager.getImage("images/menuCredit.png"), 	ScreenWidth/2 - 115, 230 + 2*60);
 
 	}
 	
@@ -116,20 +116,22 @@ public class MainMenu extends BasicGameState{
 
 		if ( (posX > 285 && posX < 515) && (posY > 290 && posY < 340) ){ // menuLevel
 			if (Mouse.isButtonDown(0))
-				sbg.enterState(Main.stateID.MENU_LEVEL.ordinal() );
+				//sbg.enterState(Main.stateID.MENU_LEVEL.ordinal() );
+				sbg.enterState(Main.stateID.MENU_HELP.ordinal() );
 		}
 
 		if ( (posX > 285 && posX < 515) && (posY > 350 &&  posY < 400) ){ // menuHelp
 			if (Mouse.isButtonDown(0))
-				sbg.enterState(Main.stateID.MENU_HELP.ordinal() );
+				//sbg.enterState(Main.stateID.MENU_HELP.ordinal() );
+				sbg.enterState(Main.stateID.MENU_CREDIT.ordinal() );
 		}
-
+/*
 		if ( (posX > 285 && posX < 515) && (posY > 410 && posY < 460) ){ // menuCredit
 			if (Mouse.isButtonDown(0)){
 				sbg.enterState(Main.stateID.MENU_CREDIT.ordinal() );
 			}
 		}
-		
+	*/	
 		
 	}
 	
