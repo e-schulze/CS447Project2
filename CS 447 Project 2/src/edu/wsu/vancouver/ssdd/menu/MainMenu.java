@@ -5,6 +5,8 @@ import java.util.Iterator;
 
 import jig.Entity;
 import jig.ResourceManager;
+
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -96,9 +98,12 @@ public class MainMenu extends BasicGameState{
 	public void update(GameContainer container, StateBasedGame sbg, int delta)
 			throws SlickException {
 		
-		Input input = container.getInput();
-		if (input.isKeyPressed(Input.KEY_N)){ // If E is pressed break all the bricks
-			sbg.enterState(Main.stateID.MENU_START.ordinal() );
+		int posX = Mouse.getX();
+		int posY = Mouse.getY();
+		
+		if ( (posX > 100 && posX < 311) && (posY > 100 && posY < 311)){ // If E is pressed break all the bricks
+			if (Mouse.isButtonDown(0))
+				sbg.enterState(Main.stateID.MENU_START.ordinal() );
 		}
 		
 	}
