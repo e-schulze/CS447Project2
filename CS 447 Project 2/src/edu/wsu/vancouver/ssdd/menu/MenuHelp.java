@@ -79,10 +79,25 @@ public class MenuHelp extends BasicGameState{
 			throws SlickException {
 		
 		ResourceManager.loadImage("images/menuGoBack.png");
-		ResourceManager.loadImage("images/menuHelp.png");
-		
 		g.drawImage(ResourceManager.getImage("images/menuGoBack.png"), 0, ScreenHeight - 50);
-		g.drawImage(ResourceManager.getImage("images/menuHelp.png"), 225, 230 + 55);
+		
+	String helpSection =
+			"Game Description: \n\n"+
+		    "Players must traverse through each level by defeating monsters and using bombs\n" +
+			"to clear a path to the exit portal. Some terrain is destructible by bombs\n "+
+		    "and players may take advantage of this to reach the level end. Other\n" +
+			"sections of terrain are non-destructible. "+
+		    "\n\nBasic Controllers: \n\n"+
+			"Left and Right arrows keys can be used to move the player left \n"+ 
+			"or right across the screen. \n"
+			+ "Up arrow key is used to make the player jump. \n"
+			+ "Z key is used to drop bombs. \n"
+			+ "X key is used to fire bullets from the player.\n" +
+			"Wall Jumps may be performed by jumping in the direction of the wall, \n"+
+			"letting go of the directional key, pressing the jump key and then repeating \n"+
+			"the actions until the desired height is achieved. \n";
+		g.drawString(helpSection	
+				,40, ScreenHeight/4);
 		
 	}
 	
