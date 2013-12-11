@@ -43,9 +43,16 @@ public class Explosion extends GameEntity {
 	public void collision(GameEntity gameEntity) {
 		BitSet enemy = new BitSet();
 		enemy.set(EntityProperty.ENEMY.getValue());
+		BitSet player = new BitSet();
+		player.set(EntityProperty.FRIENDLY.getValue());
+		
 		if (gameEntity.getEntityMask().equals(enemy)) {
 			Enemy enemyEntity = (Enemy) gameEntity;
 			enemyEntity.setHealth(enemyEntity.getHealth() - damage);
+		}
+		else if (gameEntity.getEntityMask().equals(player)) {
+			Player playerEntity = (Player) gameEntity;
+			playerEntity.setHealth(playerEntity.getHealth() - damage);
 		}
 	}
 	

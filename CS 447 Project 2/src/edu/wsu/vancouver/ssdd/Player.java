@@ -3,6 +3,8 @@ package edu.wsu.vancouver.ssdd;
 import java.util.BitSet;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 import edu.wsu.vancouver.ssdd.Bomb.BombType;
@@ -56,7 +58,7 @@ public class Player extends GameEntity {
 
 		setVel(new Vector(0f, 0f)); // no initial movement
 		this.maxVelSq = 16.0f;
-		this.maxHealth = this.curHealth = 100;
+		this.maxHealth = this.curHealth = 1000;
 
 		if (facing.compareTo("Left") == 0) {
 			aState = AnimationState.STANDING_LEFT;
@@ -107,8 +109,29 @@ public class Player extends GameEntity {
 		bitCollision();
 		wallJumpTimer(delta);
 		gravity();
+		health();
 		camera();
+	}
+	
+	@Override
+	public void render(Graphics g, Camera c) {
+		// Draw health bar
+		g.drawRect(5.0f, 5.0f, 125.0f, 28.0f);
+		if (curHealth > 0.0f) {
+			Color temp = g.getColor();
+			g.setColor(Color.green);
+			g.fillRect(5.0f, 5.0f, (float) ((float)curHealth / (float)maxHealth) * 125.0f,
+					28.0f);
+			g.setColor(temp);
+		}
 		
+		Vector worldPosition = getPosition();
+		Vector cameraPosition = worldPosition.subtract(new Vector(c.getTlx(), c.getTly()));
+		setPosition(cameraPosition);
+		// Entity class render function
+		render(g);
+		// Reset position to world position
+		setPosition(worldPosition);
 	}
 	
 	@Override
@@ -130,6 +153,13 @@ public class Player extends GameEntity {
 			float slidingCoeff = 5.0f;
 			Vector p = getPosition();
 			setPosition(p.setY(p.getY() + gravity * slidingCoeff));
+		}
+	}
+	
+	private void health() {
+		if (curHealth <= 0) {
+			map.die = true;
+			entityManager.entityDeleteMark(getEntityId());
 		}
 	}
 
@@ -201,7 +231,6 @@ public class Player extends GameEntity {
 		} else if (aState == AnimationState.STANDING_RIGHT) {
 			this.removeImage(ResourceManager.getImage("images/PlayerStandingRight.png"));
 		}
-
 	}
 
 	/**
