@@ -8,7 +8,28 @@ import edu.wsu.vancouver.ssdd.tests.TestEntity;
 
 public class EntityFactory {
 	public enum EntityType {
-		EMPTY, TEST, PLAYER, ROBOT, ZOMBIE;
+		EMPTY("Empty"), TEST("Test"), PLAYER("Player"), ROBOT("Robot"), ZOMBIE("Zombie");
+		
+		private String type;
+
+		EntityType(String type) {
+			this.type = type;
+		}
+
+		public String getTypeString() {
+			return this.type;
+		}
+		
+		public static EntityType fromString(String type) {
+			if (type != null) {
+				for (EntityType et : EntityType.values()) {
+					if (type.equalsIgnoreCase(et.type)){
+						return et;
+					}
+				}
+			}
+			return null;
+		}
 	}
 
 	private EntityManager entityManager;
@@ -81,7 +102,7 @@ public class EntityFactory {
 
 		return entityId;
 	}
-	
+
 	public Integer createEntity(EntityType entityType, float cxp, float cyp, String direction) {
 		GameEntity entity = null;
 		Integer entityId = null;
@@ -115,7 +136,7 @@ public class EntityFactory {
 	public void updateMap(Map map) {
 		this.map = map;
 	}
-	
+
 	public void updateCamera(Camera camera) {
 		this.camera = camera;
 	}
