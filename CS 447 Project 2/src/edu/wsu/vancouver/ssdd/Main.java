@@ -47,6 +47,9 @@ public class Main extends BasicGame {
 	private EntityLoader entityLoader;
 
 	private UnsetBitTest u;
+	
+	private int level;
+	private int winTimer;
 
 	public Main(String title) {
 		super(title);
@@ -84,6 +87,8 @@ public class Main extends BasicGame {
 		gameState = GameState.PLAYING;
 		gc.setSoundOn(true);
 
+		level = 1;
+		
 		map = mapLoader.loadMap("maps/mapLevelOne.tmx");
 		map.printMapInfo();
 
@@ -101,17 +106,8 @@ public class Main extends BasicGame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		entityFactory.createEntity(EntityType.PLAYER, 75.0f, 70.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 75.0f, 300.0f);
-		entityFactory.createEntity(EntityType.ROBOT, 300.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 400.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 450.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 550.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 620.0f, 200.0f);
-		entityFactory.createEntity(EntityType.ROBOT, 750.0f, 50.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 900.0f, 320.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 600.0f, 400.0f);
-		entityFactory.createEntity(EntityType.ZOMBIE, 700.0f, 400.0f);
+//		);
+		entityFactory.createEntity(EntityType.DOOR, 300.0f, 100.0f);
 		entityManager.entityCreateProcess();
 	}
 
@@ -122,6 +118,26 @@ public class Main extends BasicGame {
 
 	public void makeMenu() {
 		// MenuLevel mLev = new MenuLevel(entity, x, y);
+	}
+	
+	public void nextLevel() throws SlickException{
+		switch(level){
+		case 1:
+			level++;
+			map = mapLoader.loadMap("maps/mapLevelTwo.tmx");
+			entityManager.clearAllObjects();
+			// add player and enemies and door;
+			break;
+		case 2:
+			level++;
+			map = mapLoader.loadMap("maps/mapLevelThree.tmx");
+			entityManager.clearAllObjects();
+			// add player and enemies and door;
+			break;
+		case 3:
+			gameOver();
+			break;
+		}
 	}
 
 	@Override
@@ -140,6 +156,12 @@ public class Main extends BasicGame {
 			entityManager.entityDeleteProcess();
 			collisionBf.detectCollision();
 			entityManager.updateEntities(lastUpdateInterval);
+			if(map.win == true){
+				nextLevel();
+			}
+			if(map.die == true){
+				gameOver();
+			}
 			break;
 		case GAME_OVER:
 			gameOverTimer -= lastUpdateInterval;

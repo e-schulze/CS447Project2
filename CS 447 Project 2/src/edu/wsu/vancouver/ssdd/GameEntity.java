@@ -13,7 +13,8 @@ public abstract class GameEntity extends Entity {
 		GUI(1),
 		FRIENDLY(2),
 		ENEMY(3),
-		WEAPON(4);
+		WEAPON(4),
+		DOOR(5);
 		
 		private int value;
 		

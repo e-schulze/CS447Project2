@@ -13,6 +13,9 @@ public class Map {
 	/** Size of each tile on the map. */
 	private int xTileSize, yTileSize;
 
+	public boolean win = false;
+	public boolean die = false;
+	
 	private boolean[][] destructibleMap;
 	private ImageBuffer backbuffer;
 	private Image backbufferImage;
