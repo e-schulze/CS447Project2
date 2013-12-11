@@ -1,2 +1,11 @@
 Player 75.0f 75.0f Right
 Zombie 170.0f 75.0f Right
+Robot 70.0f 500.0f Left
+Zombie 600.0f 75.0f Right
+Robot 600.0f 100.0f Left
+Zombie 625.0f 100.0f Left
+Zombie 650.0f 100.0f Right
+Zombie 500.0f 100.0f Left
+Zombie 450.0f 400.0f Left
+Zombie 600.0f 550.0f Left
+Door 600.0f 350.0f 
